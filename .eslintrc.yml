@@ -1,0 +1,15 @@
+env:
+  browser: true
+
+extends: airbnb
+
+settings:
+  import/resolver:
+    webpack:
+      config: 'webpack.config.js'
+
+rules:
+  import/no-unresolved: 'off'
+  no-console: 'error'
+
+parser: babel-eslint
