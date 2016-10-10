@@ -28,7 +28,8 @@
     "build": "node_modules/webpack/bin/webpack.js",
     "build-watch": "node_modules/webpack/bin/webpack.js -w",
     "lint": "eslint src --ext js,jsx -f compact",
-    "flow": "flow; test $? -eq 0 -o $? -eq 2"
+    "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "test": "echo not implemented yet!"
   },
   "repository": {
     "type": "git",
