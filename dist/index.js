@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("jubilation", [], factory);
+	else if(typeof exports === 'object')
+		exports["jubilation"] = factory();
+	else
+		root["jubilation"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -50,7 +60,21 @@
 
 	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
 
+	var _jubilationPoint = __webpack_require__(154);
+
+	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
+
+	var _jubilationTheme = __webpack_require__(155);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  JubilationContainer: _jubilationContainer2.default,
+	  JubilationPoint: _jubilationPoint2.default,
+	  JubilationTheme: _jubilationTheme2.default
+	};
 
 /***/ },
 /* 1 */
@@ -69,6 +93,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// component prop types
+
+
+	// SVG object prop types
 	function JubilationContainer(props) {
 	  var title = props.title;
 	  var desc = props.desc;
@@ -19068,5 +19096,62 @@
 
 	module.exports = deprecated;
 
+/***/ },
+/* 154 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = JubilationPoint;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationTheme = __webpack_require__(155);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var defaultProps = { x: 0, y: 0, size: 10, color: _jubilationTheme2.default.colors[0], theme: _jubilationTheme2.default };
+
+	function JubilationPoint(_ref) {
+	  var x = _ref.x;
+	  var y = _ref.y;
+	  var _ref$size = _ref.size;
+	  var size = _ref$size === undefined ? 10 : _ref$size;
+	  var _ref$color = _ref.color;
+	  var color = _ref$color === undefined ? _jubilationTheme2.default.colors[0] : _ref$color;
+
+	  return _react2.default.createElement('circle', { cx: x, cy: y, r: size, fill: color });
+	}
+
+/***/ },
+/* 155 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var colors = ['#0A2F61', '#B8D5E5', '#708090', '#CCC8C5'];
+
+	// axis and label colors
+	var axisColor = '#393F46';
+
+	var theme = {
+	  colors: colors,
+	  axisColor: axisColor
+	};
+
+	exports.default = theme;
+
 /***/ }
-/******/ ]);
+/******/ ])
+});
+;

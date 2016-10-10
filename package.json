@@ -2,7 +2,7 @@
   "name": "jubilation",
   "version": "0.0.1",
   "description": "Jubilation - Extensible React charting components",
-  "main": "src/index.js",
+  "main": "dist",
   "devDependencies": {
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
@@ -26,17 +26,18 @@
   },
   "scripts": {
     "build": "node_modules/webpack/bin/webpack.js",
-    "eslint": "eslint app/assets/javascripts --ext js,jsx --rule import/no-unresolved:0 --rule import/no-duplicates:0 -f compact",
+    "build-watch": "node_modules/webpack/bin/webpack.js -w",
+    "lint": "eslint src --ext js,jsx -f compact",
     "flow": "flow; test $? -eq 0 -o $? -eq 2"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/coreyflynn/jubilation.git"
   },
   "author": "Corey Flynn",
   "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/coreyflynn/jubilation/issues"
   },
-  "homepage": ""
+  "homepage": "https://github.com/coreyflynn/jubilation"
 }

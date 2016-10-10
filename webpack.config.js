@@ -25,6 +25,9 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: __dirname,
+    library: 'jubilation',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
