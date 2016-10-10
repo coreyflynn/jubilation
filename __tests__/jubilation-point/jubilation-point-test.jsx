@@ -8,8 +8,8 @@ describe('JubilationPoint', () => {
     expect(shallow(<JubilationPoint />).find('circle').length).toBe(1);
   });
 
-  it('should render a circle with a r prop of 10 by default', () => {
-    expect(shallow(<JubilationPoint />).find('circle').props().r).toBe(10);
+  it('should render a circle with a r prop of 4 by default', () => {
+    expect(shallow(<JubilationPoint />).find('circle').props().r).toBe(4);
   });
 
   it('should control circle radius through the size prop', () => {

@@ -17,9 +17,8 @@ themesToTest.forEach((theme) => {
       expect(typeof theme.axisColor).toBe('string');
     });
 
-    it('should have an array colors', () => {
+    it('should have an array of colors', () => {
       expect(theme.colors instanceof Array).toBe(true);
     });
-    
   });
 });
