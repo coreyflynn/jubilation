@@ -13,3 +13,7 @@ rules:
   no-console: 'error'
 
 parser: babel-eslint
+
+globals:
+  it: false
+  expect: false
