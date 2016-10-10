@@ -2,9 +2,13 @@
 
 // theme type declaration
 type Theme = {
-  colors: string[],
   axisColor: string,
+  colors: string[],
+  name: string,
 };
+
+// axis and label colors
+const axisColor: string = '#393F46';
 
 // base colors
 const colors: string[] = [
@@ -14,12 +18,10 @@ const colors: string[] = [
   '#CCC8C5',
 ];
 
-// axis and label colors
-const axisColor: string = '#393F46';
-
 const theme: Theme = {
-  colors,
   axisColor,
+  colors,
+  name: 'JubilationTheme',
 };
 
 export default theme;
