@@ -16,4 +16,5 @@ parser: babel-eslint
 
 globals:
   it: false
+  describe: false
   expect: false

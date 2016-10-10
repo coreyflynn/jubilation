@@ -18,6 +18,13 @@ type SvgProps = {
   height: number,
 }
 
+/**
+ * Top level container for jubilation charts. Builds a wrapping SVG element with
+ * title and description. Height and width are passed into this container.
+ * @export
+ * @param {Props} props
+ * @returns
+ */
 export default function JubilationContainer(props: Props) {
   const { title, desc, width, height, children } = props;
   const svgProps: SvgProps = {
@@ -35,3 +42,11 @@ export default function JubilationContainer(props: Props) {
     </svg>
     );
 }
+
+JubilationContainer.defaultProps = {
+  height: 100,
+  width: 300,
+  children: null,
+  title: 'JubilationChart',
+  desc: 'JubilationChart',
+};
