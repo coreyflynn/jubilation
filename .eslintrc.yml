@@ -16,6 +16,9 @@ rules:
 parser: babel-eslint
 
 globals:
+  jest: false
   it: false
   describe: false
   expect: false
+  beforeAll: false
+  afterAll: false
