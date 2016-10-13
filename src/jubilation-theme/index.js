@@ -1,11 +1,5 @@
 // @flow
-
-// theme type declaration
-type Theme = {
-  axisColor: string,
-  colors: string[],
-  name: string,
-};
+import type { Theme } from '../types/theme';
 
 // axis and label colors
 const axisColor: string = '#393F46';

@@ -5,7 +5,7 @@ import { interpolateObject } from 'd3-interpolate';
 import { timer } from 'd3-timer';
 
 type Props = {
-  children?: Function,
+  children: Function,
   duration: number,
   delay: number,
   easing: string,
@@ -30,7 +30,7 @@ export default class JubilationAnimation extends React.Component {
   state: State;
   interpolator: Function = () => {};
   timer: ?Object = null;
-  ease: ?Object = null;
+  ease: Function = () => {};
   queue: Object[] = [];
 
   static defaultProps: Props = {
@@ -38,6 +38,7 @@ export default class JubilationAnimation extends React.Component {
     delay: 0,
     easing: 'easeQuadInOut',
     data: {},
+    children() {},
   };
 
   constructor(props: Props) {

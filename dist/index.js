@@ -137,7 +137,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.interpolator = function () {};
 
 	    _this.timer = null;
-	    _this.ease = null;
+
+	    _this.ease = function () {};
+
 	    _this.queue = [];
 
 	    _this.animationFunc = function (elapsed) {
@@ -231,7 +233,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  duration: 300,
 	  delay: 0,
 	  easing: 'easeQuadInOut',
-	  data: {}
+	  data: {},
+	  children: function children() {}
 	};
 	exports.default = JubilationAnimation;
 
@@ -5039,11 +5042,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
-	 * Top level container for jubilation charts. Builds a wrapping SVG element with
-	 * title and description. Height and width are passed into this container.
-	 * @export
-	 * @param {Props} props
-	 * @returns
+	 * Top level container for jubilation charts. Builds a wrapping SVG element that renders
+	 * passed in children
 	 */
 
 
@@ -5144,8 +5144,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// base colors
 
-
-	// theme type declaration
 	var colors = ['#0A2F61', '#B8D5E5', '#708090', '#CCC8C5'];
 
 	var theme = {
