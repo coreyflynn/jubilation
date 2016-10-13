@@ -5137,13 +5137,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-
-	// axis and label colors
 	var axisColor = '#393F46';
 
 	// base colors
-
 	var colors = ['#0A2F61', '#B8D5E5', '#708090', '#CCC8C5'];
 
 	var theme = {
