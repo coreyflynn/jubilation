@@ -8,4 +8,6 @@ export type Theme = {
 
 export type JubilationContext = {
   theme: Theme,
+  xScale: Function,
+  yScale: Function,
 }

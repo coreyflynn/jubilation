@@ -1,10 +1,15 @@
 // @flow
 import React from 'react';
 import { default as JubilationTheme } from '../jubilation-theme';
+import { scaleLinear } from 'd3-scale';
 
 type Props = {
-  theme: Theme,
   children: React.Element<*> | React.Element<*>[],
+  xDomain: number[],
+  yDomain: number[],
+  xRange: number[],
+  yRange: number[],
+  theme: Theme,
 };
 
 /**
@@ -18,21 +23,32 @@ type Props = {
 export default class JubilationProvider extends React.Component {
   JubilationContext: JubilationContext
 
-  static defaultProps: Props = { theme: JubilationTheme, children: [] };
+  static defaultProps: Props = {
+    children: [],
+    xDomain: [0, 300],
+    yDomain: [0, 100],
+    xRange: [0, 300],
+    yRange: [0, 100],
+    theme: JubilationTheme,
+  };
   static childContextTypes = { JubilationContext: React.PropTypes.object }
 
   constructor(props: Props, context: Object) {
     super(props, context);
     this.JubilationContext = {
       theme: props.theme,
+      xScale: scaleLinear().domain(props.xDomain).range(props.xRange),
+      yScale: scaleLinear().domain(props.yDomain).range(props.yRange),
     };
   }
 
   componentWillReceiveProps(nextProps: Props) {
     this.JubilationContext.theme = nextProps.theme;
+    this.JubilationContext.xScale = scaleLinear().domain(nextProps.xDomain).range(nextProps.xRange);
+    this.JubilationContext.yScale = scaleLinear().domain(nextProps.yDomain).range(nextProps.yRange);
   }
 
-  getChildContext() { return { JubilationContext: this.JubilationContext }; }
+  getChildContext = () => ({ JubilationContext: this.JubilationContext })
 
   render = () => <div>{this.props.children}</div>
 }
