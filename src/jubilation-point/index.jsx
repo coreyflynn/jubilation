@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { default as theme } from '../jubilation-theme';
+import { scaleLinear } from 'd3-scale';
 
 type Props = { x: number, y: number, size?: number, color?: string };
 type Context = { JubilationContext: JubilationContext };
@@ -10,13 +11,23 @@ type Context = { JubilationContext: JubilationContext };
  */
 export default function JubilationPoint(
   { x, y, color, size = 4 }: Props, { JubilationContext }: Context): React.Element<*> {
+  
   let fill: string;
-  if (color) {
-    fill = color;
+  let xScale: Function;
+  let yScale: Function;
+  if (JubilationContext) {
+    fill = JubilationContext.theme.colors[0];
+    xScale = JubilationContext.xScale;
+    yScale = JubilationContext.yScale;
   } else {
-    fill = JubilationContext ? JubilationContext.theme.colors[0] : theme.colors[0];
+    fill = theme.colors[0];
+    xScale = scaleLinear().domain([0, 300]).range([0, 300]);
+    yScale = scaleLinear().domain([0, 100]).range([0, 100]);
   }
-  return <circle cx={x} cy={y} r={size} fill={fill} />;
+  
+  if (color) { fill = color; }
+
+  return <circle cx={xScale(x)} cy={yScale(y)} r={size} fill={fill} />;
 }
 
 JubilationPoint.contextTypes = { JubilationContext: React.PropTypes.object };
