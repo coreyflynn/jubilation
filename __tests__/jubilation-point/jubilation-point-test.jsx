@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import JubilationPoint from '../../src/jubilation-point';
 import JubilationTheme from '../../src/jubilation-theme';
+import JubilationProvider from '../../src/jubilation-provider';
 
 describe('JubilationPoint', () => {
   it('should render a SVG circle tag', () => {
@@ -16,9 +17,18 @@ describe('JubilationPoint', () => {
     expect(shallow(<JubilationPoint size={1} />).find('circle').props().r).toBe(1);
   });
 
-  it('should render a circle with a fill prop of based on the default theme by default', () => {
+  it('should render a circle with a fill prop based on the jubilation theme by default', () => {
     expect(shallow(<JubilationPoint />).find('circle').props().fill)
       .toBe(JubilationTheme.colors[0]);
+  });
+
+  it('should render a circle with a fill prop based on the context theme if available', () => {
+    const wrapper = mount(
+      <JubilationProvider theme={{ colors: ['red'] }}>
+        <JubilationPoint />
+      </JubilationProvider>
+    );
+    expect(wrapper.find('circle').props().fill).toBe('red');
   });
 
   it('should control circle fill through the color prop', () => {

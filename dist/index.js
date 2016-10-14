@@ -5114,19 +5114,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * A single data point. Returns an SVG circle element
-	 * @param {Props} { x, y, size = 10, color = theme.colors[0] }
-	 * @returns {}
 	 */
-	function JubilationPoint(_ref) {
+	function JubilationPoint(_ref, _ref2) {
 	  var x = _ref.x;
 	  var y = _ref.y;
+	  var color = _ref.color;
 	  var _ref$size = _ref.size;
 	  var size = _ref$size === undefined ? 4 : _ref$size;
-	  var _ref$color = _ref.color;
-	  var color = _ref$color === undefined ? _jubilationTheme2.default.colors[0] : _ref$color;
+	  var JubilationContext = _ref2.JubilationContext;
 
-	  return _react2.default.createElement('circle', { cx: x, cy: y, r: size, fill: color });
+	  var fill = void 0;
+	  if (color) {
+	    fill = color;
+	  } else {
+	    fill = JubilationContext ? JubilationContext.theme.colors[0] : _jubilationTheme2.default.colors[0];
+	  }
+	  return _react2.default.createElement('circle', { cx: x, cy: y, r: size, fill: fill });
 	}
+
+	JubilationPoint.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
 /* 37 */

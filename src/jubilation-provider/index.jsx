@@ -7,12 +7,6 @@ type Props = {
   children: React.Element<*> | React.Element<*>[],
 };
 
-type Context = {
-  theme: Theme,
-}
-
-
-
 /**
  * The JubilationProvider is a higher order component in change of passing down
  * context to all components under it for common charting needs such as theme and
@@ -22,7 +16,7 @@ type Context = {
  * in other ways.
  */
 export default class JubilationProvider extends React.Component {
-  JubilationContext: Context
+  JubilationContext: JubilationContext
 
   static defaultProps: Props = { theme: JubilationTheme, children: [] };
   static childContextTypes = { JubilationContext: React.PropTypes.object }
