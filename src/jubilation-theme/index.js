@@ -10,10 +10,19 @@ const colors: string[] = [
   '#CCC8C5',
 ];
 
+// label styles
+const labelStyle = {
+  fill: axisColor,
+  fontSize: 14,
+  fontFamily: "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+  stroke: 'transparent',
+};
+
 const theme: Theme = {
   axisColor,
   colors,
   name: 'JubilationTheme',
+  labelStyle,
 };
 
 export default theme;

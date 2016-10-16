@@ -64,11 +64,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
 
+	var _jubilationLabel = __webpack_require__(45);
+
+	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
+
 	var _jubilationPoint = __webpack_require__(36);
 
 	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
 
-	var _jubilationProvider = __webpack_require__(38);
+	var _jubilationProvider = __webpack_require__(44);
 
 	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
 
@@ -81,6 +85,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = {
 	  JubilationAnimation: _jubilationAnimation2.default,
 	  JubilationContainer: _jubilationContainer2.default,
+	  JubilationLabel: _jubilationLabel2.default,
 	  JubilationPoint: _jubilationPoint2.default,
 	  JubilationProvider: _jubilationProvider2.default,
 	  JubilationTheme: _jubilationTheme2.default
@@ -5115,7 +5120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _d3Scale = __webpack_require__(39);
+	var _d3Scale = __webpack_require__(38);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5129,7 +5134,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _ref$size = _ref.size;
 	  var size = _ref$size === undefined ? 4 : _ref$size;
 	  var JubilationContext = _ref2.JubilationContext;
-
 
 	  var fill = void 0;
 	  var xScale = void 0;
@@ -5168,10 +5172,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	// base colors
 	var colors = ['#0A2F61', '#B8D5E5', '#708090', '#CCC8C5'];
 
+	// label styles
+	var labelStyle = {
+	  fill: axisColor,
+	  fontSize: 14,
+	  fontFamily: "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+	  stroke: 'transparent'
+	};
+
 	var theme = {
 	  axisColor: axisColor,
 	  colors: colors,
-	  name: 'JubilationTheme'
+	  name: 'JubilationTheme',
+	  labelStyle: labelStyle
 	};
 
 	exports.default = theme;
@@ -5180,102 +5193,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _jubilationTheme = __webpack_require__(37);
-
-	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
-
-	var _d3Scale = __webpack_require__(39);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	/**
-	 * The JubilationProvider is a higher order component in change of passing down
-	 * context to all components under it for common charting needs such as theme and
-	 * scale. The Provider provides a single object, JubilationContext, that exposes
-	 * an API to manipulate the context data on the fly while still playing nice with
-	 * components above or below it in the render tree that may be manipulating context
-	 * in other ways.
-	 */
-	var JubilationProvider = function (_React$Component) {
-	  _inherits(JubilationProvider, _React$Component);
-
-	  function JubilationProvider(props, context) {
-	    _classCallCheck(this, JubilationProvider);
-
-	    var _this = _possibleConstructorReturn(this, (JubilationProvider.__proto__ || Object.getPrototypeOf(JubilationProvider)).call(this, props, context));
-
-	    _this.getChildContext = function () {
-	      return { JubilationContext: _this.JubilationContext };
-	    };
-
-	    _this.render = function () {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _this.props.children
-	      );
-	    };
-
-	    _this.JubilationContext = {
-	      theme: props.theme,
-	      xScale: (0, _d3Scale.scaleLinear)().domain(props.xDomain).range(props.xRange),
-	      yScale: (0, _d3Scale.scaleLinear)().domain(props.yDomain).range(props.yRange)
-	    };
-	    return _this;
-	  }
-
-	  _createClass(JubilationProvider, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.JubilationContext.theme = nextProps.theme;
-	      this.JubilationContext.xScale = (0, _d3Scale.scaleLinear)().domain(nextProps.xDomain).range(nextProps.xRange);
-	      this.JubilationContext.yScale = (0, _d3Scale.scaleLinear)().domain(nextProps.yDomain).range(nextProps.yRange);
-	    }
-	  }]);
-
-	  return JubilationProvider;
-	}(_react2.default.Component);
-
-	JubilationProvider.defaultProps = {
-	  children: [],
-	  xDomain: [0, 300],
-	  yDomain: [0, 100],
-	  xRange: [0, 300],
-	  yRange: [0, 100],
-	  theme: _jubilationTheme2.default
-	};
-	JubilationProvider.childContextTypes = { JubilationContext: _react2.default.PropTypes.object };
-	exports.default = JubilationProvider;
-
-/***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	// https://d3js.org/d3-scale/ Version 1.0.3. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(40), __webpack_require__(41), __webpack_require__(32), __webpack_require__(42), __webpack_require__(43), __webpack_require__(44), __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(40), __webpack_require__(41), __webpack_require__(32), __webpack_require__(42), __webpack_require__(43), __webpack_require__(44), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(39), __webpack_require__(40), __webpack_require__(32), __webpack_require__(41), __webpack_require__(42), __webpack_require__(43), __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(39), __webpack_require__(40), __webpack_require__(32), __webpack_require__(41), __webpack_require__(42), __webpack_require__(43), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
 	})(undefined, function (exports, d3Array, d3Collection, d3Interpolate, d3Format, d3Time, d3TimeFormat, d3Color) {
 	  'use strict';
 
@@ -6154,7 +6078,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 40 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -6654,7 +6578,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 41 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -6916,7 +6840,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 42 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7265,7 +7189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 43 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7656,7 +7580,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 44 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7665,7 +7589,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// https://d3js.org/d3-time-format/ Version 2.0.2. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(43)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(43)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(42)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(42)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
 	})(undefined, function (exports, d3Time) {
 	  'use strict';
 
@@ -8247,6 +8171,162 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  Object.defineProperty(exports, '__esModule', { value: true });
 	});
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationTheme = __webpack_require__(37);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	var _d3Scale = __webpack_require__(38);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/**
+	 * The JubilationProvider is a higher order component in change of passing down
+	 * context to all components under it for common charting needs such as theme and
+	 * scale. The Provider provides a single object, JubilationContext, that exposes
+	 * an API to manipulate the context data on the fly while still playing nice with
+	 * components above or below it in the render tree that may be manipulating context
+	 * in other ways.
+	 */
+	var JubilationProvider = function (_React$Component) {
+	  _inherits(JubilationProvider, _React$Component);
+
+	  function JubilationProvider(props, context) {
+	    _classCallCheck(this, JubilationProvider);
+
+	    var _this = _possibleConstructorReturn(this, (JubilationProvider.__proto__ || Object.getPrototypeOf(JubilationProvider)).call(this, props, context));
+
+	    _this.getChildContext = function () {
+	      return { JubilationContext: _this.JubilationContext };
+	    };
+
+	    _this.render = function () {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _this.props.children
+	      );
+	    };
+
+	    _this.JubilationContext = {
+	      theme: props.theme,
+	      xScale: (0, _d3Scale.scaleLinear)().domain(props.xDomain).range(props.xRange),
+	      yScale: (0, _d3Scale.scaleLinear)().domain(props.yDomain).range(props.yRange)
+	    };
+	    return _this;
+	  }
+
+	  _createClass(JubilationProvider, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.JubilationContext.theme = nextProps.theme;
+	      this.JubilationContext.xScale = (0, _d3Scale.scaleLinear)().domain(nextProps.xDomain).range(nextProps.xRange);
+	      this.JubilationContext.yScale = (0, _d3Scale.scaleLinear)().domain(nextProps.yDomain).range(nextProps.yRange);
+	    }
+	  }]);
+
+	  return JubilationProvider;
+	}(_react2.default.Component);
+
+	JubilationProvider.defaultProps = {
+	  children: [],
+	  xDomain: [0, 300],
+	  yDomain: [0, 100],
+	  xRange: [0, 300],
+	  yRange: [0, 100],
+	  theme: _jubilationTheme2.default
+	};
+	JubilationProvider.childContextTypes = { JubilationContext: _react2.default.PropTypes.object };
+	exports.default = JubilationProvider;
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = JubilationLabel;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _d3Scale = __webpack_require__(38);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * A single label. Renders a text element wrapping a tspan element. The text element
+	 * can be adjusted with the x and y props. The tspan element can be offset from the containing
+	 * text element with the dx and dy props.
+	 */
+	function JubilationLabel(_ref, _ref2) {
+	  var x = _ref.x;
+	  var y = _ref.y;
+	  var dx = _ref.dx;
+	  var dy = _ref.dy;
+	  var textAnchor = _ref.textAnchor;
+	  var children = _ref.children;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var xScale = void 0;
+	  var yScale = void 0;
+	  if (JubilationContext) {
+	    xScale = JubilationContext.xScale;
+	    yScale = JubilationContext.yScale;
+	  } else {
+	    xScale = (0, _d3Scale.scaleLinear)().domain([0, 300]).range([0, 300]);
+	    yScale = (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100]);
+	  }
+
+	  var textProps = {
+	    x: xScale(x),
+	    y: yScale(y),
+	    textAnchor: textAnchor,
+	    style: JubilationContext.theme.labelStyle
+	  };
+	  var tspanProps = { dx: dx, dy: dy };
+
+	  return _react2.default.createElement(
+	    'text',
+	    _extends({}, textProps, { dominantBaseline: 'middle' }),
+	    _react2.default.createElement(
+	      'tspan',
+	      tspanProps,
+	      children
+	    )
+	  );
+	}
+
+	JubilationLabel.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ }
 /******/ ])

@@ -11,7 +11,6 @@ type Context = { JubilationContext: JubilationContext };
  */
 export default function JubilationPoint(
   { x, y, color, size = 4 }: Props, { JubilationContext }: Context): React.Element<*> {
-  
   let fill: string;
   let xScale: Function;
   let yScale: Function;
@@ -24,7 +23,7 @@ export default function JubilationPoint(
     xScale = scaleLinear().domain([0, 300]).range([0, 300]);
     yScale = scaleLinear().domain([0, 100]).range([0, 100]);
   }
-  
+
   if (color) { fill = color; }
 
   return <circle cx={xScale(x)} cy={yScale(y)} r={size} fill={fill} />;
