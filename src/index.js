@@ -5,6 +5,7 @@ import { default as JubilationPoint } from './jubilation-point';
 import { default as JubilationProvider } from './jubilation-provider';
 import { default as JubilationTheme } from './jubilation-theme';
 import { default as XAxis } from './jubilation-axis/x-axis';
+import { default as YAxis } from './jubilation-axis/y-axis';
 
 module.exports = {
   JubilationAnimation,
@@ -14,4 +15,5 @@ module.exports = {
   JubilationProvider,
   JubilationTheme,
   XAxis,
+  YAxis,
 };

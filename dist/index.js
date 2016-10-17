@@ -68,7 +68,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationPoint = __webpack_require__(43);
+	var _jubilationPoint = __webpack_require__(45);
 
 	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
 
@@ -76,13 +76,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
 
-	var _jubilationTheme = __webpack_require__(45);
+	var _jubilationTheme = __webpack_require__(44);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
 	var _xAxis = __webpack_require__(47);
 
 	var _xAxis2 = _interopRequireDefault(_xAxis);
+
+	var _yAxis = __webpack_require__(49);
+
+	var _yAxis2 = _interopRequireDefault(_yAxis);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -93,7 +97,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  JubilationPoint: _jubilationPoint2.default,
 	  JubilationProvider: _jubilationProvider2.default,
 	  JubilationTheme: _jubilationTheme2.default,
-	  XAxis: _xAxis2.default
+	  XAxis: _xAxis2.default,
+	  YAxis: _yAxis2.default
 	};
 
 /***/ },
@@ -5124,7 +5129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(44);
+	var _context = __webpack_require__(37);
 
 	var _context2 = _interopRequireDefault(_context);
 
@@ -5171,13 +5176,41 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getContext;
+
+	var _d3Scale = __webpack_require__(38);
+
+	var _jubilationTheme = __webpack_require__(44);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getContext(context) {
+	  if (context) return context;
+	  return {
+	    theme: _jubilationTheme2.default,
+	    xScale: (0, _d3Scale.scaleLinear)().domain([0, 300]).range([0, 300]),
+	    yScale: (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100])
+	  };
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	// https://d3js.org/d3-scale/ Version 1.0.3. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(38), __webpack_require__(39), __webpack_require__(32), __webpack_require__(40), __webpack_require__(41), __webpack_require__(42), __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(38), __webpack_require__(39), __webpack_require__(32), __webpack_require__(40), __webpack_require__(41), __webpack_require__(42), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(39), __webpack_require__(40), __webpack_require__(32), __webpack_require__(41), __webpack_require__(42), __webpack_require__(43), __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(39), __webpack_require__(40), __webpack_require__(32), __webpack_require__(41), __webpack_require__(42), __webpack_require__(43), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
 	})(undefined, function (exports, d3Array, d3Collection, d3Interpolate, d3Format, d3Time, d3TimeFormat, d3Color) {
 	  'use strict';
 
@@ -6056,7 +6089,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -6556,7 +6589,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -6818,7 +6851,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7167,7 +7200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7558,7 +7591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7567,7 +7600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// https://d3js.org/d3-time-format/ Version 2.0.2. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(41)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(41)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(42)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(42)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
 	})(undefined, function (exports, d3Time) {
 	  'use strict';
 
@@ -8151,79 +8184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = JubilationPoint;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(44);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/**
-	 * A single data point. Returns an SVG circle element
-	 */
-	function JubilationPoint(_ref, _ref2) {
-	  var x = _ref.x;
-	  var y = _ref.y;
-	  var color = _ref.color;
-	  var _ref$size = _ref.size;
-	  var size = _ref$size === undefined ? 4 : _ref$size;
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var xScale = context.xScale;
-	  var yScale = context.yScale;
-
-	  var fill = context.theme.colors[0];
-	  if (color) fill = color;
-
-	  return _react2.default.createElement('circle', { cx: xScale(x), cy: yScale(y), r: size, fill: fill });
-	}
-
-	JubilationPoint.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
 /* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = getContext;
-
-	var _d3Scale = __webpack_require__(37);
-
-	var _jubilationTheme = __webpack_require__(45);
-
-	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getContext(context) {
-	  if (context) return context;
-	  return {
-	    theme: _jubilationTheme2.default,
-	    xScale: (0, _d3Scale.scaleLinear)().domain([0, 300]).range([0, 300]),
-	    yScale: (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100])
-	  };
-	}
-
-/***/ },
-/* 45 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8254,6 +8215,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = theme;
 
 /***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = JubilationPoint;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(37);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * A single data point. Returns an SVG circle element
+	 */
+	function JubilationPoint(_ref, _ref2) {
+	  var x = _ref.x;
+	  var y = _ref.y;
+	  var color = _ref.color;
+	  var _ref$size = _ref.size;
+	  var size = _ref$size === undefined ? 4 : _ref$size;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var xScale = context.xScale;
+	  var yScale = context.yScale;
+
+	  var fill = context.theme.colors[0];
+	  if (color) fill = color;
+
+	  return _react2.default.createElement('circle', { cx: xScale(x), cy: yScale(y), r: size, fill: fill });
+	}
+
+	JubilationPoint.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
 /* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -8269,9 +8274,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _d3Scale = __webpack_require__(37);
+	var _d3Scale = __webpack_require__(38);
 
-	var _jubilationTheme = __webpack_require__(45);
+	var _jubilationTheme = __webpack_require__(44);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
@@ -8357,9 +8362,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(44);
+	var _context = __webpack_require__(37);
 
 	var _context2 = _interopRequireDefault(_context);
+
+	var _axis = __webpack_require__(48);
+
+	var _axis2 = _interopRequireDefault(_axis);
 
 	var _jubilationLabel = __webpack_require__(36);
 
@@ -8383,41 +8392,131 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var offsetPosition = yPosition - context.theme.labelStyle.fontSize / 2;
-	  var ticks = [];
-
-	  for (var i = 0; i < numTicks; i += 1) {
-	    var val = (max - min) / (numTicks + 1) * (i + 1) + min;
-	    ticks.push(_react2.default.createElement(
-	      _jubilationLabel2.default,
-	      {
-	        key: i,
-	        x: context.xScale(val),
-	        y: context.yScale(offsetPosition),
-	        textAnchor: 'middle'
-	      },
-	      Math.round(val)
-	    ));
-	  }
+	  var ticks = (0, _axis2.default)(min, max, numTicks, 'x', yPosition, context);
+	  var offset = -context.theme.labelStyle.fontSize / 2;
 
 	  return _react2.default.createElement(
 	    'g',
 	    null,
 	    _react2.default.createElement(
 	      _jubilationLabel2.default,
-	      { x: context.xScale(min), y: context.yScale(offsetPosition) },
+	      { x: min, y: yPosition, dy: offset },
 	      Math.round(min)
 	    ),
-	    ticks,
+	    ticks.map(function (tick) {
+	      return _react2.default.createElement(
+	        _jubilationLabel2.default,
+	        tick,
+	        context.xScale(tick.val)
+	      );
+	    }),
 	    _react2.default.createElement(
 	      _jubilationLabel2.default,
-	      { x: context.xScale(max), y: context.yScale(offsetPosition), textAnchor: 'end' },
+	      { x: max, y: yPosition, dy: offset, textAnchor: 'end' },
 	      Math.round(max)
 	    )
 	  );
 	}
 
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 48 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getTicks;
+	function getTicks(min, max, numTicks, axisType, position, context) {
+	  var ticks = [];
+
+	  for (var i = 0; i < numTicks; i += 1) {
+	    var _val = (max - min) / (numTicks + 1) * (i + 1) + min;
+	    var _x = axisType === 'x' ? _val : context.theme.labelStyle.fontSize / 2;
+	    var _y = axisType === 'y' ? _val : position;
+	    var _textAnchor = axisType === 'x' ? 'middle' : 'end';
+	    var _dx = axisType === 'x' ? 0 : context.theme.labelStyle.fontSize * 5;
+	    var _dy = axisType === 'x' ? -context.theme.labelStyle.fontSize / 2 : 0;
+	    ticks.push({ key: i, x: _x, y: _y, dx: _dx, dy: _dy, textAnchor: _textAnchor, val: _val });
+	  }
+	  return ticks;
+	}
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = YAxis;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(37);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _axis = __webpack_require__(48);
+
+	var _axis2 = _interopRequireDefault(_axis);
+
+	var _jubilationLabel = __webpack_require__(36);
+
+	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function YAxis(_ref, _ref2) {
+	  var _ref$min = _ref.min;
+	  var min = _ref$min === undefined ? 0 : _ref$min;
+	  var _ref$max = _ref.max;
+	  var max = _ref$max === undefined ? 300 : _ref$max;
+	  var _ref$xPosition = _ref.xPosition;
+	  var xPosition = _ref$xPosition === undefined ? 0 : _ref$xPosition;
+	  var _ref$numTicks = _ref.numTicks;
+	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
+	  var _ref$tickLines = _ref.tickLines;
+	  var tickLines = _ref$tickLines === undefined ? false : _ref$tickLines;
+	  var _ref$axisLine = _ref.axisLine;
+	  var axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var ticks = (0, _axis2.default)(min, max, numTicks, 'y', xPosition, context);
+	  var offsetPosition = xPosition + context.theme.labelStyle.fontSize * 5;
+
+	  return _react2.default.createElement(
+	    'g',
+	    null,
+	    _react2.default.createElement(
+	      _jubilationLabel2.default,
+	      { x: context.xScale(offsetPosition), y: context.yScale(min), textAnchor: 'end' },
+	      Math.round(min)
+	    ),
+	    ticks.map(function (tick) {
+	      return _react2.default.createElement(
+	        _jubilationLabel2.default,
+	        tick,
+	        context.yScale(tick.val)
+	      );
+	    }),
+	    _react2.default.createElement(
+	      _jubilationLabel2.default,
+	      { x: context.xScale(offsetPosition), y: context.yScale(max), textAnchor: 'end' },
+	      Math.round(max)
+	    )
+	  );
+	}
+
+	YAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ }
 /******/ ])
