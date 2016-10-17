@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { default as JubilationTheme } from '../jubilation-theme';
 import { scaleLinear } from 'd3-scale';
+import { default as JubilationTheme } from '../jubilation-theme';
 
 type Props = {
   children: React.Element<*> | React.Element<*>[],
