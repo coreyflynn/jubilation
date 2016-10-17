@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { scaleLinear } from 'd3-scale';
+import getContext from '../helpers/context';
 
 type Props = {
   x: number,
@@ -21,22 +21,9 @@ type Context = { JubilationContext: JubilationContext };
 export default function JubilationLabel(
   { x, y, dx, dy, textAnchor, children }: Props,
   { JubilationContext }: Context): React.Element<*> {
-  let xScale: Function;
-  let yScale: Function;
-  if (JubilationContext) {
-    xScale = JubilationContext.xScale;
-    yScale = JubilationContext.yScale;
-  } else {
-    xScale = scaleLinear().domain([0, 300]).range([0, 300]);
-    yScale = scaleLinear().domain([0, 100]).range([0, 100]);
-  }
+  const { xScale, yScale, theme } = getContext(JubilationContext);
 
-  const textProps = {
-    x: xScale(x),
-    y: yScale(y),
-    textAnchor,
-    style: JubilationContext.theme.labelStyle,
-  };
+  const textProps = { x: xScale(x), y: yScale(y), style: theme.labelStyle, textAnchor };
   const tspanProps = { dx, dy };
 
   return (

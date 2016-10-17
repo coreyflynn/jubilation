@@ -5119,7 +5119,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _d3Scale = __webpack_require__(37);
+	var _context = __webpack_require__(44);
+
+	var _context2 = _interopRequireDefault(_context);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5137,22 +5139,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var children = _ref.children;
 	  var JubilationContext = _ref2.JubilationContext;
 
-	  var xScale = void 0;
-	  var yScale = void 0;
-	  if (JubilationContext) {
-	    xScale = JubilationContext.xScale;
-	    yScale = JubilationContext.yScale;
-	  } else {
-	    xScale = (0, _d3Scale.scaleLinear)().domain([0, 300]).range([0, 300]);
-	    yScale = (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100]);
-	  }
+	  var _getContext = (0, _context2.default)(JubilationContext);
 
-	  var textProps = {
-	    x: xScale(x),
-	    y: yScale(y),
-	    textAnchor: textAnchor,
-	    style: JubilationContext.theme.labelStyle
-	  };
+	  var xScale = _getContext.xScale;
+	  var yScale = _getContext.yScale;
+	  var theme = _getContext.theme;
+
+
+	  var textProps = { x: xScale(x), y: yScale(y), style: theme.labelStyle, textAnchor: textAnchor };
 	  var tspanProps = { dx: dx, dy: dy };
 
 	  return _react2.default.createElement(
