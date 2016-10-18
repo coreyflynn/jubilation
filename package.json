@@ -45,7 +45,7 @@
     "flow": "node_modules/flow-bin/cli.js",
     "test": "node_modules/jest/bin/jest.js",
     "test-watch": "node_modules/jest/bin/jest.js --watch",
-    "precommit": "npm run flow && npm test"
+    "prepush": "npm run flow && npm test"
   },
   "repository": {
     "type": "git",
