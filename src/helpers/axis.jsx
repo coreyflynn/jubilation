@@ -20,10 +20,10 @@ export default function getTicks(
 
   for (let i = 0; i < numTicks; i += 1) {
     const val = (((max - min) / (numTicks + 1)) * (i + 1)) + min;
-    const x = (axisType === 'x') ? val : context.theme.labelStyle.fontSize / 2;
+    const x = (axisType === 'x') ? val : position;
     const y = (axisType === 'y') ? val : position;
     const textAnchor = (axisType === 'x') ? 'middle' : 'end';
-    const dx = (axisType === 'x') ? 0 : context.theme.labelStyle.fontSize * 5;
+    const dx = (axisType === 'x') ? 0 : context.theme.labelStyle.fontSize * 2;
     const dy = (axisType === 'x') ? -context.theme.labelStyle.fontSize / 2 : 0;
     ticks.push({ key: i, x, y, dx, dy, textAnchor, val });
   }
