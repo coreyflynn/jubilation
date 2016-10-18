@@ -1,14 +1,15 @@
 // @flow
 import React from 'react';
 import getContext from '../helpers/context';
+import Animation from '../jubilation-animation';
 
 type Props = {
-  x: number,
-  y: number,
-  dx: number,
-  dy: number,
-  textAnchor: string,
-  children: React.Element<*>,
+  x?: number,
+  y?: number,
+  dx?: number,
+  dy?: number,
+  textAnchor?: string,
+  children?: React.Element<*> | React.Element<*>[],
 }
 
 type Context = { JubilationContext: JubilationContext };
@@ -19,7 +20,7 @@ type Context = { JubilationContext: JubilationContext };
  * text element with the dx and dy props.
  */
 export default function JubilationLabel(
-  { x, y, dx, dy, textAnchor, children }: Props,
+  { x = 0, y = 0, dx = 0, dy = 0, textAnchor = 'start', children }: Props,
   { JubilationContext }: Context): React.Element<*> {
   const { xScale, yScale, theme } = getContext(JubilationContext);
 
@@ -27,9 +28,13 @@ export default function JubilationLabel(
   const tspanProps = { dx, dy };
 
   return (
-    <text {...textProps} dominantBaseline="middle">
-      <tspan {...tspanProps}>{children}</tspan>
-    </text>
+    <Animation data={{ textProps, tspanProps }}>
+      {data =>
+        <text {...data.textProps} dominantBaseline="middle">
+          <tspan {...data.tspanProps}>{children}</tspan>
+        </text>
+      }
+    </Animation>
   );
 }
 

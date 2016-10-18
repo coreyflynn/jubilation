@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import getContext from '../helpers/context';
+import Animation from '../jubilation-animation';
 
 type Props = { x: number, y: number, size?: number, color?: string };
 type Context = { JubilationContext: JubilationContext };
@@ -15,7 +16,13 @@ export default function JubilationPoint(
   let fill = context.theme.colors[0];
   if (color) fill = color;
 
-  return <circle cx={xScale(x)} cy={yScale(y)} r={size} fill={fill} />;
+  return (
+    <Animation data={{ x, y, size, fill }}>
+      {data =>
+        <circle cx={xScale(data.x)} cy={yScale(data.y)} r={data.size} fill={data.fill} />
+      }
+    </Animation>
+  );
 }
 
 JubilationPoint.contextTypes = { JubilationContext: React.PropTypes.object };

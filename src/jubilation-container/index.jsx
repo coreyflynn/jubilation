@@ -5,9 +5,9 @@ import React from 'react';
 type Props = {
   height: number,
   width: number,
-  children: Object[] | Object,
-  title: string,
-  desc: string,
+  children?: Object[] | Object,
+  title?: string,
+  desc?: string,
 }
 
 // SVG object prop types
@@ -22,8 +22,8 @@ type SvgProps = {
  * Top level container for jubilation charts. Builds a wrapping SVG element that renders
  * passed in children
  */
-export default function JubilationContainer(props: Props) {
-  const { title, desc, width, height, children } = props;
+export default function JubilationContainer(
+  { title, desc, width = 300, height = 100, children }: Props) {
   const svgProps: SvgProps = {
     'aria-labelledby': 'title desc',
     role: 'img',

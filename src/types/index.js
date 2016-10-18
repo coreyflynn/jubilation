@@ -17,3 +17,8 @@ export type JubilationContext = {
   xScale: Function,
   yScale: Function,
 }
+
+export type Point = {
+  x: number,
+  y: number,
+}

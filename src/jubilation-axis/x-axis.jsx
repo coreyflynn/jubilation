@@ -3,6 +3,7 @@ import React from 'react';
 import getContext from '../helpers/context';
 import getTicks from '../helpers/axis';
 import Label from '../jubilation-label';
+import Animation from '../jubilation-animation';
 
 type Props = {
   min: number,
@@ -23,11 +24,17 @@ export default function XAxis(
   const offset = -context.theme.labelStyle.fontSize / 2;
 
   return (
-    <g>
-      <Label x={min} y={position} dy={offset}>{Math.round(min)}</Label>
-      {ticks.map(tick => <Label {...tick}>{context.xScale(tick.val)}</Label>)}
-      <Label x={max} y={position} dy={offset} textAnchor="end">{Math.round(max)}</Label>
-    </g>
+    <Animation data={{ min, max, position, offset, ticks }}>
+      {data =>
+        <g>
+          <Label x={data.min} y={data.position} dy={data.offset}>{Math.round(data.min)}</Label>
+          {data.ticks.map(tick => <Label {...tick}>{context.xScale(tick.val)}</Label>)}
+          <Label x={data.max} y={data.position} dy={data.offset} textAnchor="end">
+            {Math.round(data.max)}
+          </Label>
+        </g>
+      }
+    </Animation>
   );
 }
 
