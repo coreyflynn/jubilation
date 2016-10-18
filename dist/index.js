@@ -60,35 +60,35 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
 
-	var _jubilationChart = __webpack_require__(50);
+	var _jubilationChart = __webpack_require__(35);
 
 	var _jubilationChart2 = _interopRequireDefault(_jubilationChart);
 
-	var _jubilationContainer = __webpack_require__(35);
+	var _jubilationContainer = __webpack_require__(37);
 
 	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
 
-	var _jubilationLabel = __webpack_require__(36);
+	var _jubilationLabel = __webpack_require__(40);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationPoint = __webpack_require__(45);
+	var _jubilationPoint = __webpack_require__(48);
 
 	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
 
-	var _jubilationProvider = __webpack_require__(46);
+	var _jubilationProvider = __webpack_require__(36);
 
 	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
 
-	var _jubilationTheme = __webpack_require__(44);
+	var _jubilationTheme = __webpack_require__(38);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _xAxis = __webpack_require__(47);
+	var _xAxis = __webpack_require__(49);
 
 	var _xAxis2 = _interopRequireDefault(_xAxis);
 
-	var _yAxis = __webpack_require__(49);
+	var _yAxis = __webpack_require__(51);
 
 	var _yAxis2 = _interopRequireDefault(_yAxis);
 
@@ -5058,6 +5058,161 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = JubilationChart;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationProvider = __webpack_require__(36);
+
+	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
+
+	var _jubilationContainer = __webpack_require__(37);
+
+	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
+
+	var _jubilationTheme = __webpack_require__(38);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	var _chart = __webpack_require__(39);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function JubilationChart(_ref) {
+	  var title = _ref.title;
+	  var _ref$height = _ref.height;
+	  var height = _ref$height === undefined ? 100 : _ref$height;
+	  var _ref$width = _ref.width;
+	  var width = _ref$width === undefined ? 300 : _ref$width;
+	  var data = _ref.data;
+	  var _ref$theme = _ref.theme;
+	  var theme = _ref$theme === undefined ? _jubilationTheme2.default : _ref$theme;
+	  var children = _ref.children;
+
+	  return _react2.default.createElement(
+	    _jubilationProvider2.default,
+	    { xRange: (0, _chart.getXRange)(width, theme), yRange: (0, _chart.getYRange)(height, theme) },
+	    _react2.default.createElement(
+	      _jubilationContainer2.default,
+	      { height: height, width: width, title: title },
+	      children
+	    )
+	  );
+	}
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _d3Scale = __webpack_require__(42);
+
+	var _uuid = __webpack_require__(52);
+
+	var _uuid2 = _interopRequireDefault(_uuid);
+
+	var _jubilationTheme = __webpack_require__(38);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	var _provider = __webpack_require__(54);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/**
+	 * The JubilationProvider is a higher order component in change of passing down
+	 * context to all components under it for common charting needs such as theme and
+	 * scale. The Provider provides a single object, JubilationContext, that exposes
+	 * an API to manipulate the context data on the fly while still playing nice with
+	 * components above or below it in the render tree that may be manipulating context
+	 * in other ways.
+	 */
+	var JubilationProvider = function (_React$Component) {
+	  _inherits(JubilationProvider, _React$Component);
+
+	  function JubilationProvider(props, context) {
+	    _classCallCheck(this, JubilationProvider);
+
+	    var _this = _possibleConstructorReturn(this, (JubilationProvider.__proto__ || Object.getPrototypeOf(JubilationProvider)).call(this, props, context));
+
+	    _this.getChildContext = function () {
+	      return { JubilationContext: _this.JubilationContext };
+	    };
+
+	    _this.render = function () {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _this.props.children
+	      );
+	    };
+
+	    _this.uuid = _uuid2.default.v4();
+	    _this.domainMap = _defineProperty({}, _this.uuid, { x: props.xDomain, y: props.yDomain });
+	    _this.JubilationContext = {
+	      theme: props.theme,
+	      xScale: (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'x')).range(props.xRange),
+	      yScale: (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'y')).range(props.yRange),
+	      addDomain: (0, _provider.addDomainHOF)(_this.domainMap),
+	      removeDomain: (0, _provider.removeDomainHOF)(_this.domainMap)
+	    };
+	    return _this;
+	  }
+
+	  _createClass(JubilationProvider, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.JubilationContext.theme = nextProps.theme;
+	      this.domainMap = _defineProperty({}, this.uuid, { x: nextProps.xDomain, y: nextProps.yDomain });
+	      this.JubilationContext.xScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(this.domainMap, 'x')).range(nextProps.xRange);
+	      this.JubilationContext.yScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(this.domainMap, 'y')).range(nextProps.yRange);
+	    }
+	  }]);
+
+	  return JubilationProvider;
+	}(_react2.default.Component);
+
+	JubilationProvider.defaultProps = {
+	  children: [],
+	  xDomain: [0, 300],
+	  yDomain: [100, 0],
+	  xRange: [0, 300],
+	  yRange: [0, 100],
+	  theme: _jubilationTheme2.default
+	};
+	JubilationProvider.childContextTypes = { JubilationContext: _react2.default.PropTypes.object };
+	exports.default = JubilationProvider;
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.default = JubilationContainer;
 
 	var _react = __webpack_require__(2);
@@ -5119,7 +5274,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 36 */
+/* 38 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var axisColor = '#393F46';
+
+	// base colors
+	var colors = ['#0A2F61', '#B8D5E5', '#708090', '#CCC8C5'];
+
+	// label styles
+	var labelStyle = {
+	  fill: axisColor,
+	  fontSize: 14,
+	  fontFamily: "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+	  stroke: 'transparent'
+	};
+
+	var margin = { left: 30, right: 30, top: 30, bottom: 30 };
+
+	var theme = {
+	  axisColor: axisColor,
+	  colors: colors,
+	  margin: margin,
+	  name: 'JubilationTheme',
+	  labelStyle: labelStyle
+	};
+
+	exports.default = theme;
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getXRange = getXRange;
+	exports.getYRange = getYRange;
+	/**
+	 * Computes the desired range for data in the x demension taking theme margins
+	 * into acount
+	 */
+	function getXRange(width, theme) {
+	  return [0 + theme.margin.left, width - theme.margin.right];
+	}
+
+	/**
+	 * Computes the desired range for data in the y demension taking theme margins
+	 * into acount
+	 */
+	function getYRange(height, theme) {
+	  return [0 + theme.margin.top, height - theme.margin.bottom];
+	}
+
+/***/ },
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5136,7 +5352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(37);
+	var _context = __webpack_require__(41);
 
 	var _context2 = _interopRequireDefault(_context);
 
@@ -5195,7 +5411,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationLabel.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5205,11 +5421,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.default = getContext;
 
-	var _d3Scale = __webpack_require__(38);
+	var _d3Scale = __webpack_require__(42);
 
-	var _jubilationTheme = __webpack_require__(44);
+	var _jubilationTheme = __webpack_require__(38);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	var _provider = __webpack_require__(54);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5218,12 +5436,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return {
 	    theme: _jubilationTheme2.default,
 	    xScale: (0, _d3Scale.scaleLinear)().domain([0, 300]).range([0, 300]),
-	    yScale: (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100])
+	    yScale: (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100]),
+	    addDomain: (0, _provider.addDomainHOF)({}),
+	    removeDomain: (0, _provider.removeDomainHOF)({})
 	  };
 	}
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -5232,7 +5452,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// https://d3js.org/d3-scale/ Version 1.0.3. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(39), __webpack_require__(40), __webpack_require__(32), __webpack_require__(41), __webpack_require__(42), __webpack_require__(43), __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(39), __webpack_require__(40), __webpack_require__(32), __webpack_require__(41), __webpack_require__(42), __webpack_require__(43), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(43), __webpack_require__(44), __webpack_require__(32), __webpack_require__(45), __webpack_require__(46), __webpack_require__(47), __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(43), __webpack_require__(44), __webpack_require__(32), __webpack_require__(45), __webpack_require__(46), __webpack_require__(47), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
 	})(undefined, function (exports, d3Array, d3Collection, d3Interpolate, d3Format, d3Time, d3TimeFormat, d3Color) {
 	  'use strict';
 
@@ -6111,7 +6331,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -6611,7 +6831,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -6873,7 +7093,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7222,7 +7442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 42 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7613,7 +7833,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 43 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7622,7 +7842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// https://d3js.org/d3-time-format/ Version 2.0.2. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(42)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(42)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(46)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(46)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
 	})(undefined, function (exports, d3Time) {
 	  'use strict';
 
@@ -8206,41 +8426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 44 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var axisColor = '#393F46';
-
-	// base colors
-	var colors = ['#0A2F61', '#B8D5E5', '#708090', '#CCC8C5'];
-
-	// label styles
-	var labelStyle = {
-	  fill: axisColor,
-	  fontSize: 14,
-	  fontFamily: "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
-	  stroke: 'transparent'
-	};
-
-	var margin = { left: 30, right: 30, top: 30, bottom: 30 };
-
-	var theme = {
-	  axisColor: axisColor,
-	  colors: colors,
-	  margin: margin,
-	  name: 'JubilationTheme',
-	  labelStyle: labelStyle
-	};
-
-	exports.default = theme;
-
-/***/ },
-/* 45 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8254,7 +8440,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(37);
+	var _context = __webpack_require__(41);
 
 	var _context2 = _interopRequireDefault(_context);
 
@@ -8302,96 +8488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationPoint.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _d3Scale = __webpack_require__(38);
-
-	var _jubilationTheme = __webpack_require__(44);
-
-	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	/**
-	 * The JubilationProvider is a higher order component in change of passing down
-	 * context to all components under it for common charting needs such as theme and
-	 * scale. The Provider provides a single object, JubilationContext, that exposes
-	 * an API to manipulate the context data on the fly while still playing nice with
-	 * components above or below it in the render tree that may be manipulating context
-	 * in other ways.
-	 */
-	var JubilationProvider = function (_React$Component) {
-	  _inherits(JubilationProvider, _React$Component);
-
-	  function JubilationProvider(props, context) {
-	    _classCallCheck(this, JubilationProvider);
-
-	    var _this = _possibleConstructorReturn(this, (JubilationProvider.__proto__ || Object.getPrototypeOf(JubilationProvider)).call(this, props, context));
-
-	    _this.getChildContext = function () {
-	      return { JubilationContext: _this.JubilationContext };
-	    };
-
-	    _this.render = function () {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _this.props.children
-	      );
-	    };
-
-	    _this.JubilationContext = {
-	      theme: props.theme,
-	      xScale: (0, _d3Scale.scaleLinear)().domain(props.xDomain).range(props.xRange),
-	      yScale: (0, _d3Scale.scaleLinear)().domain(props.yDomain).range(props.yRange)
-	    };
-	    return _this;
-	  }
-
-	  _createClass(JubilationProvider, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.JubilationContext.theme = nextProps.theme;
-	      this.JubilationContext.xScale = (0, _d3Scale.scaleLinear)().domain(nextProps.xDomain).range(nextProps.xRange);
-	      this.JubilationContext.yScale = (0, _d3Scale.scaleLinear)().domain(nextProps.yDomain).range(nextProps.yRange);
-	    }
-	  }]);
-
-	  return JubilationProvider;
-	}(_react2.default.Component);
-
-	JubilationProvider.defaultProps = {
-	  children: [],
-	  xDomain: [0, 300],
-	  yDomain: [100, 0],
-	  xRange: [0, 300],
-	  yRange: [0, 100],
-	  theme: _jubilationTheme2.default
-	};
-	JubilationProvider.childContextTypes = { JubilationContext: _react2.default.PropTypes.object };
-	exports.default = JubilationProvider;
-
-/***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8405,15 +8502,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(37);
+	var _context = __webpack_require__(41);
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(48);
+	var _axis = __webpack_require__(50);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _jubilationLabel = __webpack_require__(36);
+	var _jubilationLabel = __webpack_require__(40);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
@@ -8475,7 +8572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8500,7 +8597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8514,15 +8611,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(37);
+	var _context = __webpack_require__(41);
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(48);
+	var _axis = __webpack_require__(50);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _jubilationLabel = __webpack_require__(36);
+	var _jubilationLabel = __webpack_require__(40);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
@@ -8584,60 +8681,229 @@ return /******/ (function(modules) { // webpackBootstrap
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = JubilationChart;
+	//     uuid.js
+	//
+	//     Copyright (c) 2010-2012 Robert Kieffer
+	//     MIT License - http://opensource.org/licenses/mit-license.php
 
-	var _react = __webpack_require__(2);
+	// Unique ID creation requires a high quality random # generator.  We feature
+	// detect to determine the best RNG source, normalizing to a function that
+	// returns 128-bits of randomness, since that's what's usually required
+	var _rng = __webpack_require__(53);
 
-	var _react2 = _interopRequireDefault(_react);
-
-	var _jubilationProvider = __webpack_require__(46);
-
-	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
-
-	var _jubilationContainer = __webpack_require__(35);
-
-	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
-
-	var _jubilationTheme = __webpack_require__(44);
-
-	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
-
-	var _chart = __webpack_require__(51);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function JubilationChart(_ref) {
-	  var title = _ref.title;
-	  var _ref$height = _ref.height;
-	  var height = _ref$height === undefined ? 100 : _ref$height;
-	  var _ref$width = _ref.width;
-	  var width = _ref$width === undefined ? 300 : _ref$width;
-	  var data = _ref.data;
-	  var _ref$theme = _ref.theme;
-	  var theme = _ref$theme === undefined ? _jubilationTheme2.default : _ref$theme;
-	  var children = _ref.children;
-
-	  return _react2.default.createElement(
-	    _jubilationProvider2.default,
-	    { xRange: (0, _chart.getXRange)(width, theme), yRange: (0, _chart.getYRange)(height, theme) },
-	    _react2.default.createElement(
-	      _jubilationContainer2.default,
-	      { height: height, width: width, title: title },
-	      children
-	    )
-	  );
+	// Maps for number <-> hex string conversion
+	var _byteToHex = [];
+	var _hexToByte = {};
+	for (var i = 0; i < 256; i++) {
+	  _byteToHex[i] = (i + 0x100).toString(16).substr(1);
+	  _hexToByte[_byteToHex[i]] = i;
 	}
 
+	// **`parse()` - Parse a UUID into it's component bytes**
+	function parse(s, buf, offset) {
+	  var i = buf && offset || 0,
+	      ii = 0;
+
+	  buf = buf || [];
+	  s.toLowerCase().replace(/[0-9a-f]{2}/g, function (oct) {
+	    if (ii < 16) {
+	      // Don't overflow!
+	      buf[i + ii++] = _hexToByte[oct];
+	    }
+	  });
+
+	  // Zero out remaining bytes if string was short
+	  while (ii < 16) {
+	    buf[i + ii++] = 0;
+	  }
+
+	  return buf;
+	}
+
+	// **`unparse()` - Convert UUID byte array (ala parse()) into a string**
+	function unparse(buf, offset) {
+	  var i = offset || 0,
+	      bth = _byteToHex;
+	  return bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]];
+	}
+
+	// **`v1()` - Generate time-based UUID**
+	//
+	// Inspired by https://github.com/LiosK/UUID.js
+	// and http://docs.python.org/library/uuid.html
+
+	// random #'s we need to init node and clockseq
+	var _seedBytes = _rng();
+
+	// Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+	var _nodeId = [_seedBytes[0] | 0x01, _seedBytes[1], _seedBytes[2], _seedBytes[3], _seedBytes[4], _seedBytes[5]];
+
+	// Per 4.2.2, randomize (14 bit) clockseq
+	var _clockseq = (_seedBytes[6] << 8 | _seedBytes[7]) & 0x3fff;
+
+	// Previous uuid creation time
+	var _lastMSecs = 0,
+	    _lastNSecs = 0;
+
+	// See https://github.com/broofa/node-uuid for API details
+	function v1(options, buf, offset) {
+	  var i = buf && offset || 0;
+	  var b = buf || [];
+
+	  options = options || {};
+
+	  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq;
+
+	  // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+	  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+	  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+	  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+	  var msecs = options.msecs !== undefined ? options.msecs : new Date().getTime();
+
+	  // Per 4.2.1.2, use count of uuid's generated during the current clock
+	  // cycle to simulate higher resolution clock
+	  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1;
+
+	  // Time since last uuid creation (in msecs)
+	  var dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000;
+
+	  // Per 4.2.1.2, Bump clockseq on clock regression
+	  if (dt < 0 && options.clockseq === undefined) {
+	    clockseq = clockseq + 1 & 0x3fff;
+	  }
+
+	  // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+	  // time interval
+	  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+	    nsecs = 0;
+	  }
+
+	  // Per 4.2.1.2 Throw error if too many uuids are requested
+	  if (nsecs >= 10000) {
+	    throw new Error('uuid.v1(): Can\'t create more than 10M uuids/sec');
+	  }
+
+	  _lastMSecs = msecs;
+	  _lastNSecs = nsecs;
+	  _clockseq = clockseq;
+
+	  // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+	  msecs += 12219292800000;
+
+	  // `time_low`
+	  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+	  b[i++] = tl >>> 24 & 0xff;
+	  b[i++] = tl >>> 16 & 0xff;
+	  b[i++] = tl >>> 8 & 0xff;
+	  b[i++] = tl & 0xff;
+
+	  // `time_mid`
+	  var tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
+	  b[i++] = tmh >>> 8 & 0xff;
+	  b[i++] = tmh & 0xff;
+
+	  // `time_high_and_version`
+	  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+	  b[i++] = tmh >>> 16 & 0xff;
+
+	  // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+	  b[i++] = clockseq >>> 8 | 0x80;
+
+	  // `clock_seq_low`
+	  b[i++] = clockseq & 0xff;
+
+	  // `node`
+	  var node = options.node || _nodeId;
+	  for (var n = 0; n < 6; n++) {
+	    b[i + n] = node[n];
+	  }
+
+	  return buf ? buf : unparse(b);
+	}
+
+	// **`v4()` - Generate random UUID**
+
+	// See https://github.com/broofa/node-uuid for API details
+	function v4(options, buf, offset) {
+	  // Deprecated - 'format' argument, as supported in v1.2
+	  var i = buf && offset || 0;
+
+	  if (typeof options == 'string') {
+	    buf = options == 'binary' ? new Array(16) : null;
+	    options = null;
+	  }
+	  options = options || {};
+
+	  var rnds = options.random || (options.rng || _rng)();
+
+	  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+	  rnds[6] = rnds[6] & 0x0f | 0x40;
+	  rnds[8] = rnds[8] & 0x3f | 0x80;
+
+	  // Copy bytes to buffer, if provided
+	  if (buf) {
+	    for (var ii = 0; ii < 16; ii++) {
+	      buf[i + ii] = rnds[ii];
+	    }
+	  }
+
+	  return buf || unparse(rnds);
+	}
+
+	// Export public API
+	var uuid = v4;
+	uuid.v1 = v1;
+	uuid.v4 = v4;
+	uuid.parse = parse;
+	uuid.unparse = unparse;
+
+	module.exports = uuid;
+
 /***/ },
-/* 51 */
+/* 53 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
+
+	var rng;
+
+	var crypto = global.crypto || global.msCrypto; // for IE 11
+	if (crypto && crypto.getRandomValues) {
+	  // WHATWG crypto-based RNG - http://wiki.whatwg.org/wiki/Crypto
+	  // Moderately fast, high quality
+	  var _rnds8 = new Uint8Array(16);
+	  rng = function whatwgRNG() {
+	    crypto.getRandomValues(_rnds8);
+	    return _rnds8;
+	  };
+	}
+
+	if (!rng) {
+	  // Math.random()-based (RNG)
+	  //
+	  // If all else fails, use Math.random().  It's fast, but is of unspecified
+	  // quality.
+	  var _rnds = new Array(16);
+	  rng = function rng() {
+	    for (var i = 0, r; i < 16; i++) {
+	      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+	      _rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+	    }
+
+	    return _rnds;
+	  };
+	}
+
+	module.exports = rng;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 54 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8645,22 +8911,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getXRange = getXRange;
-	exports.getYRange = getYRange;
+	exports.collapseDomains = collapseDomains;
+	exports.addDomainHOF = addDomainHOF;
+	exports.removeDomainHOF = removeDomainHOF;
+
+
 	/**
-	 * Computes the desired range for data in the x demension taking theme margins
-	 * into acount
+	 * Collapses the x or y domains from DomainMap into a single array representing the
+	 * overall most extreme domain that spans all domains in the map.
 	 */
-	function getXRange(width, theme) {
-	  return [0 + theme.margin.left, width - theme.margin.right];
+	function collapseDomains(map, accesor) {
+	  return Object.keys(map).map(function (key) {
+	    return map[key][accesor];
+	  }).reduce(function (prev, curr) {
+	    var prevMin = prev[0];
+	    var prevMax = prev[prev.length - 1];
+	    var currMin = curr[0];
+	    var currMax = curr[curr.length - 1];
+	    var max = prevMax > currMax ? prevMax : currMax;
+	    var min = prevMin < currMin ? prevMax : currMax;
+	    return [min, max];
+	  });
 	}
 
 	/**
-	 * Computes the desired range for data in the y demension taking theme margins
-	 * into acount
+	 * Generates a funciton for adding domains to a specific domain map
 	 */
-	function getYRange(height, theme) {
-	  return [0 + theme.margin.top, height - theme.margin.bottom];
+
+	function addDomainHOF(map) {
+	  return function (addMap, accesor) {
+	    var newMap = map;
+	    Object.keys(addMap).forEach(function (key) {
+	      newMap[key][accesor] = addMap[key][accesor];
+	    });
+	    return newMap;
+	  };
+	}
+
+	/**
+	 * Generates a funciton for removing domains to a specific domain map
+	 */
+	function removeDomainHOF(map) {
+	  return function (addMap, accesor) {
+	    var newMap = map;
+	    Object.keys(addMap).forEach(function (key) {
+	      delete newMap[key][accesor];
+	    });
+	    return newMap;
+	  };
 	}
 
 /***/ }

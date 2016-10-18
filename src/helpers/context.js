@@ -1,6 +1,7 @@
 // @flow
 import { scaleLinear } from 'd3-scale';
 import JubilationTheme from '../jubilation-theme';
+import { addDomainHOF, removeDomainHOF } from '../helpers/provider';
 
 export default function getContext(context: JubilationContext) : JubilationContext {
   if (context) return context;
@@ -8,5 +9,7 @@ export default function getContext(context: JubilationContext) : JubilationConte
     theme: JubilationTheme,
     xScale: scaleLinear().domain([0, 300]).range([0, 300]),
     yScale: scaleLinear().domain([0, 100]).range([0, 100]),
+    addDomain: addDomainHOF({}),
+    removeDomain: removeDomainHOF({}),
   };
 }

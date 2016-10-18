@@ -22,6 +22,8 @@ export type JubilationContext = {
   theme: Theme,
   xScale: Function,
   yScale: Function,
+  addDomain: Function,
+  removeDomain: Function,
 }
 
 export type Point = {
