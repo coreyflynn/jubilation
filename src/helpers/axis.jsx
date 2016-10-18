@@ -23,9 +23,9 @@ export default function getTicks(
     const x = (axisType === 'x') ? val : position;
     const y = (axisType === 'y') ? val : position;
     const textAnchor = (axisType === 'x') ? 'middle' : 'end';
-    const dx = (axisType === 'x') ? 0 : context.theme.labelStyle.fontSize * 2;
-    const dy = (axisType === 'x') ? -context.theme.labelStyle.fontSize / 2 : 0;
-    ticks.push({ key: i, x, y, dx, dy, textAnchor, val });
+    const dy = (axisType === 'x') ? context.theme.labelStyle.fontSize : 0;
+    const dx = (axisType === 'y') ? -5 : 0;
+    ticks.push({ key: i, x, y, dy, dx, textAnchor, val });
   }
   return ticks;
 }

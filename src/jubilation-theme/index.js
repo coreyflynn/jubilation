@@ -18,9 +18,12 @@ const labelStyle = {
   stroke: 'transparent',
 };
 
+const margin = { left: 30, right: 30, top: 30, bottom: 30 };
+
 const theme: Theme = {
   axisColor,
   colors,
+  margin,
   name: 'JubilationTheme',
   labelStyle,
 };

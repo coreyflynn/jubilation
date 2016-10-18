@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { scaleLinear } from 'd3-scale';
-import { default as JubilationTheme } from '../jubilation-theme';
+import theme from '../jubilation-theme';
 
 type Props = {
   children: React.Element<*> | React.Element<*>[],
@@ -26,10 +26,10 @@ export default class JubilationProvider extends React.Component {
   static defaultProps: Props = {
     children: [],
     xDomain: [0, 300],
-    yDomain: [0, 100],
+    yDomain: [100, 0],
     xRange: [0, 300],
     yRange: [0, 100],
-    theme: JubilationTheme,
+    theme,
   };
   static childContextTypes = { JubilationContext: React.PropTypes.object }
 

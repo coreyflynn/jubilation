@@ -9,6 +9,12 @@ export type Theme = {
     fontSize: number,
     fontFamily: string,
     stroke: string
+  },
+  margin: {
+    left: number,
+    right: number,
+    top: number,
+    bottom: number,
   }
 };
 

@@ -21,15 +21,17 @@ export default function XAxis(
   ): React.Element<*> {
   const context = getContext(JubilationContext);
   const ticks = getTicks(min, max, numTicks, 'x', position, context);
-  const offset = -context.theme.labelStyle.fontSize / 2;
+  const offset = context.theme.labelStyle.fontSize;
 
   return (
     <Animation data={{ min, max, position, offset, ticks }}>
       {data =>
         <g>
-          <Label x={data.min} y={data.position} dy={data.offset}>{Math.round(data.min)}</Label>
-          {data.ticks.map(tick => <Label {...tick}>{context.xScale(tick.val)}</Label>)}
-          <Label x={data.max} y={data.position} dy={data.offset} textAnchor="end">
+          <Label x={data.min} y={data.position} dy={data.offset} textAnchor="middle">
+            {Math.round(data.min)}
+          </Label>
+          {data.ticks.map(tick => <Label {...tick}>{tick.val}</Label>)}
+          <Label x={data.max} y={data.position} dy={data.offset} textAnchor="middle">
             {Math.round(data.max)}
           </Label>
         </g>

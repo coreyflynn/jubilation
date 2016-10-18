@@ -12,8 +12,8 @@ describe('JubilationProvider', () => {
     expect(shallow(<JubilationProvider />).instance().props.xDomain).toEqual([0, 300]);
   });
 
-  it('should use a yDomain of [0, 100] by default', () => {
-    expect(shallow(<JubilationProvider />).instance().props.yDomain).toEqual([0, 100]);
+  it('should use a yDomain of [100, 0] by default', () => {
+    expect(shallow(<JubilationProvider />).instance().props.yDomain).toEqual([100, 0]);
   });
 
   it('should use a xRange of [0, 300] by default', () => {
@@ -65,7 +65,7 @@ describe('JubilationProvider', () => {
     const wrapper = shallow(<JubilationProvider />);
     const instance = wrapper.instance();
     wrapper.setProps({ yRange: [1, 2] });
-    expect(instance.JubilationContext.yScale(100)).toBe(2);
+    expect(instance.JubilationContext.yScale(100)).toBe(1);
   });
 
   it('should provide a JubilationContext context attribute equal to this.JubilationContext', () => {

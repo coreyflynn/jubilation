@@ -31,6 +31,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.0",
     "flow-bin": "^0.33.0",
+    "husky": "^0.11.9",
     "jest": "^16.0.1",
     "react-addons-test-utils": "^15.3.2",
     "react-test-renderer": "^15.3.2",
@@ -41,9 +42,10 @@
     "build": "node_modules/webpack/bin/webpack.js",
     "build-watch": "node_modules/webpack/bin/webpack.js -w",
     "lint": "eslint src --ext js,jsx -f compact",
-    "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "flow": "node_modules/flow-bin/cli.js",
     "test": "node_modules/jest/bin/jest.js",
-    "test-watch": "node_modules/jest/bin/jest.js --watch"
+    "test-watch": "node_modules/jest/bin/jest.js --watch",
+    "precommit": "npm run flow && npm test"
   },
   "repository": {
     "type": "git",

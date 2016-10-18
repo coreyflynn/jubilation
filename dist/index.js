@@ -60,6 +60,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
 
+	var _jubilationChart = __webpack_require__(50);
+
+	var _jubilationChart2 = _interopRequireDefault(_jubilationChart);
+
 	var _jubilationContainer = __webpack_require__(35);
 
 	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
@@ -92,6 +96,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 	  JubilationAnimation: _jubilationAnimation2.default,
+	  JubilationChart: _jubilationChart2.default,
 	  JubilationContainer: _jubilationContainer2.default,
 	  JubilationLabel: _jubilationLabel2.default,
 	  JubilationPoint: _jubilationPoint2.default,
@@ -8222,9 +8227,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  stroke: 'transparent'
 	};
 
+	var margin = { left: 30, right: 30, top: 30, bottom: 30 };
+
 	var theme = {
 	  axisColor: axisColor,
 	  colors: colors,
+	  margin: margin,
 	  name: 'JubilationTheme',
 	  labelStyle: labelStyle
 	};
@@ -8263,6 +8271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var x = _ref.x;
 	  var y = _ref.y;
 	  var color = _ref.color;
+	  var style = _ref.style;
 	  var _ref$size = _ref.size;
 	  var size = _ref$size === undefined ? 4 : _ref$size;
 	  var JubilationContext = _ref2.JubilationContext;
@@ -8276,9 +8285,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  return _react2.default.createElement(
 	    _jubilationAnimation2.default,
-	    { data: { x: x, y: y, size: size, fill: fill } },
+	    { data: { cx: x, cy: y, size: size, fill: fill, style: style } },
 	    function (data) {
-	      return _react2.default.createElement('circle', { cx: xScale(data.x), cy: yScale(data.y), r: data.size, fill: data.fill });
+	      return _react2.default.createElement('circle', {
+	        cx: xScale(data.cx),
+	        cy: yScale(data.cy),
+	        r: data.size,
+	        fill: data.fill,
+	        style: data.style
+	      });
 	    }
 	  );
 	}
@@ -8367,7 +8382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationProvider.defaultProps = {
 	  children: [],
 	  xDomain: [0, 300],
-	  yDomain: [0, 100],
+	  yDomain: [100, 0],
 	  xRange: [0, 300],
 	  yRange: [0, 100],
 	  theme: _jubilationTheme2.default
@@ -8425,7 +8440,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var context = (0, _context2.default)(JubilationContext);
 	  var ticks = (0, _axis2.default)(min, max, numTicks, 'x', position, context);
-	  var offset = -context.theme.labelStyle.fontSize / 2;
+	  var offset = context.theme.labelStyle.fontSize;
 
 	  return _react2.default.createElement(
 	    _jubilationAnimation2.default,
@@ -8436,19 +8451,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        null,
 	        _react2.default.createElement(
 	          _jubilationLabel2.default,
-	          { x: data.min, y: data.position, dy: data.offset },
+	          { x: data.min, y: data.position, dy: data.offset, textAnchor: 'middle' },
 	          Math.round(data.min)
 	        ),
 	        data.ticks.map(function (tick) {
 	          return _react2.default.createElement(
 	            _jubilationLabel2.default,
 	            tick,
-	            context.xScale(tick.val)
+	            tick.val
 	          );
 	        }),
 	        _react2.default.createElement(
 	          _jubilationLabel2.default,
-	          { x: data.max, y: data.position, dy: data.offset, textAnchor: 'end' },
+	          { x: data.max, y: data.position, dy: data.offset, textAnchor: 'middle' },
 	          Math.round(data.max)
 	        )
 	      );
@@ -8477,9 +8492,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _x = axisType === 'x' ? _val : position;
 	    var _y = axisType === 'y' ? _val : position;
 	    var _textAnchor = axisType === 'x' ? 'middle' : 'end';
-	    var _dx = axisType === 'x' ? 0 : context.theme.labelStyle.fontSize * 2;
-	    var _dy = axisType === 'x' ? -context.theme.labelStyle.fontSize / 2 : 0;
-	    ticks.push({ key: i, x: _x, y: _y, dx: _dx, dy: _dy, textAnchor: _textAnchor, val: _val });
+	    var _dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
+	    var _dx = axisType === 'y' ? -5 : 0;
+	    ticks.push({ key: i, x: _x, y: _y, dy: _dy, dx: _dx, textAnchor: _textAnchor, val: _val });
 	  }
 	  return ticks;
 	}
@@ -8534,30 +8549,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var context = (0, _context2.default)(JubilationContext);
 	  var ticks = (0, _axis2.default)(min, max, numTicks, 'y', position, context);
-	  var offset = context.theme.labelStyle.fontSize * 2;
+	  var dx = -5;
 
 	  return _react2.default.createElement(
 	    _jubilationAnimation2.default,
-	    { data: { min: min, max: max, position: position, offset: offset, ticks: ticks } },
+	    { data: { min: min, max: max, position: position, dx: dx, ticks: ticks } },
 	    function (data) {
 	      return _react2.default.createElement(
 	        'g',
 	        null,
 	        _react2.default.createElement(
 	          _jubilationLabel2.default,
-	          { x: data.position, y: data.min, dx: data.offset, textAnchor: 'end' },
+	          { x: data.position, y: data.min, dx: data.dx, textAnchor: 'end' },
 	          Math.round(data.min)
 	        ),
 	        data.ticks.map(function (tick) {
 	          return _react2.default.createElement(
 	            _jubilationLabel2.default,
 	            tick,
-	            context.yScale(tick.val)
+	            tick.val
 	          );
 	        }),
 	        _react2.default.createElement(
 	          _jubilationLabel2.default,
-	          { x: data.position, y: data.max, dx: data.offset, textAnchor: 'end' },
+	          { x: data.position, y: data.max, dx: data.dx, textAnchor: 'end' },
 	          Math.round(data.max)
 	        )
 	      );
@@ -8567,6 +8582,86 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = JubilationChart;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationProvider = __webpack_require__(46);
+
+	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
+
+	var _jubilationContainer = __webpack_require__(35);
+
+	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
+
+	var _jubilationTheme = __webpack_require__(44);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	var _chart = __webpack_require__(51);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function JubilationChart(_ref) {
+	  var title = _ref.title;
+	  var _ref$height = _ref.height;
+	  var height = _ref$height === undefined ? 100 : _ref$height;
+	  var _ref$width = _ref.width;
+	  var width = _ref$width === undefined ? 300 : _ref$width;
+	  var data = _ref.data;
+	  var _ref$theme = _ref.theme;
+	  var theme = _ref$theme === undefined ? _jubilationTheme2.default : _ref$theme;
+	  var children = _ref.children;
+
+	  return _react2.default.createElement(
+	    _jubilationProvider2.default,
+	    { xRange: (0, _chart.getXRange)(width, theme), yRange: (0, _chart.getYRange)(height, theme) },
+	    _react2.default.createElement(
+	      _jubilationContainer2.default,
+	      { height: height, width: width, title: title },
+	      children
+	    )
+	  );
+	}
+
+/***/ },
+/* 51 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getXRange = getXRange;
+	exports.getYRange = getYRange;
+	/**
+	 * Computes the desired range for data in the x demension taking theme margins
+	 * into acount
+	 */
+	function getXRange(width, theme) {
+	  return [0 + theme.margin.left, width - theme.margin.right];
+	}
+
+	/**
+	 * Computes the desired range for data in the y demension taking theme margins
+	 * into acount
+	 */
+	function getYRange(height, theme) {
+	  return [0 + theme.margin.top, height - theme.margin.bottom];
+	}
 
 /***/ }
 /******/ ])
