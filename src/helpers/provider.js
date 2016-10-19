@@ -5,7 +5,6 @@
  */
 export function collapseDomains(map: DomainMap, accesor: string): number[] {
   const domains = Object.keys(map).map(key => map[key][accesor]);
-  domains.push([0, 0]);
   return domains.reduce((prev, curr) => {
     const prevMin = prev[0];
     const prevMax = prev[prev.length - 1];
