@@ -8452,8 +8452,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A single data point. Returns an SVG circle element
 	 */
 	function JubilationPoint(_ref, _ref2) {
-	  var x = _ref.x;
-	  var y = _ref.y;
+	  var _ref$x = _ref.x;
+	  var x = _ref$x === undefined ? 0 : _ref$x;
+	  var _ref$y = _ref.y;
+	  var y = _ref$y === undefined ? 0 : _ref$y;
 	  var color = _ref.color;
 	  var style = _ref.style;
 	  var _ref$size = _ref.size;
