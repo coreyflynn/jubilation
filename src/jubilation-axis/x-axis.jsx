@@ -6,8 +6,8 @@ import Label from '../jubilation-label';
 import Animation from '../jubilation-animation';
 
 type Props = {
-  min: number,
-  max: number,
+  min?: number,
+  max?: number,
   position: number,
   numTicks: number,
   tickLines: boolean,
@@ -16,21 +16,23 @@ type Props = {
 type Context = { JubilationContext: JubilationContext };
 
 export default function XAxis(
-  { min = 0, max = 300, position = 100, numTicks = 0, tickLines = false, axisLine = false }: Props,
+  { min, max, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
-  const ticks = getTicks(min, max, numTicks, 'x', position, context);
+  const computedMin = min || context.xScale.domain()[0];
+  const computedMax = max || context.xScale.domain()[1];
+  const ticks = getTicks(computedMin, computedMax, numTicks, 'x', position, context);
   const offset = context.theme.labelStyle.fontSize;
 
   return (
-    <Animation data={{ min, max, position, offset, ticks }}>
+    <Animation data={{ min: computedMin, max: computedMax, position, offset, ticks }}>
       {data =>
         <g>
           <Label x={data.min} y={data.position} dy={data.offset} textAnchor="middle">
             {Math.round(data.min)}
           </Label>
-          {data.ticks.map(tick => <Label {...tick}>{tick.val}</Label>)}
+          {data.ticks.map(tick => <Label {...tick}>{Math.round(tick.val)}</Label>)}
           <Label x={data.max} y={data.position} dy={data.offset} textAnchor="middle">
             {Math.round(data.max)}
           </Label>

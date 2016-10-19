@@ -11,5 +11,6 @@ export default function getContext(context: JubilationContext) : JubilationConte
     yScale: scaleLinear().domain([0, 100]).range([0, 100]),
     addDomain: addDomainHOF({}),
     removeDomain: removeDomainHOF({}),
+    update() {},
   };
 }

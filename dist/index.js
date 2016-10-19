@@ -80,6 +80,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
 
+	var _jubilationScatter = __webpack_require__(55);
+
+	var _jubilationScatter2 = _interopRequireDefault(_jubilationScatter);
+
 	var _jubilationTheme = __webpack_require__(38);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
@@ -101,6 +105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  JubilationLabel: _jubilationLabel2.default,
 	  JubilationPoint: _jubilationPoint2.default,
 	  JubilationProvider: _jubilationProvider2.default,
+	  JubilationScatter: _jubilationScatter2.default,
 	  JubilationTheme: _jubilationTheme2.default,
 	  XAxis: _xAxis2.default,
 	  YAxis: _yAxis2.default
@@ -5086,7 +5091,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var height = _ref$height === undefined ? 100 : _ref$height;
 	  var _ref$width = _ref.width;
 	  var width = _ref$width === undefined ? 300 : _ref$width;
-	  var data = _ref.data;
 	  var _ref$theme = _ref.theme;
 	  var theme = _ref$theme === undefined ? _jubilationTheme2.default : _ref$theme;
 	  var children = _ref.children;
@@ -5118,8 +5122,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _d3Scale = __webpack_require__(42);
-
 	var _uuid = __webpack_require__(52);
 
 	var _uuid2 = _interopRequireDefault(_uuid);
@@ -5128,7 +5130,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _provider = __webpack_require__(54);
+	var _jubilationContext = __webpack_require__(57);
+
+	var _jubilationContext2 = _interopRequireDefault(_jubilationContext);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5170,13 +5174,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    _this.uuid = _uuid2.default.v4();
 	    _this.domainMap = _defineProperty({}, _this.uuid, { x: props.xDomain, y: props.yDomain });
-	    _this.JubilationContext = {
-	      theme: props.theme,
-	      xScale: (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'x')).range(props.xRange),
-	      yScale: (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'y')).range(props.yRange),
-	      addDomain: (0, _provider.addDomainHOF)(_this.domainMap),
-	      removeDomain: (0, _provider.removeDomainHOF)(_this.domainMap)
-	    };
+	    _this.JubilationContext = new _jubilationContext2.default(props.theme, _this.domainMap, props.xRange, props.yRange);
 	    return _this;
 	  }
 
@@ -5184,9 +5182,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      this.JubilationContext.theme = nextProps.theme;
-	      this.domainMap = _defineProperty({}, this.uuid, { x: nextProps.xDomain, y: nextProps.yDomain });
-	      this.JubilationContext.xScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(this.domainMap, 'x')).range(nextProps.xRange);
-	      this.JubilationContext.yScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(this.domainMap, 'y')).range(nextProps.yRange);
+	      var nextDomainMap = _defineProperty({}, this.uuid, { x: nextProps.xDomain, y: nextProps.yDomain });
+	      this.JubilationContext.addDomain(nextDomainMap);
 	    }
 	  }]);
 
@@ -5438,7 +5435,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    xScale: (0, _d3Scale.scaleLinear)().domain([0, 300]).range([0, 300]),
 	    yScale: (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100]),
 	    addDomain: (0, _provider.addDomainHOF)({}),
-	    removeDomain: (0, _provider.removeDomainHOF)({})
+	    removeDomain: (0, _provider.removeDomainHOF)({}),
+	    update: function update() {}
 	  };
 	}
 
@@ -8521,12 +8519,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function XAxis(_ref, _ref2) {
-	  var _ref$min = _ref.min;
-	  var min = _ref$min === undefined ? 0 : _ref$min;
-	  var _ref$max = _ref.max;
-	  var max = _ref$max === undefined ? 300 : _ref$max;
+	  var min = _ref.min;
+	  var max = _ref.max;
 	  var _ref$position = _ref.position;
-	  var position = _ref$position === undefined ? 100 : _ref$position;
+	  var position = _ref$position === undefined ? 0 : _ref$position;
 	  var _ref$numTicks = _ref.numTicks;
 	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
 	  var _ref$tickLines = _ref.tickLines;
@@ -8536,12 +8532,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var ticks = (0, _axis2.default)(min, max, numTicks, 'x', position, context);
+	  var computedMin = min || context.xScale.domain()[0];
+	  var computedMax = max || context.xScale.domain()[1];
+	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'x', position, context);
 	  var offset = context.theme.labelStyle.fontSize;
 
 	  return _react2.default.createElement(
 	    _jubilationAnimation2.default,
-	    { data: { min: min, max: max, position: position, offset: offset, ticks: ticks } },
+	    { data: { min: computedMin, max: computedMax, position: position, offset: offset, ticks: ticks } },
 	    function (data) {
 	      return _react2.default.createElement(
 	        'g',
@@ -8555,7 +8553,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return _react2.default.createElement(
 	            _jubilationLabel2.default,
 	            tick,
-	            tick.val
+	            Math.round(tick.val)
 	          );
 	        }),
 	        _react2.default.createElement(
@@ -8605,7 +8603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = XAxis;
+	exports.default = YAxis;
 
 	var _react = __webpack_require__(2);
 
@@ -8629,11 +8627,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function XAxis(_ref, _ref2) {
-	  var _ref$min = _ref.min;
-	  var min = _ref$min === undefined ? 0 : _ref$min;
-	  var _ref$max = _ref.max;
-	  var max = _ref$max === undefined ? 300 : _ref$max;
+	function YAxis(_ref, _ref2) {
+	  var min = _ref.min;
+	  var max = _ref.max;
 	  var _ref$position = _ref.position;
 	  var position = _ref$position === undefined ? 0 : _ref$position;
 	  var _ref$numTicks = _ref.numTicks;
@@ -8645,12 +8641,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var ticks = (0, _axis2.default)(min, max, numTicks, 'y', position, context);
+	  var computedMin = min || JubilationContext.yScale.domain()[1];
+	  var computedMax = max || JubilationContext.yScale.domain()[0];
+	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'y', position, context);
 	  var dx = -5;
 
 	  return _react2.default.createElement(
 	    _jubilationAnimation2.default,
-	    { data: { min: min, max: max, position: position, dx: dx, ticks: ticks } },
+	    { data: { min: computedMin, max: computedMax, position: position, dx: dx, ticks: ticks } },
 	    function (data) {
 	      return _react2.default.createElement(
 	        'g',
@@ -8664,7 +8662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return _react2.default.createElement(
 	            _jubilationLabel2.default,
 	            tick,
-	            tick.val
+	            Math.round(tick.val)
 	          );
 	        }),
 	        _react2.default.createElement(
@@ -8678,7 +8676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+	YAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
 /* 52 */
@@ -8906,7 +8904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 54 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -8915,21 +8913,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.addDomainHOF = addDomainHOF;
 	exports.removeDomainHOF = removeDomainHOF;
 
-
 	/**
 	 * Collapses the x or y domains from DomainMap into a single array representing the
 	 * overall most extreme domain that spans all domains in the map.
 	 */
 	function collapseDomains(map, accesor) {
-	  return Object.keys(map).map(function (key) {
+	  var domains = Object.keys(map).map(function (key) {
 	    return map[key][accesor];
-	  }).reduce(function (prev, curr) {
+	  });
+	  domains.push([0, 0]);
+	  return domains.reduce(function (prev, curr) {
 	    var prevMin = prev[0];
 	    var prevMax = prev[prev.length - 1];
 	    var currMin = curr[0];
 	    var currMax = curr[curr.length - 1];
-	    var max = prevMax > currMax ? prevMax : currMax;
-	    var min = prevMin < currMin ? prevMax : currMax;
+
+	    var min = void 0;
+	    var max = void 0;
+	    if (accesor === 'x') {
+	      max = prevMax > currMax ? prevMax : currMax;
+	      min = prevMin < currMin ? prevMin : currMin;
+	    } else {
+	      max = prevMax < currMax ? prevMax : currMax;
+	      min = prevMin > currMin ? prevMin : currMin;
+	    }
 	    return [min, max];
 	  });
 	}
@@ -8937,12 +8944,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Generates a funciton for adding domains to a specific domain map
 	 */
-
 	function addDomainHOF(map) {
-	  return function (addMap, accesor) {
+	  return function (addMap) {
 	    var newMap = map;
 	    Object.keys(addMap).forEach(function (key) {
-	      newMap[key][accesor] = addMap[key][accesor];
+	      newMap[key] = addMap[key];
 	    });
 	    return newMap;
 	  };
@@ -8952,14 +8958,197 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Generates a funciton for removing domains to a specific domain map
 	 */
 	function removeDomainHOF(map) {
-	  return function (addMap, accesor) {
+	  return function (removeMap) {
 	    var newMap = map;
-	    Object.keys(addMap).forEach(function (key) {
-	      delete newMap[key][accesor];
+	    Object.keys(removeMap).forEach(function (key) {
+	      delete newMap[key];
 	    });
 	    return newMap;
 	  };
 	}
+
+/***/ },
+/* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _uuid = __webpack_require__(52);
+
+	var _uuid2 = _interopRequireDefault(_uuid);
+
+	var _scatter = __webpack_require__(56);
+
+	var _scatter2 = _interopRequireDefault(_scatter);
+
+	var _jubilationPoint = __webpack_require__(48);
+
+	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var JubilationScatter = function (_React$Component) {
+	  _inherits(JubilationScatter, _React$Component);
+
+	  function JubilationScatter(props, context) {
+	    _classCallCheck(this, JubilationScatter);
+
+	    var _this = _possibleConstructorReturn(this, (JubilationScatter.__proto__ || Object.getPrototypeOf(JubilationScatter)).call(this, props, context));
+
+	    _this.uuid = _uuid2.default.v4();
+	    _this.domainMap = (0, _scatter2.default)(_this.uuid, props.data);
+	    _this.context.JubilationContext.addDomain(_this.domainMap);
+	    return _this;
+	  }
+
+	  _createClass(JubilationScatter, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.domainMap = (0, _scatter2.default)(this.uuid, nextProps.data);
+	      this.context.JubilationContext.addDomain(this.domainMap);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var color = _props.color;
+	      var size = _props.size;
+	      var style = _props.style;
+
+	      return _react2.default.createElement(
+	        'g',
+	        null,
+	        this.props.data.map(function (point) {
+	          return _react2.default.createElement(_jubilationPoint2.default, _extends({}, point, { color: color, size: size, style: style }));
+	        })
+	      );
+	    }
+	  }]);
+
+	  return JubilationScatter;
+	}(_react2.default.Component);
+
+	JubilationScatter.defaultProps = { data: [] };
+	JubilationScatter.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+	exports.default = JubilationScatter;
+
+/***/ },
+/* 56 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getDomainMap;
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function getDomainMap(id, data) {
+	  var xMin = data.map(function (datum) {
+	    return datum.x;
+	  }).reduce(function (a, b) {
+	    if (a < b) return a;return b;
+	  }, 0);
+	  var yMin = data.map(function (datum) {
+	    return datum.y;
+	  }).reduce(function (a, b) {
+	    if (a < b) return a;return b;
+	  }, 0);
+	  var xMax = data.map(function (datum) {
+	    return datum.x;
+	  }).reduce(function (a, b) {
+	    if (a > b) return a;return b;
+	  }, 0);
+	  var yMax = data.map(function (datum) {
+	    return datum.y;
+	  }).reduce(function (a, b) {
+	    if (a > b) return a;return b;
+	  }, 0);
+	  return _defineProperty({}, id, { x: [xMin, xMax], y: [yMax, yMin] });
+	}
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _d3Scale = __webpack_require__(42);
+
+	var _provider = __webpack_require__(54);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var JubilationContext = function JubilationContext(theme, domainMap, xRange, yRange) {
+	  var _this = this;
+
+	  _classCallCheck(this, JubilationContext);
+
+	  this.update = function () {
+	    _this.xScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'x')).range(_this.xRange);
+	    _this.yScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'y')).range(_this.yRange);
+	    _this.subscriptions.forEach(function (f) {
+	      return f();
+	    });
+	    return _this;
+	  };
+
+	  this.subscribe = function (f) {
+	    _this.subscriptions.push(f);
+	  };
+
+	  this.addDomain = function (addMap) {
+	    Object.keys(addMap).forEach(function (key) {
+	      _this.domainMap[key] = addMap[key];
+	    });
+	    _this.update();
+	  };
+
+	  this.getMax = function () {
+	    return _this.xScale.domain();
+	  };
+
+	  this.removeDomain = function (removeMap) {
+	    Object.keys(removeMap).forEach(function (key) {
+	      delete _this.domainMap[key];
+	    });
+	    _this.update();
+	  };
+
+	  this.theme = theme;
+	  this.xRange = xRange;
+	  this.yRange = yRange;
+	  this.domainMap = domainMap;
+	  this.xScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(domainMap, 'x')).range(xRange);
+	  this.yScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(domainMap, 'y')).range(yRange);
+	  this.subscriptions = [];
+	};
+
+	exports.default = JubilationContext;
 
 /***/ }
 /******/ ])

@@ -24,9 +24,17 @@ export type JubilationContext = {
   yScale: Function,
   addDomain: Function,
   removeDomain: Function,
+  update: Function,
 }
 
 export type Point = {
   x: number,
   y: number,
 }
+
+export type DomainMap = {
+  [key: string]: {
+    x?: number[],
+    y?: number[],
+  }
+};

@@ -1,9 +1,8 @@
 // @flow
 import React from 'react';
-import { scaleLinear } from 'd3-scale';
 import uuid from 'uuid';
 import theme from '../jubilation-theme';
-import { collapseDomains, addDomainHOF, removeDomainHOF } from '../helpers/provider';
+import Context from '../jubilation-context';
 
 type Props = {
   children: React.Element<*> | React.Element<*>[],
@@ -25,7 +24,7 @@ type Props = {
 export default class JubilationProvider extends React.Component {
   JubilationContext: JubilationContext
   uuid: string
-  domainMap: Object
+  domainMap: DomainMap
 
   static defaultProps: Props = {
     children: [],
@@ -41,22 +40,13 @@ export default class JubilationProvider extends React.Component {
     super(props, context);
     this.uuid = uuid.v4();
     this.domainMap = { [this.uuid]: { x: props.xDomain, y: props.yDomain } };
-    this.JubilationContext = {
-      theme: props.theme,
-      xScale: scaleLinear().domain(collapseDomains(this.domainMap, 'x')).range(props.xRange),
-      yScale: scaleLinear().domain(collapseDomains(this.domainMap, 'y')).range(props.yRange),
-      addDomain: addDomainHOF(this.domainMap),
-      removeDomain: removeDomainHOF(this.domainMap),
-    };
+    this.JubilationContext = new Context(props.theme, this.domainMap, props.xRange, props.yRange);
   }
 
   componentWillReceiveProps(nextProps: Props) {
     this.JubilationContext.theme = nextProps.theme;
-    this.domainMap = { [this.uuid]: { x: nextProps.xDomain, y: nextProps.yDomain } };
-    this.JubilationContext.xScale = scaleLinear().domain(collapseDomains(this.domainMap, 'x'))
-      .range(nextProps.xRange);
-    this.JubilationContext.yScale = scaleLinear().domain(collapseDomains(this.domainMap, 'y'))
-      .range(nextProps.yRange);
+    const nextDomainMap = { [this.uuid]: { x: nextProps.xDomain, y: nextProps.yDomain } };
+    this.JubilationContext.addDomain(nextDomainMap);
   }
 
   getChildContext = () => ({ JubilationContext: this.JubilationContext })

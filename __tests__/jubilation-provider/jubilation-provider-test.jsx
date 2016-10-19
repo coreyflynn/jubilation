@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import td from 'testdouble';
 import { default as JubilationTheme } from '../../src/jubilation-theme';
 import JubilationProvider from '../../src/jubilation-provider';
 
@@ -40,32 +41,24 @@ describe('JubilationProvider', () => {
     expect(instance.JubilationContext.theme).toBe('test');
   });
 
-  it('should set the xScale on Jubilation Context when a new xDomain is passed as a prop', () => {
+  it('should call addDomain on Jubilation context if a new xDomain is passed in', () => {
     const wrapper = shallow(<JubilationProvider />);
     const instance = wrapper.instance();
-    wrapper.setProps({ xDomain: [1, 2] });
-    expect(instance.JubilationContext.xScale(2)).toBe(300);
+    const context = instance.JubilationContext;
+    context.addDomain = td.function();
+
+    wrapper.setProps({ xDomain: [0, 1] });
+    td.verify(context.addDomain({ [instance.uuid]: { x: [0, 1], y: context.yScale.domain() } }));
   });
 
-  it('should set the xScale on Jubilation Context when a new xRange is passed as a prop', () => {
+  it('should call addDomain on Jubilation context if a new xDomain is passed in', () => {
     const wrapper = shallow(<JubilationProvider />);
     const instance = wrapper.instance();
-    wrapper.setProps({ xRange: [1, 2] });
-    expect(instance.JubilationContext.xScale(300)).toBe(2);
-  });
+    const context = instance.JubilationContext;
+    context.addDomain = td.function();
 
-  it('should set the yScale on Jubilation Context when a new yDomain is passed as a prop', () => {
-    const wrapper = shallow(<JubilationProvider />);
-    const instance = wrapper.instance();
-    wrapper.setProps({ yDomain: [1, 2] });
-    expect(instance.JubilationContext.yScale(2)).toBe(100);
-  });
-
-  it('should set the yScale on Jubilation Context when a new yRange is passed as a prop', () => {
-    const wrapper = shallow(<JubilationProvider />);
-    const instance = wrapper.instance();
-    wrapper.setProps({ yRange: [1, 2] });
-    expect(instance.JubilationContext.yScale(100)).toBe(1);
+    wrapper.setProps({ yDomain: [0, 1] });
+    td.verify(context.addDomain({ [instance.uuid]: { x: context.xScale.domain(), y: [0, 1] } }));
   });
 
   it('should provide a JubilationContext context attribute equal to this.JubilationContext', () => {

@@ -9,7 +9,6 @@ type Props = {
   title: string,
   height: number,
   width: number,
-  data: Object[],
   theme: Theme,
   children: React.Element<*> | React.Element<*>,
 }
@@ -19,7 +18,6 @@ export default function JubilationChart(
     title,
     height = 100,
     width = 300,
-    data,
     theme = JubilationTheme,
     children }: Props): React.Element<*> {
   return (

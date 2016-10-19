@@ -15,22 +15,24 @@ type Props = {
 };
 type Context = { JubilationContext: JubilationContext };
 
-export default function XAxis(
-  { min = 0, max = 300, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
+export default function YAxis(
+  { min, max, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
-  const ticks = getTicks(min, max, numTicks, 'y', position, context);
+  const computedMin = min || JubilationContext.yScale.domain()[1];
+  const computedMax = max || JubilationContext.yScale.domain()[0];
+  const ticks = getTicks(computedMin, computedMax, numTicks, 'y', position, context);
   const dx = -5;
 
   return (
-    <Animation data={{ min, max, position, dx, ticks }}>
+    <Animation data={{ min: computedMin, max: computedMax, position, dx, ticks }}>
       {data =>
         <g>
           <Label x={data.position} y={data.min} dx={data.dx} textAnchor="end">
             {Math.round(data.min)}
           </Label>
-          {data.ticks.map(tick => <Label {...tick}>{tick.val}</Label>)}
+          {data.ticks.map(tick => <Label {...tick}>{Math.round(tick.val)}</Label>)}
           <Label x={data.position} y={data.max} dx={data.dx} textAnchor="end">
             {Math.round(data.max)}
           </Label>
@@ -40,4 +42,4 @@ export default function XAxis(
   );
 }
 
-XAxis.contextTypes = { JubilationContext: React.PropTypes.object };
+YAxis.contextTypes = { JubilationContext: React.PropTypes.object };
