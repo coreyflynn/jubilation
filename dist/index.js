@@ -64,15 +64,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationChart2 = _interopRequireDefault(_jubilationChart);
 
-	var _jubilationContainer = __webpack_require__(37);
+	var _jubilationContainer = __webpack_require__(48);
 
 	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
 
-	var _jubilationLabel = __webpack_require__(40);
+	var _jubilationLabel = __webpack_require__(50);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationPoint = __webpack_require__(48);
+	var _jubilationPoint = __webpack_require__(52);
 
 	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
 
@@ -80,19 +80,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
 
-	var _jubilationScatter = __webpack_require__(55);
+	var _jubilationScatter = __webpack_require__(53);
 
 	var _jubilationScatter2 = _interopRequireDefault(_jubilationScatter);
 
-	var _jubilationTheme = __webpack_require__(38);
+	var _jubilationTheme = __webpack_require__(39);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _xAxis = __webpack_require__(49);
+	var _xAxis = __webpack_require__(55);
 
 	var _xAxis2 = _interopRequireDefault(_xAxis);
 
-	var _yAxis = __webpack_require__(51);
+	var _yAxis = __webpack_require__(57);
 
 	var _yAxis2 = _interopRequireDefault(_yAxis);
 
@@ -5073,15 +5073,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
 
-	var _jubilationContainer = __webpack_require__(37);
+	var _jubilationContainer = __webpack_require__(48);
 
 	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
 
-	var _jubilationTheme = __webpack_require__(38);
+	var _jubilationTheme = __webpack_require__(39);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _chart = __webpack_require__(39);
+	var _chart = __webpack_require__(49);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5122,15 +5122,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _uuid = __webpack_require__(52);
+	var _uuid = __webpack_require__(37);
 
 	var _uuid2 = _interopRequireDefault(_uuid);
 
-	var _jubilationTheme = __webpack_require__(38);
+	var _jubilationTheme = __webpack_require__(39);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _jubilationContext = __webpack_require__(57);
+	var _jubilationContext = __webpack_require__(40);
 
 	var _jubilationContext2 = _interopRequireDefault(_jubilationContext);
 
@@ -5207,71 +5207,224 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = JubilationContainer;
+	//     uuid.js
+	//
+	//     Copyright (c) 2010-2012 Robert Kieffer
+	//     MIT License - http://opensource.org/licenses/mit-license.php
 
-	var _react = __webpack_require__(2);
+	// Unique ID creation requires a high quality random # generator.  We feature
+	// detect to determine the best RNG source, normalizing to a function that
+	// returns 128-bits of randomness, since that's what's usually required
+	var _rng = __webpack_require__(38);
 
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/**
-	 * Top level container for jubilation charts. Builds a wrapping SVG element that renders
-	 * passed in children
-	 */
-
-
-	// component prop types
-
-
-	// SVG object prop types
-	function JubilationContainer(_ref) {
-	  var title = _ref.title;
-	  var desc = _ref.desc;
-	  var _ref$width = _ref.width;
-	  var width = _ref$width === undefined ? 300 : _ref$width;
-	  var _ref$height = _ref.height;
-	  var height = _ref$height === undefined ? 100 : _ref$height;
-	  var children = _ref.children;
-
-	  var svgProps = {
-	    'aria-labelledby': 'title desc',
-	    role: 'img',
-	    width: width,
-	    height: height
-	  };
-
-	  return _react2.default.createElement(
-	    'svg',
-	    svgProps,
-	    _react2.default.createElement(
-	      'title',
-	      { id: 'title' },
-	      title
-	    ),
-	    _react2.default.createElement(
-	      'desc',
-	      { id: 'desc' },
-	      desc
-	    ),
-	    children
-	  );
+	// Maps for number <-> hex string conversion
+	var _byteToHex = [];
+	var _hexToByte = {};
+	for (var i = 0; i < 256; i++) {
+	  _byteToHex[i] = (i + 0x100).toString(16).substr(1);
+	  _hexToByte[_byteToHex[i]] = i;
 	}
 
+	// **`parse()` - Parse a UUID into it's component bytes**
+	function parse(s, buf, offset) {
+	  var i = buf && offset || 0,
+	      ii = 0;
 
-	JubilationContainer.defaultProps = {
-	  height: 100,
-	  width: 300,
-	  children: null,
-	  title: 'JubilationChart',
-	  desc: 'JubilationChart'
-	};
+	  buf = buf || [];
+	  s.toLowerCase().replace(/[0-9a-f]{2}/g, function (oct) {
+	    if (ii < 16) {
+	      // Don't overflow!
+	      buf[i + ii++] = _hexToByte[oct];
+	    }
+	  });
+
+	  // Zero out remaining bytes if string was short
+	  while (ii < 16) {
+	    buf[i + ii++] = 0;
+	  }
+
+	  return buf;
+	}
+
+	// **`unparse()` - Convert UUID byte array (ala parse()) into a string**
+	function unparse(buf, offset) {
+	  var i = offset || 0,
+	      bth = _byteToHex;
+	  return bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]];
+	}
+
+	// **`v1()` - Generate time-based UUID**
+	//
+	// Inspired by https://github.com/LiosK/UUID.js
+	// and http://docs.python.org/library/uuid.html
+
+	// random #'s we need to init node and clockseq
+	var _seedBytes = _rng();
+
+	// Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+	var _nodeId = [_seedBytes[0] | 0x01, _seedBytes[1], _seedBytes[2], _seedBytes[3], _seedBytes[4], _seedBytes[5]];
+
+	// Per 4.2.2, randomize (14 bit) clockseq
+	var _clockseq = (_seedBytes[6] << 8 | _seedBytes[7]) & 0x3fff;
+
+	// Previous uuid creation time
+	var _lastMSecs = 0,
+	    _lastNSecs = 0;
+
+	// See https://github.com/broofa/node-uuid for API details
+	function v1(options, buf, offset) {
+	  var i = buf && offset || 0;
+	  var b = buf || [];
+
+	  options = options || {};
+
+	  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq;
+
+	  // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+	  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+	  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+	  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+	  var msecs = options.msecs !== undefined ? options.msecs : new Date().getTime();
+
+	  // Per 4.2.1.2, use count of uuid's generated during the current clock
+	  // cycle to simulate higher resolution clock
+	  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1;
+
+	  // Time since last uuid creation (in msecs)
+	  var dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000;
+
+	  // Per 4.2.1.2, Bump clockseq on clock regression
+	  if (dt < 0 && options.clockseq === undefined) {
+	    clockseq = clockseq + 1 & 0x3fff;
+	  }
+
+	  // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+	  // time interval
+	  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+	    nsecs = 0;
+	  }
+
+	  // Per 4.2.1.2 Throw error if too many uuids are requested
+	  if (nsecs >= 10000) {
+	    throw new Error('uuid.v1(): Can\'t create more than 10M uuids/sec');
+	  }
+
+	  _lastMSecs = msecs;
+	  _lastNSecs = nsecs;
+	  _clockseq = clockseq;
+
+	  // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+	  msecs += 12219292800000;
+
+	  // `time_low`
+	  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+	  b[i++] = tl >>> 24 & 0xff;
+	  b[i++] = tl >>> 16 & 0xff;
+	  b[i++] = tl >>> 8 & 0xff;
+	  b[i++] = tl & 0xff;
+
+	  // `time_mid`
+	  var tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
+	  b[i++] = tmh >>> 8 & 0xff;
+	  b[i++] = tmh & 0xff;
+
+	  // `time_high_and_version`
+	  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+	  b[i++] = tmh >>> 16 & 0xff;
+
+	  // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+	  b[i++] = clockseq >>> 8 | 0x80;
+
+	  // `clock_seq_low`
+	  b[i++] = clockseq & 0xff;
+
+	  // `node`
+	  var node = options.node || _nodeId;
+	  for (var n = 0; n < 6; n++) {
+	    b[i + n] = node[n];
+	  }
+
+	  return buf ? buf : unparse(b);
+	}
+
+	// **`v4()` - Generate random UUID**
+
+	// See https://github.com/broofa/node-uuid for API details
+	function v4(options, buf, offset) {
+	  // Deprecated - 'format' argument, as supported in v1.2
+	  var i = buf && offset || 0;
+
+	  if (typeof options == 'string') {
+	    buf = options == 'binary' ? new Array(16) : null;
+	    options = null;
+	  }
+	  options = options || {};
+
+	  var rnds = options.random || (options.rng || _rng)();
+
+	  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+	  rnds[6] = rnds[6] & 0x0f | 0x40;
+	  rnds[8] = rnds[8] & 0x3f | 0x80;
+
+	  // Copy bytes to buffer, if provided
+	  if (buf) {
+	    for (var ii = 0; ii < 16; ii++) {
+	      buf[i + ii] = rnds[ii];
+	    }
+	  }
+
+	  return buf || unparse(rnds);
+	}
+
+	// Export public API
+	var uuid = v4;
+	uuid.v1 = v1;
+	uuid.v4 = v4;
+	uuid.parse = parse;
+	uuid.unparse = unparse;
+
+	module.exports = uuid;
 
 /***/ },
 /* 38 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
+
+	var rng;
+
+	var crypto = global.crypto || global.msCrypto; // for IE 11
+	if (crypto && crypto.getRandomValues) {
+	  // WHATWG crypto-based RNG - http://wiki.whatwg.org/wiki/Crypto
+	  // Moderately fast, high quality
+	  var _rnds8 = new Uint8Array(16);
+	  rng = function whatwgRNG() {
+	    crypto.getRandomValues(_rnds8);
+	    return _rnds8;
+	  };
+	}
+
+	if (!rng) {
+	  // Math.random()-based (RNG)
+	  //
+	  // If all else fails, use Math.random().  It's fast, but is of unspecified
+	  // quality.
+	  var _rnds = new Array(16);
+	  rng = function rng() {
+	    for (var i = 0, r; i < 16; i++) {
+	      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+	      _rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+	    }
+
+	    return _rnds;
+	  };
+	}
+
+	module.exports = rng;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 39 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5305,33 +5458,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = theme;
 
 /***/ },
-/* 39 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getXRange = getXRange;
-	exports.getYRange = getYRange;
-	/**
-	 * Computes the desired range for data in the x demension taking theme margins
-	 * into acount
-	 */
-	function getXRange(width, theme) {
-	  return [0 + theme.margin.left, width - theme.margin.right];
-	}
-
-	/**
-	 * Computes the desired range for data in the y demension taking theme margins
-	 * into acount
-	 */
-	function getYRange(height, theme) {
-	  return [0 + theme.margin.top, height - theme.margin.bottom];
-	}
-
-/***/ },
 /* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -5341,107 +5467,61 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _d3Scale = __webpack_require__(41);
 
-	exports.default = JubilationLabel;
+	var _provider = __webpack_require__(47);
 
-	var _react = __webpack_require__(2);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _react2 = _interopRequireDefault(_react);
+	var JubilationContext = function JubilationContext(theme, domainMap, xRange, yRange) {
+	  var _this = this;
 
-	var _context = __webpack_require__(41);
+	  _classCallCheck(this, JubilationContext);
 
-	var _context2 = _interopRequireDefault(_context);
+	  this.update = function () {
+	    _this.xScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'x')).range(_this.xRange);
+	    _this.yScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'y')).range(_this.yRange);
+	    _this.subscriptions.forEach(function (f) {
+	      return f();
+	    });
+	    return _this;
+	  };
 
-	var _jubilationAnimation = __webpack_require__(1);
+	  this.subscribe = function (f) {
+	    _this.subscriptions.push(f);
+	  };
 
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+	  this.addDomain = function (addMap) {
+	    Object.keys(addMap).forEach(function (key) {
+	      _this.domainMap[key] = addMap[key];
+	    });
+	    _this.update();
+	  };
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	  this.getMax = function () {
+	    return _this.xScale.domain();
+	  };
 
-	/**
-	 * A single label. Renders a text element wrapping a tspan element. The text element
-	 * can be adjusted with the x and y props. The tspan element can be offset from the containing
-	 * text element with the dx and dy props.
-	 */
-	function JubilationLabel(_ref, _ref2) {
-	  var _ref$x = _ref.x;
-	  var x = _ref$x === undefined ? 0 : _ref$x;
-	  var _ref$y = _ref.y;
-	  var y = _ref$y === undefined ? 0 : _ref$y;
-	  var _ref$dx = _ref.dx;
-	  var dx = _ref$dx === undefined ? 0 : _ref$dx;
-	  var _ref$dy = _ref.dy;
-	  var dy = _ref$dy === undefined ? 0 : _ref$dy;
-	  var _ref$textAnchor = _ref.textAnchor;
-	  var textAnchor = _ref$textAnchor === undefined ? 'start' : _ref$textAnchor;
-	  var children = _ref.children;
-	  var JubilationContext = _ref2.JubilationContext;
+	  this.removeDomain = function (removeMap) {
+	    Object.keys(removeMap).forEach(function (key) {
+	      delete _this.domainMap[key];
+	    });
+	    _this.update();
+	  };
 
-	  var _getContext = (0, _context2.default)(JubilationContext);
+	  this.theme = theme;
+	  this.xRange = xRange;
+	  this.yRange = yRange;
+	  this.domainMap = domainMap;
+	  this.xScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(domainMap, 'x')).range(xRange);
+	  this.yScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(domainMap, 'y')).range(yRange);
+	  this.subscriptions = [];
+	};
 
-	  var xScale = _getContext.xScale;
-	  var yScale = _getContext.yScale;
-	  var theme = _getContext.theme;
-
-
-	  var textProps = { x: xScale(x), y: yScale(y), style: theme.labelStyle, textAnchor: textAnchor };
-	  var tspanProps = { dx: dx, dy: dy };
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { textProps: textProps, tspanProps: tspanProps } },
-	    function (data) {
-	      return _react2.default.createElement(
-	        'text',
-	        _extends({}, data.textProps, { dominantBaseline: 'middle' }),
-	        _react2.default.createElement(
-	          'tspan',
-	          data.tspanProps,
-	          children
-	        )
-	      );
-	    }
-	  );
-	}
-
-	JubilationLabel.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+	exports.default = JubilationContext;
 
 /***/ },
 /* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = getContext;
-
-	var _d3Scale = __webpack_require__(42);
-
-	var _jubilationTheme = __webpack_require__(38);
-
-	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
-
-	var _provider = __webpack_require__(54);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getContext(context) {
-	  if (context) return context;
-	  return {
-	    theme: _jubilationTheme2.default,
-	    xScale: (0, _d3Scale.scaleLinear)().domain([0, 300]).range([0, 300]),
-	    yScale: (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100]),
-	    addDomain: (0, _provider.addDomainHOF)({}),
-	    removeDomain: (0, _provider.removeDomainHOF)({}),
-	    update: function update() {}
-	  };
-	}
-
-/***/ },
-/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -5450,7 +5530,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// https://d3js.org/d3-scale/ Version 1.0.3. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(43), __webpack_require__(44), __webpack_require__(32), __webpack_require__(45), __webpack_require__(46), __webpack_require__(47), __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(43), __webpack_require__(44), __webpack_require__(32), __webpack_require__(45), __webpack_require__(46), __webpack_require__(47), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(42), __webpack_require__(43), __webpack_require__(32), __webpack_require__(44), __webpack_require__(45), __webpack_require__(46), __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(42), __webpack_require__(43), __webpack_require__(32), __webpack_require__(44), __webpack_require__(45), __webpack_require__(46), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
 	})(undefined, function (exports, d3Array, d3Collection, d3Interpolate, d3Format, d3Time, d3TimeFormat, d3Color) {
 	  'use strict';
 
@@ -6329,7 +6409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 43 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -6829,7 +6909,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 44 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7091,7 +7171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 45 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7440,7 +7520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 46 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7831,7 +7911,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 47 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7840,7 +7920,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// https://d3js.org/d3-time-format/ Version 2.0.2. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(46)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(46)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(45)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(45)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
 	})(undefined, function (exports, d3Time) {
 	  'use strict';
 
@@ -8424,486 +8504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = JubilationPoint;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(41);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/**
-	 * A single data point. Returns an SVG circle element
-	 */
-	function JubilationPoint(_ref, _ref2) {
-	  var _ref$x = _ref.x;
-	  var x = _ref$x === undefined ? 0 : _ref$x;
-	  var _ref$y = _ref.y;
-	  var y = _ref$y === undefined ? 0 : _ref$y;
-	  var color = _ref.color;
-	  var style = _ref.style;
-	  var _ref$size = _ref.size;
-	  var size = _ref$size === undefined ? 4 : _ref$size;
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var xScale = context.xScale;
-	  var yScale = context.yScale;
-
-	  var fill = context.theme.colors[0];
-	  if (color) fill = color;
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { cx: x, cy: y, size: size, fill: fill, style: style } },
-	    function (data) {
-	      return _react2.default.createElement('circle', {
-	        cx: xScale(data.cx),
-	        cy: yScale(data.cy),
-	        r: data.size,
-	        fill: data.fill,
-	        style: data.style
-	      });
-	    }
-	  );
-	}
-
-
-	JubilationPoint.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = XAxis;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(41);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _axis = __webpack_require__(50);
-
-	var _axis2 = _interopRequireDefault(_axis);
-
-	var _jubilationLabel = __webpack_require__(40);
-
-	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function XAxis(_ref, _ref2) {
-	  var min = _ref.min;
-	  var max = _ref.max;
-	  var _ref$position = _ref.position;
-	  var position = _ref$position === undefined ? 0 : _ref$position;
-	  var _ref$numTicks = _ref.numTicks;
-	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
-	  var _ref$tickLines = _ref.tickLines;
-	  var tickLines = _ref$tickLines === undefined ? false : _ref$tickLines;
-	  var _ref$axisLine = _ref.axisLine;
-	  var axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = min || context.xScale.domain()[0];
-	  var computedMax = max || context.xScale.domain()[1];
-	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'x', position, context);
-	  var offset = context.theme.labelStyle.fontSize;
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { min: computedMin, max: computedMax, position: position, offset: offset, ticks: ticks } },
-	    function (data) {
-	      return _react2.default.createElement(
-	        'g',
-	        null,
-	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.min, y: data.position, dy: data.offset, textAnchor: 'middle' },
-	          Math.round(data.min)
-	        ),
-	        data.ticks.map(function (tick) {
-	          return _react2.default.createElement(
-	            _jubilationLabel2.default,
-	            tick,
-	            Math.round(tick.val)
-	          );
-	        }),
-	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.max, y: data.position, dy: data.offset, textAnchor: 'middle' },
-	          Math.round(data.max)
-	        )
-	      );
-	    }
-	  );
-	}
-
-
-	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 50 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = getTicks;
-	function getTicks(min, max, numTicks, axisType, position, context) {
-	  var ticks = [];
-
-	  for (var i = 0; i < numTicks; i += 1) {
-	    var _val = (max - min) / (numTicks + 1) * (i + 1) + min;
-	    var _x = axisType === 'x' ? _val : position;
-	    var _y = axisType === 'y' ? _val : position;
-	    var _textAnchor = axisType === 'x' ? 'middle' : 'end';
-	    var _dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
-	    var _dx = axisType === 'y' ? -5 : 0;
-	    ticks.push({ key: i, x: _x, y: _y, dy: _dy, dx: _dx, textAnchor: _textAnchor, val: _val });
-	  }
-	  return ticks;
-	}
-
-/***/ },
-/* 51 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = YAxis;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(41);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _axis = __webpack_require__(50);
-
-	var _axis2 = _interopRequireDefault(_axis);
-
-	var _jubilationLabel = __webpack_require__(40);
-
-	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function YAxis(_ref, _ref2) {
-	  var min = _ref.min;
-	  var max = _ref.max;
-	  var _ref$position = _ref.position;
-	  var position = _ref$position === undefined ? 0 : _ref$position;
-	  var _ref$numTicks = _ref.numTicks;
-	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
-	  var _ref$tickLines = _ref.tickLines;
-	  var tickLines = _ref$tickLines === undefined ? false : _ref$tickLines;
-	  var _ref$axisLine = _ref.axisLine;
-	  var axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = min || JubilationContext.yScale.domain()[1];
-	  var computedMax = max || JubilationContext.yScale.domain()[0];
-	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'y', position, context);
-	  var dx = -5;
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { min: computedMin, max: computedMax, position: position, dx: dx, ticks: ticks } },
-	    function (data) {
-	      return _react2.default.createElement(
-	        'g',
-	        null,
-	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.position, y: data.min, dx: data.dx, textAnchor: 'end' },
-	          Math.round(data.min)
-	        ),
-	        data.ticks.map(function (tick) {
-	          return _react2.default.createElement(
-	            _jubilationLabel2.default,
-	            tick,
-	            Math.round(tick.val)
-	          );
-	        }),
-	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.position, y: data.max, dx: data.dx, textAnchor: 'end' },
-	          Math.round(data.max)
-	        )
-	      );
-	    }
-	  );
-	}
-
-
-	YAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 52 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	//     uuid.js
-	//
-	//     Copyright (c) 2010-2012 Robert Kieffer
-	//     MIT License - http://opensource.org/licenses/mit-license.php
-
-	// Unique ID creation requires a high quality random # generator.  We feature
-	// detect to determine the best RNG source, normalizing to a function that
-	// returns 128-bits of randomness, since that's what's usually required
-	var _rng = __webpack_require__(53);
-
-	// Maps for number <-> hex string conversion
-	var _byteToHex = [];
-	var _hexToByte = {};
-	for (var i = 0; i < 256; i++) {
-	  _byteToHex[i] = (i + 0x100).toString(16).substr(1);
-	  _hexToByte[_byteToHex[i]] = i;
-	}
-
-	// **`parse()` - Parse a UUID into it's component bytes**
-	function parse(s, buf, offset) {
-	  var i = buf && offset || 0,
-	      ii = 0;
-
-	  buf = buf || [];
-	  s.toLowerCase().replace(/[0-9a-f]{2}/g, function (oct) {
-	    if (ii < 16) {
-	      // Don't overflow!
-	      buf[i + ii++] = _hexToByte[oct];
-	    }
-	  });
-
-	  // Zero out remaining bytes if string was short
-	  while (ii < 16) {
-	    buf[i + ii++] = 0;
-	  }
-
-	  return buf;
-	}
-
-	// **`unparse()` - Convert UUID byte array (ala parse()) into a string**
-	function unparse(buf, offset) {
-	  var i = offset || 0,
-	      bth = _byteToHex;
-	  return bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]];
-	}
-
-	// **`v1()` - Generate time-based UUID**
-	//
-	// Inspired by https://github.com/LiosK/UUID.js
-	// and http://docs.python.org/library/uuid.html
-
-	// random #'s we need to init node and clockseq
-	var _seedBytes = _rng();
-
-	// Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
-	var _nodeId = [_seedBytes[0] | 0x01, _seedBytes[1], _seedBytes[2], _seedBytes[3], _seedBytes[4], _seedBytes[5]];
-
-	// Per 4.2.2, randomize (14 bit) clockseq
-	var _clockseq = (_seedBytes[6] << 8 | _seedBytes[7]) & 0x3fff;
-
-	// Previous uuid creation time
-	var _lastMSecs = 0,
-	    _lastNSecs = 0;
-
-	// See https://github.com/broofa/node-uuid for API details
-	function v1(options, buf, offset) {
-	  var i = buf && offset || 0;
-	  var b = buf || [];
-
-	  options = options || {};
-
-	  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq;
-
-	  // UUID timestamps are 100 nano-second units since the Gregorian epoch,
-	  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
-	  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
-	  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
-	  var msecs = options.msecs !== undefined ? options.msecs : new Date().getTime();
-
-	  // Per 4.2.1.2, use count of uuid's generated during the current clock
-	  // cycle to simulate higher resolution clock
-	  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1;
-
-	  // Time since last uuid creation (in msecs)
-	  var dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000;
-
-	  // Per 4.2.1.2, Bump clockseq on clock regression
-	  if (dt < 0 && options.clockseq === undefined) {
-	    clockseq = clockseq + 1 & 0x3fff;
-	  }
-
-	  // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
-	  // time interval
-	  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
-	    nsecs = 0;
-	  }
-
-	  // Per 4.2.1.2 Throw error if too many uuids are requested
-	  if (nsecs >= 10000) {
-	    throw new Error('uuid.v1(): Can\'t create more than 10M uuids/sec');
-	  }
-
-	  _lastMSecs = msecs;
-	  _lastNSecs = nsecs;
-	  _clockseq = clockseq;
-
-	  // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
-	  msecs += 12219292800000;
-
-	  // `time_low`
-	  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
-	  b[i++] = tl >>> 24 & 0xff;
-	  b[i++] = tl >>> 16 & 0xff;
-	  b[i++] = tl >>> 8 & 0xff;
-	  b[i++] = tl & 0xff;
-
-	  // `time_mid`
-	  var tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
-	  b[i++] = tmh >>> 8 & 0xff;
-	  b[i++] = tmh & 0xff;
-
-	  // `time_high_and_version`
-	  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
-	  b[i++] = tmh >>> 16 & 0xff;
-
-	  // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
-	  b[i++] = clockseq >>> 8 | 0x80;
-
-	  // `clock_seq_low`
-	  b[i++] = clockseq & 0xff;
-
-	  // `node`
-	  var node = options.node || _nodeId;
-	  for (var n = 0; n < 6; n++) {
-	    b[i + n] = node[n];
-	  }
-
-	  return buf ? buf : unparse(b);
-	}
-
-	// **`v4()` - Generate random UUID**
-
-	// See https://github.com/broofa/node-uuid for API details
-	function v4(options, buf, offset) {
-	  // Deprecated - 'format' argument, as supported in v1.2
-	  var i = buf && offset || 0;
-
-	  if (typeof options == 'string') {
-	    buf = options == 'binary' ? new Array(16) : null;
-	    options = null;
-	  }
-	  options = options || {};
-
-	  var rnds = options.random || (options.rng || _rng)();
-
-	  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-	  rnds[6] = rnds[6] & 0x0f | 0x40;
-	  rnds[8] = rnds[8] & 0x3f | 0x80;
-
-	  // Copy bytes to buffer, if provided
-	  if (buf) {
-	    for (var ii = 0; ii < 16; ii++) {
-	      buf[i + ii] = rnds[ii];
-	    }
-	  }
-
-	  return buf || unparse(rnds);
-	}
-
-	// Export public API
-	var uuid = v4;
-	uuid.v1 = v1;
-	uuid.v4 = v4;
-	uuid.parse = parse;
-	uuid.unparse = unparse;
-
-	module.exports = uuid;
-
-/***/ },
-/* 53 */
-/***/ function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
-
-	var rng;
-
-	var crypto = global.crypto || global.msCrypto; // for IE 11
-	if (crypto && crypto.getRandomValues) {
-	  // WHATWG crypto-based RNG - http://wiki.whatwg.org/wiki/Crypto
-	  // Moderately fast, high quality
-	  var _rnds8 = new Uint8Array(16);
-	  rng = function whatwgRNG() {
-	    crypto.getRandomValues(_rnds8);
-	    return _rnds8;
-	  };
-	}
-
-	if (!rng) {
-	  // Math.random()-based (RNG)
-	  //
-	  // If all else fails, use Math.random().  It's fast, but is of unspecified
-	  // quality.
-	  var _rnds = new Array(16);
-	  rng = function rng() {
-	    for (var i = 0, r; i < 16; i++) {
-	      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
-	      _rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
-	    }
-
-	    return _rnds;
-	  };
-	}
-
-	module.exports = rng;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 54 */
+/* 47 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8970,7 +8571,276 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 55 */
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = JubilationContainer;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Top level container for jubilation charts. Builds a wrapping SVG element that renders
+	 * passed in children
+	 */
+
+
+	// component prop types
+
+
+	// SVG object prop types
+	function JubilationContainer(_ref) {
+	  var title = _ref.title;
+	  var desc = _ref.desc;
+	  var _ref$width = _ref.width;
+	  var width = _ref$width === undefined ? 300 : _ref$width;
+	  var _ref$height = _ref.height;
+	  var height = _ref$height === undefined ? 100 : _ref$height;
+	  var children = _ref.children;
+
+	  var svgProps = {
+	    'aria-labelledby': 'title desc',
+	    role: 'img',
+	    width: width,
+	    height: height
+	  };
+
+	  return _react2.default.createElement(
+	    'svg',
+	    svgProps,
+	    _react2.default.createElement(
+	      'title',
+	      { id: 'title' },
+	      title
+	    ),
+	    _react2.default.createElement(
+	      'desc',
+	      { id: 'desc' },
+	      desc
+	    ),
+	    children
+	  );
+	}
+
+
+	JubilationContainer.defaultProps = {
+	  height: 100,
+	  width: 300,
+	  children: null,
+	  title: 'JubilationChart',
+	  desc: 'JubilationChart'
+	};
+
+/***/ },
+/* 49 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getXRange = getXRange;
+	exports.getYRange = getYRange;
+	/**
+	 * Computes the desired range for data in the x demension taking theme margins
+	 * into acount
+	 */
+	function getXRange(width, theme) {
+	  return [0 + theme.margin.left, width - theme.margin.right];
+	}
+
+	/**
+	 * Computes the desired range for data in the y demension taking theme margins
+	 * into acount
+	 */
+	function getYRange(height, theme) {
+	  return [0 + theme.margin.top, height - theme.margin.bottom];
+	}
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = JubilationLabel;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * A single label. Renders a text element wrapping a tspan element. The text element
+	 * can be adjusted with the x and y props. The tspan element can be offset from the containing
+	 * text element with the dx and dy props.
+	 */
+	function JubilationLabel(_ref, _ref2) {
+	  var _ref$x = _ref.x;
+	  var x = _ref$x === undefined ? 0 : _ref$x;
+	  var _ref$y = _ref.y;
+	  var y = _ref$y === undefined ? 0 : _ref$y;
+	  var _ref$dx = _ref.dx;
+	  var dx = _ref$dx === undefined ? 0 : _ref$dx;
+	  var _ref$dy = _ref.dy;
+	  var dy = _ref$dy === undefined ? 0 : _ref$dy;
+	  var _ref$textAnchor = _ref.textAnchor;
+	  var textAnchor = _ref$textAnchor === undefined ? 'start' : _ref$textAnchor;
+	  var children = _ref.children;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var _getContext = (0, _context2.default)(JubilationContext);
+
+	  var xScale = _getContext.xScale;
+	  var yScale = _getContext.yScale;
+	  var theme = _getContext.theme;
+
+
+	  var textProps = { x: xScale(x), y: yScale(y), style: theme.labelStyle, textAnchor: textAnchor };
+	  var tspanProps = { dx: dx, dy: dy };
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { textProps: textProps, tspanProps: tspanProps } },
+	    function (data) {
+	      return _react2.default.createElement(
+	        'text',
+	        _extends({}, data.textProps, { dominantBaseline: 'middle' }),
+	        _react2.default.createElement(
+	          'tspan',
+	          data.tspanProps,
+	          children
+	        )
+	      );
+	    }
+	  );
+	}
+
+	JubilationLabel.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getContext;
+
+	var _d3Scale = __webpack_require__(41);
+
+	var _jubilationTheme = __webpack_require__(39);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	var _provider = __webpack_require__(47);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getContext(context) {
+	  if (context) return context;
+	  return {
+	    theme: _jubilationTheme2.default,
+	    xScale: (0, _d3Scale.scaleLinear)().domain([0, 300]).range([0, 300]),
+	    yScale: (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100]),
+	    addDomain: (0, _provider.addDomainHOF)({}),
+	    removeDomain: (0, _provider.removeDomainHOF)({}),
+	    update: function update() {}
+	  };
+	}
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = JubilationPoint;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * A single data point. Returns an SVG circle element
+	 */
+	function JubilationPoint(_ref, _ref2) {
+	  var _ref$x = _ref.x;
+	  var x = _ref$x === undefined ? 0 : _ref$x;
+	  var _ref$y = _ref.y;
+	  var y = _ref$y === undefined ? 0 : _ref$y;
+	  var color = _ref.color;
+	  var style = _ref.style;
+	  var _ref$size = _ref.size;
+	  var size = _ref$size === undefined ? 4 : _ref$size;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var xScale = context.xScale;
+	  var yScale = context.yScale;
+
+	  var fill = context.theme.colors[0];
+	  if (color) fill = color;
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { cx: x, cy: y, size: size, fill: fill, style: style } },
+	    function (data) {
+	      return _react2.default.createElement('circle', {
+	        cx: xScale(data.cx),
+	        cy: yScale(data.cy),
+	        r: data.size,
+	        fill: data.fill,
+	        style: data.style
+	      });
+	    }
+	  );
+	}
+
+
+	JubilationPoint.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8987,15 +8857,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _uuid = __webpack_require__(52);
+	var _uuid = __webpack_require__(37);
 
 	var _uuid2 = _interopRequireDefault(_uuid);
 
-	var _scatter = __webpack_require__(56);
+	var _scatter = __webpack_require__(54);
 
 	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationPoint = __webpack_require__(48);
+	var _jubilationPoint = __webpack_require__(52);
 
 	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
 
@@ -9053,7 +8923,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JubilationScatter;
 
 /***/ },
-/* 56 */
+/* 54 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9090,6 +8960,115 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+/* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = XAxis;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _axis = __webpack_require__(56);
+
+	var _axis2 = _interopRequireDefault(_axis);
+
+	var _jubilationLabel = __webpack_require__(50);
+
+	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function XAxis(_ref, _ref2) {
+	  var min = _ref.min;
+	  var max = _ref.max;
+	  var _ref$position = _ref.position;
+	  var position = _ref$position === undefined ? 0 : _ref$position;
+	  var _ref$numTicks = _ref.numTicks;
+	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
+	  var _ref$tickLines = _ref.tickLines;
+	  var tickLines = _ref$tickLines === undefined ? false : _ref$tickLines;
+	  var _ref$axisLine = _ref.axisLine;
+	  var axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var computedMin = min || context.xScale.domain()[0];
+	  var computedMax = max || context.xScale.domain()[1];
+	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'x', position, context);
+	  var offset = context.theme.labelStyle.fontSize;
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { min: computedMin, max: computedMax, position: position, offset: offset, ticks: ticks } },
+	    function (data) {
+	      return _react2.default.createElement(
+	        'g',
+	        null,
+	        _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          { x: data.min, y: data.position, dy: data.offset, textAnchor: 'middle' },
+	          Math.round(data.min)
+	        ),
+	        data.ticks.map(function (tick) {
+	          return _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            tick,
+	            Math.round(tick.val)
+	          );
+	        }),
+	        _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          { x: data.max, y: data.position, dy: data.offset, textAnchor: 'middle' },
+	          Math.round(data.max)
+	        )
+	      );
+	    }
+	  );
+	}
+
+
+	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 56 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getTicks;
+	function getTicks(min, max, numTicks, axisType, position, context) {
+	  var ticks = [];
+
+	  for (var i = 0; i < numTicks; i += 1) {
+	    var _val = (max - min) / (numTicks + 1) * (i + 1) + min;
+	    var _x = axisType === 'x' ? _val : position;
+	    var _y = axisType === 'y' ? _val : position;
+	    var _textAnchor = axisType === 'x' ? 'middle' : 'end';
+	    var _dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
+	    var _dx = axisType === 'y' ? -5 : 0;
+	    ticks.push({ key: i, x: _x, y: _y, dy: _dy, dx: _dx, textAnchor: _textAnchor, val: _val });
+	  }
+	  return ticks;
+	}
+
+/***/ },
 /* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -9098,59 +9077,80 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = YAxis;
 
-	var _d3Scale = __webpack_require__(42);
+	var _react = __webpack_require__(2);
 
-	var _provider = __webpack_require__(54);
+	var _react2 = _interopRequireDefault(_react);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _context = __webpack_require__(51);
 
-	var JubilationContext = function JubilationContext(theme, domainMap, xRange, yRange) {
-	  var _this = this;
+	var _context2 = _interopRequireDefault(_context);
 
-	  _classCallCheck(this, JubilationContext);
+	var _axis = __webpack_require__(56);
 
-	  this.update = function () {
-	    _this.xScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'x')).range(_this.xRange);
-	    _this.yScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(_this.domainMap, 'y')).range(_this.yRange);
-	    _this.subscriptions.forEach(function (f) {
-	      return f();
-	    });
-	    return _this;
-	  };
+	var _axis2 = _interopRequireDefault(_axis);
 
-	  this.subscribe = function (f) {
-	    _this.subscriptions.push(f);
-	  };
+	var _jubilationLabel = __webpack_require__(50);
 
-	  this.addDomain = function (addMap) {
-	    Object.keys(addMap).forEach(function (key) {
-	      _this.domainMap[key] = addMap[key];
-	    });
-	    _this.update();
-	  };
+	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	  this.getMax = function () {
-	    return _this.xScale.domain();
-	  };
+	var _jubilationAnimation = __webpack_require__(1);
 
-	  this.removeDomain = function (removeMap) {
-	    Object.keys(removeMap).forEach(function (key) {
-	      delete _this.domainMap[key];
-	    });
-	    _this.update();
-	  };
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
 
-	  this.theme = theme;
-	  this.xRange = xRange;
-	  this.yRange = yRange;
-	  this.domainMap = domainMap;
-	  this.xScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(domainMap, 'x')).range(xRange);
-	  this.yScale = (0, _d3Scale.scaleLinear)().domain((0, _provider.collapseDomains)(domainMap, 'y')).range(yRange);
-	  this.subscriptions = [];
-	};
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = JubilationContext;
+	function YAxis(_ref, _ref2) {
+	  var min = _ref.min;
+	  var max = _ref.max;
+	  var _ref$position = _ref.position;
+	  var position = _ref$position === undefined ? 0 : _ref$position;
+	  var _ref$numTicks = _ref.numTicks;
+	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
+	  var _ref$tickLines = _ref.tickLines;
+	  var tickLines = _ref$tickLines === undefined ? false : _ref$tickLines;
+	  var _ref$axisLine = _ref.axisLine;
+	  var axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var computedMin = min || JubilationContext.yScale.domain()[1];
+	  var computedMax = max || JubilationContext.yScale.domain()[0];
+	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'y', position, context);
+	  var dx = -5;
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { min: computedMin, max: computedMax, position: position, dx: dx, ticks: ticks } },
+	    function (data) {
+	      return _react2.default.createElement(
+	        'g',
+	        null,
+	        _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          { x: data.position, y: data.min, dx: data.dx, textAnchor: 'end' },
+	          Math.round(data.min)
+	        ),
+	        data.ticks.map(function (tick) {
+	          return _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            tick,
+	            Math.round(tick.val)
+	          );
+	        }),
+	        _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          { x: data.position, y: data.max, dx: data.dx, textAnchor: 'end' },
+	          Math.round(data.max)
+	        )
+	      );
+	    }
+	  );
+	}
+
+
+	YAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ }
 /******/ ])
