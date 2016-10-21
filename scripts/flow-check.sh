@@ -17,6 +17,6 @@ elif [[ "$problems" -gt 1 ]]; then
   echo "$problems of $total files are unchecked by flow"
   exit 1
 else
-  echo "$problems of $total files are checked by flow"
+  echo "$total of $total files are checked by flow"
   exit 0
 fi
