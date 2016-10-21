@@ -46,9 +46,10 @@
     "build-watch": "node_modules/webpack/bin/webpack.js -w",
     "lint": "eslint src --ext js,jsx -f compact",
     "flow": "node_modules/flow-bin/cli.js",
+    "flow-check": "scripts/flow-check.sh",
     "test": "node_modules/jest/bin/jest.js",
     "test-watch": "node_modules/jest/bin/jest.js --watch",
-    "prepush": "npm run flow && npm test"
+    "prepush": "npm run lint && npm run flow-check && npm run flow && npm test"
   },
   "repository": {
     "type": "git",

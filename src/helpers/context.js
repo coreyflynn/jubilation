@@ -1,5 +1,4 @@
 // @flow
-import { scaleLinear } from 'd3-scale';
 import JubilationTheme from '../jubilation-theme';
 
 export default function getContext(context: JubilationContext) : JubilationContext {

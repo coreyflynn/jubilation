@@ -49,8 +49,7 @@ export default class JubilationAnimation extends React.Component {
     // Animation queue used to store pending animation steps
     this.queue = Array.isArray(props.data) ? props.data.slice(1) : [];
 
-    this.state = {
-      animating: false,
+    this.state = { animating: false,
       data: Array.isArray(props.data) ? props.data[0] : props.data,
     };
   }
@@ -97,10 +96,10 @@ export default class JubilationAnimation extends React.Component {
       this.traverseQueue();
       return;
     }
-    this.setState({ data: this.interpolator(this.ease(step)), animating: false });
+    this.setState({ data: this.interpolator(this.ease(step)), animating: true });
   }
 
   render() {
-    return this.props.children(this.state.data);
+    return this.props.children(this.state.data, this.state.animating);
   }
 }

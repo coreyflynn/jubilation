@@ -1,3 +1,4 @@
+// @flow
 /**
  * Computes the desired range for data in the x demension taking theme margins
  * into acount

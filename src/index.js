@@ -1,3 +1,4 @@
+// @flow
 import { default as JubilationAnimation } from './jubilation-animation';
 import { default as JubilationChart } from './jubilation-chart';
 import { default as JubilationContainer } from './jubilation-container';

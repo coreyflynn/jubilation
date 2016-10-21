@@ -1,6 +1,7 @@
 // @flow
+/* eslint no-undef: 0 */
 
-export type Theme = {
+declare type Theme = {
   axisColor: string,
   colors: string[],
   name: string,
@@ -18,7 +19,7 @@ export type Theme = {
   }
 };
 
-export type JubilationContext = {
+declare type JubilationContext = {
   theme: Theme,
   xScale: Function,
   yScale: Function,
@@ -27,12 +28,12 @@ export type JubilationContext = {
   update: Function,
 }
 
-export type Point = {
+declare type Point = {
   x: number,
   y: number,
 }
 
-export type DomainMap = {
+declare type DomainMap = {
   [key: string]: {
     x?: number[],
     y?: number[],
