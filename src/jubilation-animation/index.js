@@ -99,7 +99,5 @@ export default class JubilationAnimation extends React.Component {
     this.setState({ data: this.interpolator(this.ease(step)), animating: true });
   }
 
-  render() {
-    return this.props.children(this.state.data, this.state.animating);
-  }
+  render() { return this.props.children(this.state.data, this.state.animating); }
 }

@@ -56,6 +56,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.YAxis = exports.XAxis = exports.JubilationTheme = exports.JubilationScatter = exports.JubilationProvider = exports.JubilationPoint = exports.JubilationLabel = exports.JubilationContainer = exports.JubilationChart = exports.JubilationAnimation = undefined;
+
 	var _jubilationAnimation = __webpack_require__(1);
 
 	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
@@ -88,28 +93,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _xAxis = __webpack_require__(55);
-
-	var _xAxis2 = _interopRequireDefault(_xAxis);
-
-	var _yAxis = __webpack_require__(57);
-
-	var _yAxis2 = _interopRequireDefault(_yAxis);
+	var _jubilationAxis = __webpack_require__(55);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	module.exports = {
-	  JubilationAnimation: _jubilationAnimation2.default,
-	  JubilationChart: _jubilationChart2.default,
-	  JubilationContainer: _jubilationContainer2.default,
-	  JubilationLabel: _jubilationLabel2.default,
-	  JubilationPoint: _jubilationPoint2.default,
-	  JubilationProvider: _jubilationProvider2.default,
-	  JubilationScatter: _jubilationScatter2.default,
-	  JubilationTheme: _jubilationTheme2.default,
-	  XAxis: _xAxis2.default,
-	  YAxis: _yAxis2.default
-	};
+	exports.JubilationAnimation = _jubilationAnimation2.default;
+	exports.JubilationChart = _jubilationChart2.default;
+	exports.JubilationContainer = _jubilationContainer2.default;
+	exports.JubilationLabel = _jubilationLabel2.default;
+	exports.JubilationPoint = _jubilationPoint2.default;
+	exports.JubilationProvider = _jubilationProvider2.default;
+	exports.JubilationScatter = _jubilationScatter2.default;
+	exports.JubilationTheme = _jubilationTheme2.default;
+	exports.XAxis = _jubilationAxis.XAxis;
+	exports.YAxis = _jubilationAxis.YAxis;
 
 /***/ },
 /* 1 */
@@ -182,7 +179,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.traverseQueue();
 	        return;
 	      }
-	      _this.setState({ data: _this.interpolator(_this.ease(step)), animating: false });
+	      _this.setState({ data: _this.interpolator(_this.ease(step)), animating: true });
 	    };
 
 	    _this.ease = d3Ease[props.easing];
@@ -190,8 +187,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // Animation queue used to store pending animation steps
 	    _this.queue = Array.isArray(props.data) ? props.data.slice(1) : [];
 
-	    _this.state = {
-	      animating: false,
+	    _this.state = { animating: false,
 	      data: Array.isArray(props.data) ? props.data[0] : props.data
 	    };
 	    return _this;
@@ -252,7 +248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return this.props.children(this.state.data);
+	      return this.props.children(this.state.data, this.state.animating);
 	    }
 	  }]);
 
@@ -8524,7 +8520,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var domains = Object.keys(map).map(function (key) {
 	    return map[key][accesor];
 	  });
-	  domains.push([0, 0]);
 	  return domains.reduce(function (prev, curr) {
 	    var prevMin = prev[0];
 	    var prevMax = prev[prev.length - 1];
@@ -8650,6 +8645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.getXRange = getXRange;
 	exports.getYRange = getYRange;
+
 	/**
 	 * Computes the desired range for data in the x demension taking theme margins
 	 * into acount
@@ -8753,13 +8749,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.default = getContext;
 
-	var _d3Scale = __webpack_require__(41);
-
 	var _jubilationTheme = __webpack_require__(39);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
-
-	var _provider = __webpack_require__(47);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8767,10 +8759,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (context) return context;
 	  return {
 	    theme: _jubilationTheme2.default,
-	    xScale: (0, _d3Scale.scaleLinear)().domain([0, 300]).range([0, 300]),
-	    yScale: (0, _d3Scale.scaleLinear)().domain([0, 100]).range([0, 100]),
-	    addDomain: (0, _provider.addDomainHOF)({}),
-	    removeDomain: (0, _provider.removeDomainHOF)({}),
+	    xScale: function xScale(x) {
+	      return x;
+	    },
+	    yScale: function yScale(x) {
+	      return x;
+	    },
+	    addDomain: function addDomain() {},
+	    removeDomain: function removeDomain() {},
 	    update: function update() {}
 	  };
 	}
@@ -8940,27 +8936,51 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return datum.x;
 	  }).reduce(function (a, b) {
 	    if (a < b) return a;return b;
-	  }, 0);
+	  }, data[0] ? data[0].x : 0);
 	  var yMin = data.map(function (datum) {
 	    return datum.y;
 	  }).reduce(function (a, b) {
 	    if (a < b) return a;return b;
-	  }, 0);
+	  }, data[0] ? data[0].y : 0);
 	  var xMax = data.map(function (datum) {
 	    return datum.x;
 	  }).reduce(function (a, b) {
 	    if (a > b) return a;return b;
-	  }, 0);
+	  }, data[0] ? data[0].x : 0);
 	  var yMax = data.map(function (datum) {
 	    return datum.y;
 	  }).reduce(function (a, b) {
 	    if (a > b) return a;return b;
-	  }, 0);
+	  }, data[0] ? data[0].y : 0);
 	  return _defineProperty({}, id, { x: [xMin, xMax], y: [yMax, yMin] });
 	}
 
 /***/ },
 /* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.YAxis = exports.XAxis = undefined;
+
+	var _xAxis = __webpack_require__(56);
+
+	var _xAxis2 = _interopRequireDefault(_xAxis);
+
+	var _yAxis = __webpack_require__(58);
+
+	var _yAxis2 = _interopRequireDefault(_yAxis);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.XAxis = _xAxis2.default;
+	exports.YAxis = _yAxis2.default;
+
+/***/ },
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8978,7 +8998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(56);
+	var _axis = __webpack_require__(57);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
@@ -9044,7 +9064,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9069,7 +9089,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9087,7 +9107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(56);
+	var _axis = __webpack_require__(57);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
