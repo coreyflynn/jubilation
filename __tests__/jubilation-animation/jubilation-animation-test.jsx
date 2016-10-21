@@ -1,6 +1,7 @@
 import React from 'react';
 import * as d3Ease from 'd3-ease';
 import { shallow, mount } from 'enzyme';
+import td from 'testdouble';
 import JubilationAnimation from '../../src/jubilation-animation';
 
 function childFn() { return <div />; }
@@ -130,5 +131,47 @@ describe('JubilationAnimation', () => {
       const instance = getWrapper({ data: [{ x: 1 }, { x: 2 }] }, childFn, true).instance();
       expect(instance.timer).toBeTruthy();
     });
+  });
+
+  describe('animationFunc', () => {
+    it('should set the component state', () => {
+      const instance = getWrapper({ data: [{ x: 1 }, { x: 2 }] }, childFn, true).instance();
+      instance.animationFunc(0);
+      expect(instance.state.data.x).toBe(1);
+    });
+
+    it('should set the animation state to true if the animation is in progress', () => {
+      const instance = getWrapper({ data: [{ x: 1 }, { x: 2 }] }, childFn, true).instance();
+      instance.animationFunc(0);
+      expect(instance.state.animating).toBe(true);
+    });
+
+    it('should set the animation state to false if the animation is complete', () => {
+      const instance = getWrapper({ data: [{ x: 1 }, { x: 2 }] }, childFn, true).instance();
+      instance.animationFunc(300);
+      expect(instance.state.animating).toBe(false);
+    });
+
+    it('should stop the timer if the animation is complete', () => {
+      const instance = getWrapper({ data: [{ x: 1 }, { x: 2 }] }, childFn, true).instance();
+      instance.timer.stop = td.function();
+      instance.animationFunc(300);
+      td.verify(instance.timer.stop());
+    });
+
+    it('should shift the queue if the animation is complete', () => {
+      const instance = getWrapper({ data: [{ x: 1 }, { x: 2 }] }, childFn, true).instance();
+      instance.queue.shift = td.function();
+      instance.animationFunc(300);
+      td.verify(instance.queue.shift());
+    });
+
+    it('should call traverseQueue if the animation is complete', () => {
+      const instance = getWrapper({ data: [{ x: 1 }, { x: 2 }] }, childFn, true).instance();
+      instance.traverseQueue = td.function();
+      instance.animationFunc(300);
+      td.verify(instance.traverseQueue());
+    });
+
   });
 });
