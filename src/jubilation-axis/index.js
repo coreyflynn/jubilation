@@ -1,3 +1,4 @@
+// @flow
 import XAxis from './x-axis';
 import YAxis from './y-axis';
 
