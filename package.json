@@ -51,6 +51,9 @@
     "test-watch": "node_modules/jest/bin/jest.js --watch",
     "prepush": "npm run lint && npm run flow-check && npm run flow && npm test"
   },
+  "jest": {
+    "testRegex": "(/__tests__/.*|\\.(test|spec))test\\.(js|jsx)$"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/coreyflynn/jubilation.git"

@@ -8757,14 +8757,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function getContext(context) {
 	  if (context) return context;
+	  function scale(x) {
+	    return x;
+	  }
+	  scale.domain = function domain() {
+	    return [0, 100];
+	  };
 	  return {
 	    theme: _jubilationTheme2.default,
-	    xScale: function xScale(x) {
-	      return x;
-	    },
-	    yScale: function yScale(x) {
-	      return x;
-	    },
+	    xScale: scale,
+	    yScale: scale,
 	    addDomain: function addDomain() {},
 	    removeDomain: function removeDomain() {},
 	    update: function update() {}
@@ -9135,8 +9137,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = min || JubilationContext.yScale.domain()[1];
-	  var computedMax = max || JubilationContext.yScale.domain()[0];
+	  var computedMin = min || context.yScale.domain()[0];
+	  var computedMax = max || context.yScale.domain()[1];
 	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'y', position, context);
 	  var dx = -5;
 

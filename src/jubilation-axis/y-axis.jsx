@@ -20,8 +20,8 @@ export default function YAxis(
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
-  const computedMin = min || JubilationContext.yScale.domain()[1];
-  const computedMax = max || JubilationContext.yScale.domain()[0];
+  const computedMin = min || context.yScale.domain()[0];
+  const computedMax = max || context.yScale.domain()[1];
   const ticks = getTicks(computedMin, computedMax, numTicks, 'y', position, context);
   const dx = -5;
 
