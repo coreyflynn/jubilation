@@ -5,6 +5,7 @@ declare type Theme = {
   axisColor: string,
   colors: string[],
   name: string,
+  scale: number,
   labelStyle: {
     fill: string,
     fontSize: number,

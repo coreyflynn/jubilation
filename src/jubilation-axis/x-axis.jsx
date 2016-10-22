@@ -8,6 +8,7 @@ import Animation from '../jubilation-animation';
 type Props = {
   min?: number,
   max?: number,
+  title?: string,
   position: number,
   numTicks: number,
   tickLines: boolean,
@@ -16,7 +17,7 @@ type Props = {
 type Context = { JubilationContext: JubilationContext };
 
 export default function XAxis(
-  { min, max, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
+  { min, max, title, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
@@ -29,6 +30,7 @@ export default function XAxis(
     <Animation data={{ min: computedMin, max: computedMax, position, offset, ticks }}>
       {data =>
         <g>
+          {/* tick values */}
           <Label x={data.min} y={data.position} dy={data.offset} textAnchor="middle">
             {Math.round(data.min)}
           </Label>
@@ -36,6 +38,17 @@ export default function XAxis(
           <Label x={data.max} y={data.position} dy={data.offset} textAnchor="middle">
             {Math.round(data.max)}
           </Label>
+
+          {/* axis title */}
+          {title && <Label
+            x={((data.max - data.min) / 2) + data.min}
+            y={data.position}
+            dy={(data.offset * 2) + 2}
+            style={{ fontSize: context.theme.labelStyle.fontSize * context.theme.scale }}
+            textAnchor="middle"
+          >
+            {title}
+          </Label>}
         </g>
       }
     </Animation>

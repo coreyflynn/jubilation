@@ -10,6 +10,9 @@ const colors: string[] = [
   '#CCC8C5',
 ];
 
+// modular scale ratio
+const scale = 1.5;
+
 // label styles
 const labelStyle = {
   fill: axisColor,
@@ -18,14 +21,20 @@ const labelStyle = {
   stroke: 'transparent',
 };
 
-const margin = { left: 30, right: 30, top: 30, bottom: 30 };
+const margin = {
+  left: labelStyle.fontSize * 3,
+  right: labelStyle.fontSize * 3,
+  top: labelStyle.fontSize * 3,
+  bottom: labelStyle.fontSize * 3,
+};
 
 const theme: Theme = {
   axisColor,
   colors,
+  labelStyle,
   margin,
   name: 'JubilationTheme',
-  labelStyle,
+  scale,
 };
 
 export default theme;

@@ -8,6 +8,7 @@ import Animation from '../jubilation-animation';
 type Props = {
   min: number,
   max: number,
+  title: string,
   position: number,
   numTicks: number,
   tickLines: boolean,
@@ -16,12 +17,12 @@ type Props = {
 type Context = { JubilationContext: JubilationContext };
 
 export default function YAxis(
-  { min, max, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
+  { min, max, title, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
-  const computedMin = min || context.yScale.domain()[0];
-  const computedMax = max || context.yScale.domain()[1];
+  const computedMin = isFinite(min) ? min : context.yScale.domain()[1];
+  const computedMax = isFinite(max) ? max : context.yScale.domain()[0];
   const ticks = getTicks(computedMin, computedMax, numTicks, 'y', position, context);
   const dx = -5;
 
@@ -29,6 +30,7 @@ export default function YAxis(
     <Animation data={{ min: computedMin, max: computedMax, position, dx, ticks }}>
       {data =>
         <g>
+          {/* tick values */}
           <Label x={data.position} y={data.min} dx={data.dx} textAnchor="end">
             {Math.round(data.min)}
           </Label>
@@ -36,6 +38,17 @@ export default function YAxis(
           <Label x={data.position} y={data.max} dx={data.dx} textAnchor="end">
             {Math.round(data.max)}
           </Label>
+
+          {/* axis title */}
+          {title && <Label
+            x={data.position}
+            y={data.max}
+            dy={-context.theme.labelStyle.fontSize * context.theme.scale}
+            style={{ fontSize: context.theme.labelStyle.fontSize * context.theme.scale }}
+            textAnchor="start"
+          >
+            {title}
+          </Label>}
         </g>
       }
     </Animation>

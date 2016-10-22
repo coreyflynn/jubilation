@@ -5434,6 +5434,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	// base colors
 	var colors = ['#0A2F61', '#B8D5E5', '#708090', '#CCC8C5'];
 
+	// modular scale ratio
+	var scale = 1.5;
+
 	// label styles
 	var labelStyle = {
 	  fill: axisColor,
@@ -5442,14 +5445,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  stroke: 'transparent'
 	};
 
-	var margin = { left: 30, right: 30, top: 30, bottom: 30 };
+	var margin = {
+	  left: labelStyle.fontSize * 3,
+	  right: labelStyle.fontSize * 3,
+	  top: labelStyle.fontSize * 3,
+	  bottom: labelStyle.fontSize * 3
+	};
 
 	var theme = {
 	  axisColor: axisColor,
 	  colors: colors,
+	  labelStyle: labelStyle,
 	  margin: margin,
 	  name: 'JubilationTheme',
-	  labelStyle: labelStyle
+	  scale: scale
 	};
 
 	exports.default = theme;
@@ -8705,6 +8714,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var dx = _ref$dx === undefined ? 0 : _ref$dx;
 	  var _ref$dy = _ref.dy;
 	  var dy = _ref$dy === undefined ? 0 : _ref$dy;
+	  var _ref$style = _ref.style;
+	  var style = _ref$style === undefined ? {} : _ref$style;
 	  var _ref$textAnchor = _ref.textAnchor;
 	  var textAnchor = _ref$textAnchor === undefined ? 'start' : _ref$textAnchor;
 	  var children = _ref.children;
@@ -8717,7 +8728,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var theme = _getContext.theme;
 
 
-	  var textProps = { x: xScale(x), y: yScale(y), style: theme.labelStyle, textAnchor: textAnchor };
+	  var textProps = {
+	    x: xScale(x),
+	    y: yScale(y),
+	    style: _extends({}, theme.labelStyle, style),
+	    textAnchor: textAnchor
+	  };
 	  var tspanProps = { dx: dx, dy: dy };
 
 	  return _react2.default.createElement(
@@ -9018,6 +9034,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function XAxis(_ref, _ref2) {
 	  var min = _ref.min;
 	  var max = _ref.max;
+	  var title = _ref.title;
 	  var _ref$position = _ref.position;
 	  var position = _ref$position === undefined ? 0 : _ref$position;
 	  var _ref$numTicks = _ref.numTicks;
@@ -9057,6 +9074,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _jubilationLabel2.default,
 	          { x: data.max, y: data.position, dy: data.offset, textAnchor: 'middle' },
 	          Math.round(data.max)
+	        ),
+	        title && _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          {
+	            x: (data.max - data.min) / 2 + data.min,
+	            y: data.position,
+	            dy: data.offset * 2 + 2,
+	            style: { fontSize: context.theme.labelStyle.fontSize * context.theme.scale },
+	            textAnchor: 'middle'
+	          },
+	          title
 	        )
 	      );
 	    }
@@ -9127,6 +9155,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function YAxis(_ref, _ref2) {
 	  var min = _ref.min;
 	  var max = _ref.max;
+	  var title = _ref.title;
 	  var _ref$position = _ref.position;
 	  var position = _ref$position === undefined ? 0 : _ref$position;
 	  var _ref$numTicks = _ref.numTicks;
@@ -9138,8 +9167,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = min || context.yScale.domain()[0];
-	  var computedMax = max || context.yScale.domain()[1];
+	  var computedMin = isFinite(min) ? min : context.yScale.domain()[1];
+	  var computedMax = isFinite(max) ? max : context.yScale.domain()[0];
 	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'y', position, context);
 	  var dx = -5;
 
@@ -9166,6 +9195,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _jubilationLabel2.default,
 	          { x: data.position, y: data.max, dx: data.dx, textAnchor: 'end' },
 	          Math.round(data.max)
+	        ),
+	        title && _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          {
+	            x: data.position,
+	            y: data.max,
+	            dy: -context.theme.labelStyle.fontSize * context.theme.scale,
+	            style: { fontSize: context.theme.labelStyle.fontSize * context.theme.scale },
+	            textAnchor: 'start'
+	          },
+	          title
 	        )
 	      );
 	    }

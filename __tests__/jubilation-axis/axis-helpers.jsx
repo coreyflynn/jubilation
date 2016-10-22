@@ -32,6 +32,10 @@ export default function axisTests(Axis, textAnchor) {
     expect(mount(<Axis min={0} max={10} numTicks={1} />).find('JubilationLabel').length).toBe(3);
   });
 
+  it('should only render a title labels if a title is supplied', () => {
+    expect(mount(<Axis min={0} max={10} title="test" />).find('JubilationLabel').length).toBe(3);
+  });
+
   it('should properly calculate additional labels', () => {
     expect(mount(<Axis min={0} max={10} numTicks={1} />)
       .find('JubilationLabel').at(1).text()).toBe('5');
