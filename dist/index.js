@@ -5082,7 +5082,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function JubilationChart(_ref) {
-	  var title = _ref.title;
+	  var _ref$title = _ref.title;
+	  var title = _ref$title === undefined ? 'JubilationChart' : _ref$title;
 	  var _ref$height = _ref.height;
 	  var height = _ref$height === undefined ? 100 : _ref$height;
 	  var _ref$width = _ref.width;

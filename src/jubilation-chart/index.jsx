@@ -15,7 +15,7 @@ type Props = {
 
 export default function JubilationChart(
   {
-    title,
+    title = 'JubilationChart',
     height = 100,
     width = 300,
     theme = JubilationTheme,
