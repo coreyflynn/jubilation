@@ -13,7 +13,7 @@ describe('JubilationContainer', () => {
   });
 
   it('should set height by prop', () => {
-    const props = shallow(<JubilationContainer height={10}/>).find('svg').props();
+    const props = shallow(<JubilationContainer height={10} />).find('svg').props();
     expect(props.height).toBe(10);
   });
 
@@ -23,7 +23,7 @@ describe('JubilationContainer', () => {
   });
 
   it('should set width by prop', () => {
-    const props = shallow(<JubilationContainer width={30}/>).find('svg').props();
+    const props = shallow(<JubilationContainer width={30} />).find('svg').props();
     expect(props.width).toBe(30);
   });
 

@@ -172,6 +172,5 @@ describe('JubilationAnimation', () => {
       instance.animationFunc(300);
       td.verify(instance.traverseQueue());
     });
-
   });
 });

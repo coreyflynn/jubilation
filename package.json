@@ -44,7 +44,7 @@
   "scripts": {
     "build": "node_modules/webpack/bin/webpack.js",
     "build-watch": "node_modules/webpack/bin/webpack.js -w",
-    "lint": "eslint src --ext js,jsx -f compact",
+    "lint": "node_modules/eslint/bin/eslint.js __tests__ src --ext js,jsx",
     "flow": "node_modules/flow-bin/cli.js",
     "flow-check": "scripts/flow-check.sh",
     "test": "node_modules/jest/bin/jest.js",

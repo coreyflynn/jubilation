@@ -11,7 +11,7 @@ describe('JubilationChart', () => {
 
   const providerDefaults = new Map([
     ['xRange', getXRange(300, theme)],
-    ['yRange', getXRange(100, theme)],
+    ['yRange', getYRange(100, theme)],
   ]);
 
   for (const [k, v] of providerDefaults) {
@@ -27,7 +27,7 @@ describe('JubilationChart', () => {
   const containerDefaults = new Map([
     ['height', 100],
     ['width', 300],
-    ['title', 'JubilationChart']
+    ['title', 'JubilationChart'],
   ]);
 
   for (const [k, v] of containerDefaults) {
