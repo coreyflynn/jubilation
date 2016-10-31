@@ -8,8 +8,8 @@ import { XAxis, YAxis } from '../jubilation-axis';
 
 function getPoints() {
   const points = [];
-  for (let i = 0; i < 100; i + 1) {
-    points.push({ x: Math.random() * 600, y: Math.random() * 100 });
+  for (let i = 0; i < 10; i += 1) {
+    points.push({ x: Math.random() * 600, y: Math.random() * 300 });
   }
   return points;
 }
@@ -17,43 +17,139 @@ function getPoints() {
 class ScatterPlotExample extends Component {
   state = {
     points: getPoints(),
-    height: window.innerHeight,
-    width: window.innerWidth,
     colors: [0, 1],
   }
 
   componentDidMount() {
-    window.addEventListener('resize', (e) => {
-      this.setState({ height: e.target.innerHeight, width: e.target.innerWidth });
-    });
     setInterval(() => {
       this.setState({
         points: getPoints(),
         colors: [Math.round(Math.random() * 3), Math.round(Math.random() * 3)],
       });
-    }, 2000);
+    }, 5000);
   }
 
+  renderBasic() {
+    return (
+      <div>
+        <h1>Basic Scatter Plot</h1>
+        <JubilationChart height={300} width={600}>
+          <JubilationScatter data={this.state.points} />
+        </JubilationChart>
+      </div>
+    );
+  }
+
+  renderWithAxes() {
+    return (
+      <div>
+        <h1>With Axes</h1>
+        <JubilationChart height={300} width={600}>
+          <JubilationScatter data={this.state.points} />
+          <XAxis numTicks={2} title="X axis" />
+          <YAxis numTicks={2} title="Y axis" />
+        </JubilationChart>
+      </div>
+    );
+  }
+
+  renderCustomPoints() {
+    return (
+      <div>
+        <h1>Custom Points</h1>
+        <JubilationChart height={300} width={600}>
+          <JubilationScatter
+            data={this.state.points}
+            color={'red'}
+            size={10}
+            style={{ opacity: 0.5 }}
+          />
+          <XAxis numTicks={2} title="X axis" />
+          <YAxis numTicks={2} title="Y axis" />
+        </JubilationChart>
+      </div>
+    );
+  }
+
+  renderColorTrans() {
+    return (
+      <div>
+        <h1>Color Transitions</h1>
+        <JubilationChart height={300} width={600}>
+          <JubilationScatter
+            data={this.state.points}
+            color={JubilationTheme.colors[this.state.colors[0]]}
+            size={10}
+            style={{ opacity: 0.5 }}
+          />
+          <XAxis numTicks={2} title="X axis" />
+          <YAxis numTicks={2} title="Y axis" />
+        </JubilationChart>
+      </div>
+    );
+  }
+
+  renderMultiple() {
+    return (
+      <div>
+        <h1>Multiple Series</h1>
+        <JubilationChart height={300} width={600}>
+          <JubilationScatter
+            data={getPoints()}
+            color={JubilationTheme.colors[0]}
+            size={10}
+            style={{ opacity: 0.5 }}
+          />
+          <JubilationScatter
+            data={this.state.points}
+            color={JubilationTheme.colors[1]}
+            size={10}
+            style={{ opacity: 0.5 }}
+          />
+          <XAxis numTicks={2} title="X axis" />
+          <YAxis numTicks={2} title="Y axis" />
+        </JubilationChart>
+      </div>
+    );
+  }
+
+  renderMultipleAxes() {
+    return (
+      <div>
+        <h1>Multiple Axes</h1>
+        <JubilationChart height={300} width={600}>
+          <JubilationScatter
+            data={this.state.points}
+            style={{ opacity: 0.25 }}
+            color={JubilationTheme.colors[1]}
+          />
+          <XAxis numTicks={1} title="X axis" />
+          <YAxis numTicks={2} title="Y axis" />
+          <YAxis
+            position={300}
+            numTicks={3}
+            title="Second Y axis"
+          />
+          <XAxis
+            position={150}
+            numTicks={3}
+            title="Second X axis"
+          />
+        </JubilationChart>
+      </div>
+    );
+  }
+  
   render() {
     return (
-      <JubilationChart height={this.state.height} width={this.state.width}>
-        <JubilationScatter
-          data={this.state.points}
-          color={JubilationTheme.colors[this.state.colors[0]]}
-          size={10}
-          style={{ opacity: 0.5 }}
-        />
-        <JubilationScatter data={this.state.points.slice(0, 10)} />
-        <XAxis numTicks={1} title="testing" />
-        <YAxis max={100} numTicks={2} title="Y axis" />
-        <YAxis
-          min={Math.random() * 20}
-          max={(Math.random() * 20) + 80}
-          position={this.state.points[0].x || 0}
-          numTicks={3}
-          title="WAT"
-        />
-      </JubilationChart>
+      <div>
+        {this.renderBasic()}
+        {this.renderWithAxes()}
+        {this.renderCustomPoints()}
+        {this.renderColorTrans()}
+        {this.renderMultiple()}
+        {this.renderMultipleAxes()}
+      </div>
     );
   }
 }

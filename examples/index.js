@@ -9010,8 +9010,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = min || context.xScale.domain()[0];
-	  var computedMax = max || context.xScale.domain()[1];
+	  var computedMin = min || min === 0 ? min : context.xScale.domain()[0];
+	  var computedMax = max || max === 0 ? max : context.xScale.domain()[1];
 	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'x', position, context);
 	  var offset = context.theme.labelStyle.fontSize;
 
@@ -9131,8 +9131,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = isFinite(min) ? min : context.yScale.domain()[1];
-	  var computedMax = isFinite(max) ? max : context.yScale.domain()[0];
+	  var computedMin = min || min === 0 ? min : context.yScale.domain()[1];
+	  var computedMax = max || max === 0 ? max : context.yScale.domain()[0];
 	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'y', position, context);
 	  var dx = -5;
 
@@ -26322,13 +26322,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function getPoints() {
+	  var points = [];
+	  for (var i = 0; i < 10; i += 1) {
+	    points.push({ x: Math.random() * 600, y: Math.random() * 300 });
+	  }
+	  return points;
+	}
 
 	var ScatterPlotExample = function (_Component) {
 	  _inherits(ScatterPlotExample, _Component);
@@ -26345,9 +26351,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ScatterPlotExample.__proto__ || Object.getPrototypeOf(ScatterPlotExample)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-	      points: [{ x: Math.random() * 600, y: Math.random() * 100 }],
-	      height: window.innerHeight,
-	      width: window.innerWidth,
+	      points: getPoints(),
 	      colors: [0, 1]
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
@@ -26357,40 +26361,178 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      window.addEventListener('resize', function (e) {
-	        _this2.setState({ height: e.target.innerHeight, width: e.target.innerWidth });
-	      });
 	      setInterval(function () {
 	        _this2.setState({
-	          points: [].concat(_toConsumableArray(Array(100).keys())).map(function () {
-	            return { x: Math.random() * 600, y: Math.random() * 100 };
-	          }),
+	          points: getPoints(),
 	          colors: [Math.round(Math.random() * 3), Math.round(Math.random() * 3)]
 	        });
-	      }, 2000);
+	      }, 5000);
+	    }
+	  }, {
+	    key: 'renderBasic',
+	    value: function renderBasic() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Basic Scatter Plot'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          _react2.default.createElement(_jubilationScatter2.default, { data: this.state.points })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderWithAxes',
+	    value: function renderWithAxes() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'With Axes'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          _react2.default.createElement(_jubilationScatter2.default, { data: this.state.points }),
+	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 2, title: 'X axis' }),
+	          _react2.default.createElement(_jubilationAxis.YAxis, { numTicks: 2, title: 'Y axis' })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderCustomPoints',
+	    value: function renderCustomPoints() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Custom Points'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          _react2.default.createElement(_jubilationScatter2.default, {
+	            data: this.state.points,
+	            color: 'red',
+	            size: 10,
+	            style: { opacity: 0.5 }
+	          }),
+	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 2, title: 'X axis' }),
+	          _react2.default.createElement(_jubilationAxis.YAxis, { numTicks: 2, title: 'Y axis' })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderColorTrans',
+	    value: function renderColorTrans() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Color Transitions'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          _react2.default.createElement(_jubilationScatter2.default, {
+	            data: this.state.points,
+	            color: _jubilationTheme2.default.colors[this.state.colors[0]],
+	            size: 10,
+	            style: { opacity: 0.5 }
+	          }),
+	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 2, title: 'X axis' }),
+	          _react2.default.createElement(_jubilationAxis.YAxis, { numTicks: 2, title: 'Y axis' })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderMultiple',
+	    value: function renderMultiple() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Multiple Series'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          _react2.default.createElement(_jubilationScatter2.default, {
+	            data: getPoints(),
+	            color: _jubilationTheme2.default.colors[0],
+	            size: 10,
+	            style: { opacity: 0.5 }
+	          }),
+	          _react2.default.createElement(_jubilationScatter2.default, {
+	            data: this.state.points,
+	            color: _jubilationTheme2.default.colors[1],
+	            size: 10,
+	            style: { opacity: 0.5 }
+	          }),
+	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 2, title: 'X axis' }),
+	          _react2.default.createElement(_jubilationAxis.YAxis, { numTicks: 2, title: 'Y axis' })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderMultipleAxes',
+	    value: function renderMultipleAxes() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Multiple Axes'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          _react2.default.createElement(_jubilationScatter2.default, {
+	            data: this.state.points,
+	            style: { opacity: 0.25 },
+	            color: _jubilationTheme2.default.colors[1]
+	          }),
+	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 1, title: 'X axis' }),
+	          _react2.default.createElement(_jubilationAxis.YAxis, { numTicks: 2, title: 'Y axis' }),
+	          _react2.default.createElement(_jubilationAxis.YAxis, {
+	            position: 300,
+	            numTicks: 3,
+	            title: 'Second Y axis'
+	          }),
+	          _react2.default.createElement(_jubilationAxis.XAxis, {
+	            position: 150,
+	            numTicks: 3,
+	            title: 'Second X axis'
+	          })
+	        )
+	      );
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        _jubilationChart2.default,
-	        { height: this.state.height, width: this.state.width },
-	        _react2.default.createElement(_jubilationScatter2.default, {
-	          data: this.state.points,
-	          color: _jubilationTheme2.default.colors[this.state.colors[0]],
-	          size: 10,
-	          style: { opacity: 0.5 }
-	        }),
-	        _react2.default.createElement(_jubilationScatter2.default, { data: this.state.points.slice(0, 10) }),
-	        _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 1, title: 'testing' }),
-	        _react2.default.createElement(_jubilationAxis.YAxis, { max: 100, numTicks: 2, title: 'Y axis' }),
-	        _react2.default.createElement(_jubilationAxis.YAxis, {
-	          min: Math.random() * 20,
-	          max: Math.random() * 20 + 80,
-	          position: this.state.points[0].x || 0,
-	          numTicks: 3,
-	          title: 'WAT'
-	        })
+	        'div',
+	        null,
+	        this.renderBasic(),
+	        this.renderWithAxes(),
+	        this.renderCustomPoints(),
+	        this.renderColorTrans(),
+	        this.renderMultiple(),
+	        this.renderMultipleAxes()
 	      );
 	    }
 	  }]);

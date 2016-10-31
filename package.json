@@ -42,8 +42,9 @@
     "webpack-dev-server": "1.14.1"
   },
   "scripts": {
-    "build-watch": "node_modules/webpack/bin/webpack.js -w",
-    "build": "node_modules/webpack/bin/webpack.js",
+    "build-watch": "npm run clean; node_modules/webpack/bin/webpack.js -w",
+    "build": "npm run clean; node_modules/webpack/bin/webpack.js",
+    "clean": "rm -rf dist; rm examples/index.js",
     "flow-check": "scripts/flow-check.sh",
     "flow": "node_modules/flow-bin/cli.js",
     "lint": "node_modules/eslint/bin/eslint.js __tests__ src --ext js,jsx",
