@@ -139,7 +139,7 @@ class ScatterPlotExample extends Component {
       </div>
     );
   }
-  
+
   render() {
     return (
       <div>
