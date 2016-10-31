@@ -10,7 +10,7 @@ type Props = {
   height: number,
   width: number,
   theme: Theme,
-  children: React.Element<*> | React.Element<*>,
+  children?: React.Element<*> | React.Element<*>,
 }
 
 export default function JubilationChart(

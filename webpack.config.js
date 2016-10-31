@@ -20,7 +20,8 @@ module.exports = {
   },
   plugins: [definePlugin],
   entry: {
-    "/dist/index": './src/index.js'
+    "/dist/index": './src/index.js',
+    "/examples/index": './src/examples/index.jsx'
   },
   output: {
     filename: '[name].js',
