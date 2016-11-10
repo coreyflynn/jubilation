@@ -9046,8 +9046,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = min || context.xScale.domain()[0];
-	  var computedMax = max || context.xScale.domain()[1];
+	  var computedMin = min || min === 0 ? min : context.xScale.domain()[0];
+	  var computedMax = max || max === 0 ? max : context.xScale.domain()[1];
 	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'x', position, context);
 	  var offset = context.theme.labelStyle.fontSize;
 
@@ -9167,8 +9167,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = isFinite(min) ? min : context.yScale.domain()[1];
-	  var computedMax = isFinite(max) ? max : context.yScale.domain()[0];
+	  var computedMin = min || min === 0 ? min : context.yScale.domain()[1];
+	  var computedMax = max || max === 0 ? max : context.yScale.domain()[0];
 	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'y', position, context);
 	  var dx = -5;
 

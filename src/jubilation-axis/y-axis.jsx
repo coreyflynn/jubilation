@@ -6,13 +6,13 @@ import Label from '../jubilation-label';
 import Animation from '../jubilation-animation';
 
 type Props = {
-  min: number,
-  max: number,
-  title: string,
-  position: number,
-  numTicks: number,
-  tickLines: boolean,
-  axisLine: boolean
+  min?: number,
+  max?: number,
+  title?: string,
+  position?: number,
+  numTicks?: number,
+  tickLines?: boolean,
+  axisLine?: boolean
 };
 type Context = { JubilationContext: JubilationContext };
 
@@ -21,8 +21,8 @@ export default function YAxis(
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
-  const computedMin = isFinite(min) ? min : context.yScale.domain()[1];
-  const computedMax = isFinite(max) ? max : context.yScale.domain()[0];
+  const computedMin = min || min === 0 ? min : context.yScale.domain()[1];
+  const computedMax = max || max === 0 ? max : context.yScale.domain()[0];
   const ticks = getTicks(computedMin, computedMax, numTicks, 'y', position, context);
   const dx = -5;
 

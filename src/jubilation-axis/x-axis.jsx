@@ -9,10 +9,10 @@ type Props = {
   min?: number,
   max?: number,
   title?: string,
-  position: number,
-  numTicks: number,
-  tickLines: boolean,
-  axisLine: boolean
+  position?: number,
+  numTicks?: number,
+  tickLines?: boolean,
+  axisLine?: boolean
 };
 type Context = { JubilationContext: JubilationContext };
 
@@ -21,8 +21,8 @@ export default function XAxis(
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
-  const computedMin = min || context.xScale.domain()[0];
-  const computedMax = max || context.xScale.domain()[1];
+  const computedMin = min || min === 0 ? min : context.xScale.domain()[0];
+  const computedMax = max || max === 0 ? max : context.xScale.domain()[1];
   const ticks = getTicks(computedMin, computedMax, numTicks, 'x', position, context);
   const offset = context.theme.labelStyle.fontSize;
 

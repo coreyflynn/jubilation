@@ -6,11 +6,11 @@ import { default as JubilationTheme } from '../jubilation-theme';
 import { getXRange, getYRange } from '../helpers/chart';
 
 type Props = {
-  title: string,
+  children?: React.Element<*> | React.Element<*>,
   height: number,
+  theme?: Theme,
+  title?: string,
   width: number,
-  theme: Theme,
-  children: React.Element<*> | React.Element<*>,
 }
 
 export default function JubilationChart(
