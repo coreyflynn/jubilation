@@ -5082,15 +5082,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function JubilationChart(_ref) {
-	  var _ref$title = _ref.title;
-	  var title = _ref$title === undefined ? 'JubilationChart' : _ref$title;
-	  var _ref$height = _ref.height;
-	  var height = _ref$height === undefined ? 100 : _ref$height;
-	  var _ref$width = _ref.width;
-	  var width = _ref$width === undefined ? 300 : _ref$width;
-	  var _ref$theme = _ref.theme;
-	  var theme = _ref$theme === undefined ? _jubilationTheme2.default : _ref$theme;
-	  var children = _ref.children;
+	  var _ref$title = _ref.title,
+	      title = _ref$title === undefined ? 'JubilationChart' : _ref$title,
+	      _ref$height = _ref.height,
+	      height = _ref$height === undefined ? 100 : _ref$height,
+	      _ref$width = _ref.width,
+	      width = _ref$width === undefined ? 300 : _ref$width,
+	      _ref$theme = _ref.theme,
+	      theme = _ref$theme === undefined ? _jubilationTheme2.default : _ref$theme,
+	      children = _ref.children;
 
 	  return _react2.default.createElement(
 	    _jubilationProvider2.default,
@@ -8603,13 +8603,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// SVG object prop types
 	function JubilationContainer(_ref) {
-	  var title = _ref.title;
-	  var desc = _ref.desc;
-	  var _ref$width = _ref.width;
-	  var width = _ref$width === undefined ? 300 : _ref$width;
-	  var _ref$height = _ref.height;
-	  var height = _ref$height === undefined ? 100 : _ref$height;
-	  var children = _ref.children;
+	  var title = _ref.title,
+	      desc = _ref.desc,
+	      _ref$width = _ref.width,
+	      width = _ref$width === undefined ? 300 : _ref$width,
+	      _ref$height = _ref.height,
+	      height = _ref$height === undefined ? 100 : _ref$height,
+	      children = _ref.children;
 
 	  var svgProps = {
 	    'aria-labelledby': 'title desc',
@@ -8706,27 +8706,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * text element with the dx and dy props.
 	 */
 	function JubilationLabel(_ref, _ref2) {
-	  var _ref$x = _ref.x;
-	  var x = _ref$x === undefined ? 0 : _ref$x;
-	  var _ref$y = _ref.y;
-	  var y = _ref$y === undefined ? 0 : _ref$y;
-	  var _ref$dx = _ref.dx;
-	  var dx = _ref$dx === undefined ? 0 : _ref$dx;
-	  var _ref$dy = _ref.dy;
-	  var dy = _ref$dy === undefined ? 0 : _ref$dy;
-	  var _ref$style = _ref.style;
-	  var style = _ref$style === undefined ? {} : _ref$style;
-	  var _ref$textAnchor = _ref.textAnchor;
-	  var textAnchor = _ref$textAnchor === undefined ? 'start' : _ref$textAnchor;
-	  var children = _ref.children;
+	  var _ref$x = _ref.x,
+	      x = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y,
+	      y = _ref$y === undefined ? 0 : _ref$y,
+	      _ref$dx = _ref.dx,
+	      dx = _ref$dx === undefined ? 0 : _ref$dx,
+	      _ref$dy = _ref.dy,
+	      dy = _ref$dy === undefined ? 0 : _ref$dy,
+	      _ref$style = _ref.style,
+	      style = _ref$style === undefined ? {} : _ref$style,
+	      _ref$textAnchor = _ref.textAnchor,
+	      textAnchor = _ref$textAnchor === undefined ? 'start' : _ref$textAnchor,
+	      children = _ref.children;
 	  var JubilationContext = _ref2.JubilationContext;
 
-	  var _getContext = (0, _context2.default)(JubilationContext);
-
-	  var xScale = _getContext.xScale;
-	  var yScale = _getContext.yScale;
-	  var theme = _getContext.theme;
-
+	  var _getContext = (0, _context2.default)(JubilationContext),
+	      xScale = _getContext.xScale,
+	      yScale = _getContext.yScale,
+	      theme = _getContext.theme;
 
 	  var textProps = {
 	    x: xScale(x),
@@ -8819,19 +8817,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A single data point. Returns an SVG circle element
 	 */
 	function JubilationPoint(_ref, _ref2) {
-	  var _ref$x = _ref.x;
-	  var x = _ref$x === undefined ? 0 : _ref$x;
-	  var _ref$y = _ref.y;
-	  var y = _ref$y === undefined ? 0 : _ref$y;
-	  var color = _ref.color;
-	  var style = _ref.style;
-	  var _ref$size = _ref.size;
-	  var size = _ref$size === undefined ? 4 : _ref$size;
+	  var _ref$x = _ref.x,
+	      x = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y,
+	      y = _ref$y === undefined ? 0 : _ref$y,
+	      color = _ref.color,
+	      style = _ref.style,
+	      _ref$size = _ref.size,
+	      size = _ref$size === undefined ? 4 : _ref$size;
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var xScale = context.xScale;
-	  var yScale = context.yScale;
+	  var xScale = context.xScale,
+	      yScale = context.yScale;
 
 	  var fill = context.theme.colors[0];
 	  if (color) fill = color;
@@ -8915,10 +8913,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var color = _props.color;
-	      var size = _props.size;
-	      var style = _props.style;
+	      var _props = this.props,
+	          color = _props.color,
+	          size = _props.size,
+	          style = _props.style;
 
 	      return _react2.default.createElement(
 	        'g',
@@ -9032,17 +9030,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function XAxis(_ref, _ref2) {
-	  var min = _ref.min;
-	  var max = _ref.max;
-	  var title = _ref.title;
-	  var _ref$position = _ref.position;
-	  var position = _ref$position === undefined ? 0 : _ref$position;
-	  var _ref$numTicks = _ref.numTicks;
-	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
-	  var _ref$tickLines = _ref.tickLines;
-	  var tickLines = _ref$tickLines === undefined ? false : _ref$tickLines;
-	  var _ref$axisLine = _ref.axisLine;
-	  var axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
+	  var min = _ref.min,
+	      max = _ref.max,
+	      title = _ref.title,
+	      _ref$position = _ref.position,
+	      position = _ref$position === undefined ? 0 : _ref$position,
+	      _ref$numTicks = _ref.numTicks,
+	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
+	      _ref$tickLines = _ref.tickLines,
+	      tickLines = _ref$tickLines === undefined ? false : _ref$tickLines,
+	      _ref$axisLine = _ref.axisLine,
+	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
@@ -9153,17 +9151,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function YAxis(_ref, _ref2) {
-	  var min = _ref.min;
-	  var max = _ref.max;
-	  var title = _ref.title;
-	  var _ref$position = _ref.position;
-	  var position = _ref$position === undefined ? 0 : _ref$position;
-	  var _ref$numTicks = _ref.numTicks;
-	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
-	  var _ref$tickLines = _ref.tickLines;
-	  var tickLines = _ref$tickLines === undefined ? false : _ref$tickLines;
-	  var _ref$axisLine = _ref.axisLine;
-	  var axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
+	  var min = _ref.min,
+	      max = _ref.max,
+	      title = _ref.title,
+	      _ref$position = _ref.position,
+	      position = _ref$position === undefined ? 0 : _ref$position,
+	      _ref$numTicks = _ref.numTicks,
+	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
+	      _ref$tickLines = _ref.tickLines,
+	      tickLines = _ref$tickLines === undefined ? false : _ref$tickLines,
+	      _ref$axisLine = _ref.axisLine,
+	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);

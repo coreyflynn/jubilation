@@ -2,8 +2,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ScatterPlotExample from './scatterplot';
+import BarPlotExample from './barplot';
 
 ReactDOM.render(
-  <ScatterPlotExample />,
+  <div>
+    <BarPlotExample />
+    <ScatterPlotExample />
+  </div>,
   document.getElementById('root')
 );
