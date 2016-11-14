@@ -68,9 +68,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _scatterplot2 = _interopRequireDefault(_scatterplot);
 
+	var _barplot = __webpack_require__(193);
+
+	var _barplot2 = _interopRequireDefault(_barplot);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_reactDom2.default.render(_react2.default.createElement(_scatterplot2.default, null), document.getElementById('root'));
+	_reactDom2.default.render(_react2.default.createElement(
+	  'div',
+	  null,
+	  _react2.default.createElement(_barplot2.default, null),
+	  _react2.default.createElement(_scatterplot2.default, null)
+	), document.getElementById('root'));
 
 /***/ },
 /* 1 */
@@ -5046,15 +5055,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function JubilationChart(_ref) {
-	  var _ref$title = _ref.title;
-	  var title = _ref$title === undefined ? 'JubilationChart' : _ref$title;
-	  var _ref$height = _ref.height;
-	  var height = _ref$height === undefined ? 100 : _ref$height;
-	  var _ref$width = _ref.width;
-	  var width = _ref$width === undefined ? 300 : _ref$width;
-	  var _ref$theme = _ref.theme;
-	  var theme = _ref$theme === undefined ? _jubilationTheme2.default : _ref$theme;
-	  var children = _ref.children;
+	  var _ref$title = _ref.title,
+	      title = _ref$title === undefined ? 'JubilationChart' : _ref$title,
+	      _ref$height = _ref.height,
+	      height = _ref$height === undefined ? 100 : _ref$height,
+	      _ref$width = _ref.width,
+	      width = _ref$width === undefined ? 300 : _ref$width,
+	      _ref$theme = _ref.theme,
+	      theme = _ref$theme === undefined ? _jubilationTheme2.default : _ref$theme,
+	      children = _ref.children;
 
 	  return _react2.default.createElement(
 	    _jubilationProvider2.default,
@@ -8567,13 +8576,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// SVG object prop types
 	function JubilationContainer(_ref) {
-	  var title = _ref.title;
-	  var desc = _ref.desc;
-	  var _ref$width = _ref.width;
-	  var width = _ref$width === undefined ? 300 : _ref$width;
-	  var _ref$height = _ref.height;
-	  var height = _ref$height === undefined ? 100 : _ref$height;
-	  var children = _ref.children;
+	  var title = _ref.title,
+	      desc = _ref.desc,
+	      _ref$width = _ref.width,
+	      width = _ref$width === undefined ? 300 : _ref$width,
+	      _ref$height = _ref.height,
+	      height = _ref$height === undefined ? 100 : _ref$height,
+	      children = _ref.children;
 
 	  var svgProps = {
 	    'aria-labelledby': 'title desc',
@@ -8670,27 +8679,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * text element with the dx and dy props.
 	 */
 	function JubilationLabel(_ref, _ref2) {
-	  var _ref$x = _ref.x;
-	  var x = _ref$x === undefined ? 0 : _ref$x;
-	  var _ref$y = _ref.y;
-	  var y = _ref$y === undefined ? 0 : _ref$y;
-	  var _ref$dx = _ref.dx;
-	  var dx = _ref$dx === undefined ? 0 : _ref$dx;
-	  var _ref$dy = _ref.dy;
-	  var dy = _ref$dy === undefined ? 0 : _ref$dy;
-	  var _ref$style = _ref.style;
-	  var style = _ref$style === undefined ? {} : _ref$style;
-	  var _ref$textAnchor = _ref.textAnchor;
-	  var textAnchor = _ref$textAnchor === undefined ? 'start' : _ref$textAnchor;
-	  var children = _ref.children;
+	  var _ref$x = _ref.x,
+	      x = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y,
+	      y = _ref$y === undefined ? 0 : _ref$y,
+	      _ref$dx = _ref.dx,
+	      dx = _ref$dx === undefined ? 0 : _ref$dx,
+	      _ref$dy = _ref.dy,
+	      dy = _ref$dy === undefined ? 0 : _ref$dy,
+	      _ref$style = _ref.style,
+	      style = _ref$style === undefined ? {} : _ref$style,
+	      _ref$textAnchor = _ref.textAnchor,
+	      textAnchor = _ref$textAnchor === undefined ? 'start' : _ref$textAnchor,
+	      children = _ref.children;
 	  var JubilationContext = _ref2.JubilationContext;
 
-	  var _getContext = (0, _context2.default)(JubilationContext);
-
-	  var xScale = _getContext.xScale;
-	  var yScale = _getContext.yScale;
-	  var theme = _getContext.theme;
-
+	  var _getContext = (0, _context2.default)(JubilationContext),
+	      xScale = _getContext.xScale,
+	      yScale = _getContext.yScale,
+	      theme = _getContext.theme;
 
 	  var textProps = {
 	    x: xScale(x),
@@ -8783,19 +8790,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A single data point. Returns an SVG circle element
 	 */
 	function JubilationPoint(_ref, _ref2) {
-	  var _ref$x = _ref.x;
-	  var x = _ref$x === undefined ? 0 : _ref$x;
-	  var _ref$y = _ref.y;
-	  var y = _ref$y === undefined ? 0 : _ref$y;
-	  var color = _ref.color;
-	  var style = _ref.style;
-	  var _ref$size = _ref.size;
-	  var size = _ref$size === undefined ? 4 : _ref$size;
+	  var _ref$x = _ref.x,
+	      x = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y,
+	      y = _ref$y === undefined ? 0 : _ref$y,
+	      color = _ref.color,
+	      style = _ref.style,
+	      _ref$size = _ref.size,
+	      size = _ref$size === undefined ? 4 : _ref$size;
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
-	  var xScale = context.xScale;
-	  var yScale = context.yScale;
+	  var xScale = context.xScale,
+	      yScale = context.yScale;
 
 	  var fill = context.theme.colors[0];
 	  if (color) fill = color;
@@ -8879,10 +8886,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var color = _props.color;
-	      var size = _props.size;
-	      var style = _props.style;
+	      var _props = this.props,
+	          color = _props.color,
+	          size = _props.size,
+	          style = _props.style;
 
 	      return _react2.default.createElement(
 	        'g',
@@ -8996,17 +9003,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function XAxis(_ref, _ref2) {
-	  var min = _ref.min;
-	  var max = _ref.max;
-	  var title = _ref.title;
-	  var _ref$position = _ref.position;
-	  var position = _ref$position === undefined ? 0 : _ref$position;
-	  var _ref$numTicks = _ref.numTicks;
-	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
-	  var _ref$tickLines = _ref.tickLines;
-	  var tickLines = _ref$tickLines === undefined ? false : _ref$tickLines;
-	  var _ref$axisLine = _ref.axisLine;
-	  var axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
+	  var min = _ref.min,
+	      max = _ref.max,
+	      title = _ref.title,
+	      _ref$position = _ref.position,
+	      position = _ref$position === undefined ? 0 : _ref$position,
+	      _ref$numTicks = _ref.numTicks,
+	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
+	      _ref$tickLines = _ref.tickLines,
+	      tickLines = _ref$tickLines === undefined ? false : _ref$tickLines,
+	      _ref$axisLine = _ref.axisLine,
+	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
@@ -9117,17 +9124,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function YAxis(_ref, _ref2) {
-	  var min = _ref.min;
-	  var max = _ref.max;
-	  var title = _ref.title;
-	  var _ref$position = _ref.position;
-	  var position = _ref$position === undefined ? 0 : _ref$position;
-	  var _ref$numTicks = _ref.numTicks;
-	  var numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks;
-	  var _ref$tickLines = _ref.tickLines;
-	  var tickLines = _ref$tickLines === undefined ? false : _ref$tickLines;
-	  var _ref$axisLine = _ref.axisLine;
-	  var axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
+	  var min = _ref.min,
+	      max = _ref.max,
+	      title = _ref.title,
+	      _ref$position = _ref.position,
+	      position = _ref$position === undefined ? 0 : _ref$position,
+	      _ref$numTicks = _ref.numTicks,
+	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
+	      _ref$tickLines = _ref.tickLines,
+	      tickLines = _ref$tickLines === undefined ? false : _ref$tickLines,
+	      _ref$axisLine = _ref.axisLine,
+	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
 	  var JubilationContext = _ref2.JubilationContext;
 
 	  var context = (0, _context2.default)(JubilationContext);
@@ -26541,6 +26548,175 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react.Component);
 
 	exports.default = ScatterPlotExample;
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationChart = __webpack_require__(35);
+
+	var _jubilationChart2 = _interopRequireDefault(_jubilationChart);
+
+	var _jubilationRect = __webpack_require__(194);
+
+	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function getData() {
+	  var data = [];
+	  for (var i = 0; i < 10; i += 1) {
+	    data.push(i * 30 + 1);
+	  }
+	  return data;
+	}
+
+	var BarPlotExample = function (_Component) {
+	  _inherits(BarPlotExample, _Component);
+
+	  function BarPlotExample() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, BarPlotExample);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BarPlotExample.__proto__ || Object.getPrototypeOf(BarPlotExample)).call.apply(_ref, [this].concat(args))), _this), _this.state = { data: getData() }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  _createClass(BarPlotExample, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      setInterval(function () {
+	        _this2.setState({ data: getData() });
+	      }, 5000);
+	    }
+	  }, {
+	    key: 'renderBasic',
+	    value: function renderBasic() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Basic Bar Plot'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          this.state.data.map(function (datum, i) {
+	            return _react2.default.createElement(_jubilationRect2.default, { x: 0, y: i * 10, width: datum, height: 5 });
+	          })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        this.renderBasic()
+	      );
+	    }
+	  }]);
+
+	  return BarPlotExample;
+	}(_react.Component);
+
+	exports.default = BarPlotExample;
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = JubilationRect;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * A single SVG rectangle. A basic building block for bar graphs
+	 */
+	function JubilationRect(_ref, _ref2) {
+	  var _ref$x = _ref.x,
+	      x = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y,
+	      y = _ref$y === undefined ? 0 : _ref$y,
+	      color = _ref.color,
+	      style = _ref.style,
+	      _ref$width = _ref.width,
+	      width = _ref$width === undefined ? 10 : _ref$width,
+	      _ref$height = _ref.height,
+	      height = _ref$height === undefined ? 10 : _ref$height;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var xScale = context.xScale,
+	      yScale = context.yScale;
+
+	  var fill = context.theme.colors[0];
+	  if (color) fill = color;
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { x: x, y: y, width: width, height: height, fill: fill, style: style } },
+	    function (data) {
+	      return _react2.default.createElement('rect', {
+	        x: xScale(data.x),
+	        y: yScale(data.y),
+	        width: data.width,
+	        height: data.height,
+	        fill: data.fill,
+	        style: data.style
+	      });
+	    }
+	  );
+	}
+
+
+	JubilationRect.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ }
 /******/ ])
