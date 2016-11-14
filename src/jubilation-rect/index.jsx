@@ -17,7 +17,7 @@ type Context = { JubilationContext: JubilationContext };
  * A single SVG rectangle. A basic building block for bar graphs
  */
 export default function JubilationRect(
-  { x = 0, y = 0, color, style, width = 10, height = 10 }: Props,
+  { x = 0, y = 0, color, style = {}, width = 10, height = 10 }: Props,
   { JubilationContext }: Context): React.Element<*> {
   const context = getContext(JubilationContext);
   const { xScale, yScale } = context;
