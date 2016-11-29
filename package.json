@@ -42,14 +42,16 @@
     "webpack-dev-server": "1.14.1"
   },
   "scripts": {
-    "build": "node_modules/webpack/bin/webpack.js",
-    "build-watch": "node_modules/webpack/bin/webpack.js -w",
-    "lint": "node_modules/eslint/bin/eslint.js __tests__ src --ext js,jsx",
-    "flow": "node_modules/flow-bin/cli.js",
+    "build-watch": "npm run clean; node_modules/webpack/bin/webpack.js -w",
+    "build": "npm run clean; node_modules/webpack/bin/webpack.js",
+    "clean": "rm -rf dist; rm examples/index.js",
     "flow-check": "scripts/flow-check.sh",
-    "test": "node_modules/jest/bin/jest.js",
+    "flow": "node_modules/flow-bin/cli.js",
+    "lint": "node_modules/eslint/bin/eslint.js __tests__ src --ext js,jsx",
+    "prepush": "npm run lint && npm run flow-check && npm run flow && npm test",
     "test-watch": "node_modules/jest/bin/jest.js --watch",
-    "prepush": "npm run lint && npm run flow-check && npm run flow && npm test"
+    "test": "node_modules/jest/bin/jest.js",
+    "update-examples": "git subtree push --prefix examples origin gh-pages"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|\\.(test|spec))test\\.(js|jsx)$"
