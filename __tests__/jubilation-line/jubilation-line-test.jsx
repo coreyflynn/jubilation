@@ -16,14 +16,25 @@ describe('JubilationLine', () => {
     const props = { x1: 1, y1: 1, x2: 2, y2: 2 };
     const wrapper = mount(<JubilationLine {...props} />);
 
-    expect(wrapper.props('x1')).toBe(1);
-    expect(wrapper.props('y1')).toBe(1);
-    expect(wrapper.props('x2')).toBe(2);
-    expect(wrapper.props('y2')).toBe(2);
+    expect(wrapper.find('line').prop('x1')).toBe(1);
+    expect(wrapper.find('line').prop('y1')).toBe(1);
+    expect(wrapper.find('line').prop('x2')).toBe(2);
+    expect(wrapper.find('line').prop('y2')).toBe(2);
+  });
+
+  it('should use the unit line as a default if x and y props are blank', () => {
+    const wrapper = mount(<JubilationLine />);
+
+    expect(wrapper.find('line').prop('x1')).toBe(0);
+    expect(wrapper.find('line').prop('y1')).toBe(0);
+    expect(wrapper.find('line').prop('x2')).toBe(1);
+    expect(wrapper.find('line').prop('y2')).toBe(1);
   });
 
   it('passes additional props through to the rendered lines', () => {
-    expect(mount(<JubilationLine className={'test'} />).props().className).toBe('test');
+    const renderedLine = mount(<JubilationLine className={'test'} />).find('line');
+
+    expect(renderedLine.props().className).toBe('test');
   });
 
   it('should use an identity xScale from the default context if one is not given', () => {
@@ -33,7 +44,7 @@ describe('JubilationLine', () => {
   });
 
   it('should use yScale from the default context if one is not given', () => {
-    expect(mount(<JubilationLine y2={150}/>).find('line').props().y2).toBe(150);
+    expect(mount(<JubilationLine y2={150} />).find('line').props().y2).toBe(150);
   });
 
   it('should calculate xScale from JubilationContext if passed', () => {
@@ -43,7 +54,7 @@ describe('JubilationLine', () => {
       </JubilationProvider>
     );
 
-    expect(wrapper.find('line').props().x2).toBe(300)
+    expect(wrapper.find('line').props().x2).toBe(300);
   });
 
   it('should calculate yScale from JubilationContext if passed', () => {
@@ -57,12 +68,12 @@ describe('JubilationLine', () => {
   });
 
   it('should set the stroke color to theme.labelStyle.fill from the default context if one is not given', () => {
-    expect(mount(<JubilationLine />).find('line').props().stroke).toBe("#393F46");
+    expect(mount(<JubilationLine />).find('line').props().stroke).toBe('#393F46');
   });
 
   it('should set the stroke color to theme.labelStyle.fill from the if one is passed', () => {
     const wrapper = mount(
-      <JubilationProvider theme={{ colors: ['red'] }}>
+      <JubilationProvider theme={{ labelStyle: { fill: 'red' } }}>
         <JubilationLine />
       </JubilationProvider>
     );
