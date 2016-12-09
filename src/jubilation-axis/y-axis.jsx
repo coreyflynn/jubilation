@@ -23,7 +23,14 @@ export default function YAxis(
   const context = getContext(JubilationContext);
   const computedMin = min || min === 0 ? min : context.yScale.domain()[1];
   const computedMax = max || max === 0 ? max : context.yScale.domain()[0];
-  const ticks = getTicks(computedMin, computedMax, numTicks, 'y', position, context);
+  const ticks = getTicks({
+    min: computedMin,
+    max: computedMax,
+    numTicks,
+    axisType: 'y',
+    position,
+    context,
+  });
   const dx = -5;
 
   return (

@@ -23,7 +23,14 @@ export default function XAxis(
   const context = getContext(JubilationContext);
   const computedMin = min || min === 0 ? min : context.xScale.domain()[0];
   const computedMax = max || max === 0 ? max : context.xScale.domain()[1];
-  const ticks = getTicks(computedMin, computedMax, numTicks, 'x', position, context);
+  const ticks = getTicks({
+    min: computedMin,
+    max: computedMax,
+    numTicks,
+    axisType: 'x',
+    position,
+    context,
+  });
   const offset = context.theme.labelStyle.fontSize;
 
   return (
