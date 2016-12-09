@@ -9,7 +9,6 @@ describe('JubilationRect', () => {
     expect(mount(<JubilationRect />).find('rect').length).toBe(1);
   });
 
-  // { x = 0, y = 0, color, style, width = 10, height = 10 }: Props,
   it('should render with a x prop of 0 by default', () => {
     expect(mount(<JubilationRect />).find('rect').props().x).toBe(0);
   });
