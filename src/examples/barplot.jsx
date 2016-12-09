@@ -7,7 +7,7 @@ import JubilationRect from '../jubilation-rect';
 function getData() {
   const data = [];
   for (let i = 0; i < 10; i += 1) {
-    data.push((i * 30) + 1);
+    data.push(Math.random() * 300);
   }
   return data;
 }
