@@ -26584,7 +26584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function getData() {
 	  var data = [];
 	  for (var i = 0; i < 10; i += 1) {
-	    data.push(i * 30 + 1);
+	    data.push(Math.random() * 300);
 	  }
 	  return data;
 	}
@@ -26685,7 +26685,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      _ref$y = _ref.y,
 	      y = _ref$y === undefined ? 0 : _ref$y,
 	      color = _ref.color,
-	      style = _ref.style,
+	      _ref$style = _ref.style,
+	      style = _ref$style === undefined ? {} : _ref$style,
 	      _ref$width = _ref.width,
 	      width = _ref$width === undefined ? 10 : _ref$width,
 	      _ref$height = _ref.height,
