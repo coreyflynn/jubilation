@@ -26660,8 +26660,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            data: this.state.data,
 	            color: _jubilationTheme2.default.colors[this.state.colors[0]]
 	          }),
-	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 2, title: 'X axis' }),
-	          _react2.default.createElement(_jubilationAxis.YAxis, { numTicks: 2, title: 'Y axis' })
+	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 2, title: 'X axis' })
 	        )
 	      );
 	    }
@@ -26778,6 +26777,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
 
+	var _jubilationLabel = __webpack_require__(50);
+
+	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
+
+	var _axis = __webpack_require__(57);
+
+	var _axis2 = _interopRequireDefault(_axis);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26825,11 +26832,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return yHeight / this.props.data.length;
 	    }
 	  }, {
+	    key: 'getDataBinSize',
+	    value: function getDataBinSize() {
+	      return this.context.JubilationContext.yScale.domain()[0] / this.props.data.length;
+	    }
+	  }, {
 	    key: 'getY',
 	    value: function getY(i) {
-	      var dataHeight = this.context.JubilationContext.yScale.domain()[0];
-	      var dataBinSize = dataHeight / this.props.data.length;
+	      var dataBinSize = this.getDataBinSize();
 	      return (i + 1) * dataBinSize - dataBinSize * this.props.gapWidth;
+	    }
+	  }, {
+	    key: 'getLabelPositions',
+	    value: function getLabelPositions() {
+	      var yScale = this.context.JubilationContext.yScale;
+
+	      return (0, _axis2.default)(yScale.domain()[1], yScale.domain()[0], this.props.data.length, 'y', 0, this.context.JubilationContext);
 	    }
 	  }, {
 	    key: 'render',
@@ -26841,8 +26859,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          color = _props.color,
 	          style = _props.style;
 	      var xScale = this.context.JubilationContext.xScale;
+	      var theme = this.context.JubilationContext.theme;
 
-	      window.JubilationContext = this.context.JubilationContext;
 	      return _react2.default.createElement(
 	        'g',
 	        null,
@@ -26856,6 +26874,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	            color: color,
 	            style: style
 	          });
+	        }),
+	        data.map(function (datum, i) {
+	          return _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            {
+	              y: _this2.getY(i) - _this2.getDataBinSize() / 2,
+	              dx: -5,
+	              textAnchor: 'end'
+	            },
+	            i
+	          );
 	        })
 	      );
 	    }
