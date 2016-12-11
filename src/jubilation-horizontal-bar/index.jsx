@@ -3,6 +3,8 @@ import React from 'react';
 import uuid from 'uuid';
 import getDomainMap from '../helpers/scatter';
 import Rect from '../jubilation-rect';
+import Label from '../jubilation-label';
+import getTicks from '../helpers/axis';
 
 type Props = {
   data: number[],
@@ -46,16 +48,31 @@ export default class JubilationHorizontalBarChart extends React.Component {
     return yHeight / this.props.data.length;
   }
 
+  getDataBinSize() {
+    return this.context.JubilationContext.yScale.domain()[0] / this.props.data.length;
+  }
+  
   getY(i: number) {
-    const dataHeight = this.context.JubilationContext.yScale.domain()[0];
-    const dataBinSize = dataHeight / this.props.data.length;
+    const dataBinSize = this.getDataBinSize();
     return ((i + 1) * dataBinSize) - (dataBinSize * this.props.gapWidth);
+  }
+
+  getLabelPositions() {
+    const { yScale } = this.context.JubilationContext;
+    return getTicks(
+      yScale.domain()[1],
+      yScale.domain()[0],
+      this.props.data.length,
+      'y',
+      0,
+      this.context.JubilationContext
+    );
   }
 
   render() {
     const { data, color, style } = this.props;
     const { xScale } = this.context.JubilationContext;
-    window.JubilationContext = this.context.JubilationContext;
+    const { theme } = this.context.JubilationContext;
     return (
       <g>
         {data.map((datum, i) =>
@@ -68,6 +85,15 @@ export default class JubilationHorizontalBarChart extends React.Component {
             color={color}
             style={style}
           />
+        )}
+        {data.map((datum, i) =>
+          <Label
+            y={this.getY(i) - (this.getDataBinSize() / 2)}
+            dx={-5}
+            textAnchor="end"
+          >
+            {i}
+          </Label>
         )}
       </g>
     );

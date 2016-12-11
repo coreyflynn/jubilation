@@ -47,7 +47,6 @@ class BarPlotExample extends Component {
             color={JubilationTheme.colors[this.state.colors[0]]}
           />
           <XAxis numTicks={2} title="X axis" />
-          <YAxis numTicks={2} title="Y axis" />
         </JubilationChart>
       </div>
     );
