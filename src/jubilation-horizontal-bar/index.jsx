@@ -51,7 +51,7 @@ export default class JubilationHorizontalBarChart extends React.Component {
   getDataBinSize() {
     return this.context.JubilationContext.yScale.domain()[0] / this.props.data.length;
   }
-  
+
   getY(i: number) {
     const dataBinSize = this.getDataBinSize();
     return ((i + 1) * dataBinSize) - (dataBinSize * this.props.gapWidth);
@@ -72,7 +72,6 @@ export default class JubilationHorizontalBarChart extends React.Component {
   render() {
     const { data, color, style } = this.props;
     const { xScale } = this.context.JubilationContext;
-    const { theme } = this.context.JubilationContext;
     return (
       <g>
         {data.map((datum, i) =>

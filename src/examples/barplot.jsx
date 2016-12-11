@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import JubilationChart from '../jubilation-chart';
 import HorizontalBarChart from '../jubilation-horizontal-bar';
 import JubilationTheme from '../jubilation-theme';
-import { XAxis, YAxis } from '../jubilation-axis';
+import { XAxis } from '../jubilation-axis';
 
 
 function getData() {
