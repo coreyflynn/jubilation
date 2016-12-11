@@ -26859,7 +26859,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          color = _props.color,
 	          style = _props.style;
 	      var xScale = this.context.JubilationContext.xScale;
-	      var theme = this.context.JubilationContext.theme;
 
 	      return _react2.default.createElement(
 	        'g',
