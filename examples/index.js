@@ -8735,6 +8735,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.defaultContext = undefined;
 	exports.default = getContext;
 
 	var _jubilationTheme = __webpack_require__(39);
@@ -8743,22 +8744,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function scale(x) {
+	  return x;
+	}
+
+	scale.domain = function domain() {
+	  return [0, 100];
+	};
+	scale.range = function domain() {
+	  return [100, 0];
+	};
+
+	var defaultContext = exports.defaultContext = {
+	  theme: _jubilationTheme2.default,
+	  xScale: scale,
+	  yScale: scale,
+	  addDomain: function addDomain() {},
+	  removeDomain: function removeDomain() {},
+	  update: function update() {}
+	};
+
 	function getContext(context) {
-	  if (context) return context;
-	  function scale(x) {
-	    return x;
-	  }
-	  scale.domain = function domain() {
-	    return [0, 100];
-	  };
-	  return {
-	    theme: _jubilationTheme2.default,
-	    xScale: scale,
-	    yScale: scale,
-	    addDomain: function addDomain() {},
-	    removeDomain: function removeDomain() {},
-	    update: function update() {}
-	  };
+	  return context || defaultContext;
 	}
 
 /***/ },
@@ -26781,6 +26788,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
 	var _axis = __webpack_require__(57);
 
 	var _axis2 = _interopRequireDefault(_axis);
@@ -26805,6 +26816,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.domainMap = (0, _scatter2.default)(_this.uuid, props.data.map(function (d) {
 	      return { x: d, y: 0 };
 	    }));
+	    _this.context.JubilationContext = (0, _context2.default)(_this.context.JubilationContext);
 	    _this.context.JubilationContext.addDomain(_this.domainMap);
 	    return _this;
 	  }
@@ -26878,6 +26890,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return _react2.default.createElement(
 	            _jubilationLabel2.default,
 	            {
+	              key: i,
 	              y: _this2.getY(i) - _this2.getDataBinSize() / 2,
 	              dx: -5,
 	              textAnchor: 'end'

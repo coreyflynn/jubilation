@@ -4,6 +4,7 @@ import uuid from 'uuid';
 import getDomainMap from '../helpers/scatter';
 import Rect from '../jubilation-rect';
 import Label from '../jubilation-label';
+import getContext from '../helpers/context';
 import getTicks from '../helpers/axis';
 
 type Props = {
@@ -28,6 +29,7 @@ export default class JubilationHorizontalBarChart extends React.Component {
     super(props, context);
     this.uuid = uuid.v4();
     this.domainMap = getDomainMap(this.uuid, props.data.map(d => ({ x: d, y: 0 })));
+    this.context.JubilationContext = getContext(this.context.JubilationContext);
     this.context.JubilationContext.addDomain(this.domainMap);
   }
 
@@ -87,6 +89,7 @@ export default class JubilationHorizontalBarChart extends React.Component {
         )}
         {data.map((datum, i) =>
           <Label
+            key={i}
             y={this.getY(i) - (this.getDataBinSize() / 2)}
             dx={-5}
             textAnchor="end"

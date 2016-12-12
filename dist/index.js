@@ -8762,6 +8762,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.defaultContext = undefined;
 	exports.default = getContext;
 
 	var _jubilationTheme = __webpack_require__(39);
@@ -8770,22 +8771,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function scale(x) {
+	  return x;
+	}
+
+	scale.domain = function domain() {
+	  return [0, 100];
+	};
+	scale.range = function domain() {
+	  return [100, 0];
+	};
+
+	var defaultContext = exports.defaultContext = {
+	  theme: _jubilationTheme2.default,
+	  xScale: scale,
+	  yScale: scale,
+	  addDomain: function addDomain() {},
+	  removeDomain: function removeDomain() {},
+	  update: function update() {}
+	};
+
 	function getContext(context) {
-	  if (context) return context;
-	  function scale(x) {
-	    return x;
-	  }
-	  scale.domain = function domain() {
-	    return [0, 100];
-	  };
-	  return {
-	    theme: _jubilationTheme2.default,
-	    xScale: scale,
-	    yScale: scale,
-	    addDomain: function addDomain() {},
-	    removeDomain: function removeDomain() {},
-	    update: function update() {}
-	  };
+	  return context || defaultContext;
 	}
 
 /***/ },
