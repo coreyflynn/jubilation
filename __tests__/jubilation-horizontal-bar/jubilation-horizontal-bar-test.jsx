@@ -1,7 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import td from 'testdouble';
-import JubilationContext from '../../src/jubilation-context';
 import { defaultContext } from '../../src/helpers/context';
 import HorizontalBar from '../../src/jubilation-horizontal-bar';
 
@@ -34,5 +32,48 @@ describe('JubilationHorizontalBarChart', () => {
   it('shoud default to the base Jubilation context', () => {
     const instance = shallow(<HorizontalBar />).instance();
     expect(instance.context.JubilationContext).toEqual(defaultContext);
+  });
+
+  describe('ComponentWillRecieveProps', () => {
+    it('should add data as x data to the domain map', () => {
+      const wrapper = shallow(<HorizontalBar data={[1, 2]} />);
+      const { domainMap, uuid } = wrapper.setProps({ data: [3, 4] }).instance();
+      expect(domainMap[uuid].x).toEqual([3, 4]);
+    });
+
+    it('should add dummy y data to the domain map', () => {
+      const wrapper = shallow(<HorizontalBar data={[1, 2]} />);
+      const { domainMap, uuid } = wrapper.setProps({ data: [3, 4] }).instance();
+      expect(domainMap[uuid].y).toEqual([0, 0]);
+    });
+  });
+
+  describe('getHeight', () => {
+    it('should compute a height that takes gapWidth into account');
+  });
+
+  describe('getBinHeight', () => {
+    it('should compute a binHeight of the full yScale range for one data point');
+    it('should compute a binHeight that takes the number of data into account');
+  });
+
+  describe('getDataBinSize', () => {
+    it('should compute a dataBinSize of the full yScale domain for one data point');
+    it('should compute a dataBinSize that takes the number of data into account');
+  });
+
+  describe('getY', () => {
+    it('should compoute the right offset for a single data point');
+    it('should compoute the right offset for a multiple data points');
+  });
+
+  describe('get label position', () => {
+    it('should return an object with the right label postion data for a single data point');
+    it('should return an object with the right label postion data for a multiple data points');
+  });
+
+  describe('render', () => {
+    it('should render a Rect for every data point');
+    it('should render a Label for every data point');
   });
 });
