@@ -2,8 +2,8 @@
 import JubilationTheme from '../jubilation-theme';
 
 function scale(x: number): number { return x; }
-scale.domain = function domain(): number[] { return [0, 100]; };
-scale.range = function domain(): number[] { return [100, 0]; };
+scale.domain = function domain(): number[] { return [100, 0]; };
+scale.range = function domain(): number[] { return [0, 100]; };
 
 export const defaultContext: JubilationContext = {
   theme: JubilationTheme,

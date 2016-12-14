@@ -49,31 +49,71 @@ describe('JubilationHorizontalBarChart', () => {
   });
 
   describe('getHeight', () => {
-    it('should compute a height that takes gapWidth into account');
+    it('should compute a height that takes gapWidth into account', () => {
+      const instance = shallow(<HorizontalBar data={[1]} />).instance();
+      expect(instance.getHeight()).toBe(90);
+    });
   });
 
   describe('getBinHeight', () => {
-    it('should compute a binHeight of the full yScale range for one data point');
-    it('should compute a binHeight that takes the number of data into account');
+    it('should compute a binHeight of the full yScale range for one data point', () => {
+      const instance = shallow(<HorizontalBar data={[1]} />).instance();
+      expect(instance.getBinHeight()).toBe(100);
+    });
+
+    it('should compute a binHeight that takes the number of data into account', () => {
+      const instance = shallow(<HorizontalBar data={[1, 2]} />).instance();
+      expect(instance.getBinHeight()).toBe(50);
+    });
   });
 
   describe('getDataBinSize', () => {
-    it('should compute a dataBinSize of the full yScale domain for one data point');
-    it('should compute a dataBinSize that takes the number of data into account');
+    it('should compute a dataBinSize of the full yScale domain for one data point', () => {
+      const instance = shallow(<HorizontalBar data={[1]} />).instance();
+      expect(instance.getDataBinSize()).toBe(100);
+    });
+
+    it('should compute a dataBinSize that takes the number of data into account', () => {
+      const instance = shallow(<HorizontalBar data={[1, 2]} />).instance();
+      expect(instance.getDataBinSize()).toBe(50);
+    });
   });
 
   describe('getY', () => {
-    it('should compoute the right offset for a single data point');
-    it('should compoute the right offset for a multiple data points');
+    it('should compoute the right offset for a single data point', () => {
+      const instance = shallow(<HorizontalBar data={[1]} />).instance();
+      expect(instance.getY(0)).toBe(95);
+    });
+
+    it('should compoute the right offset for a multiple data points', () => {
+      const instance = shallow(<HorizontalBar data={[1, 2]} />).instance();
+      expect(instance.getY(0)).toBe(47.5);
+      expect(instance.getY(1)).toBe(97.5);
+    });
   });
 
   describe('get label position', () => {
-    it('should return an object with the right label postion data for a single data point');
-    it('should return an object with the right label postion data for a multiple data points');
+    it('should return an the right label postion data for a single data point', () => {
+      const instance = shallow(<HorizontalBar data={[1]} />).instance();
+      const positions = instance.getLabelPositions();
+      expect(positions[0].val).toBe(50);
+    });
+
+    it('should return an the right label postion data for a multiple data points', () => {
+      const instance = shallow(<HorizontalBar data={[1, 2]} />).instance();
+      const positions = instance.getLabelPositions();
+      expect(positions.map(p => Math.round(p.val))).toEqual([33, 67]);
+    });
   });
 
   describe('render', () => {
-    it('should render a Rect for every data point');
-    it('should render a Label for every data point');
+    it('should render a Rect for every data point', () => {
+      const wrapper = shallow(<HorizontalBar data={[1, 2]} />);
+      expect(wrapper.find('JubilationRect').length).toBe(2);
+    });
+    it('should render a Label for every data point', () => {
+      const wrapper = shallow(<HorizontalBar data={[1, 2]} />);
+      expect(wrapper.find('JubilationLabel').length).toBe(2);
+    });
   });
 });
