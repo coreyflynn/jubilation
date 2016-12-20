@@ -111,8 +111,14 @@ describe('JubilationHorizontalBarChart', () => {
       const wrapper = shallow(<HorizontalBar data={[1, 2]} />);
       expect(wrapper.find('JubilationRect').length).toBe(2);
     });
-    it('should render a Label for every data point', () => {
-      const wrapper = shallow(<HorizontalBar data={[1, 2]} />);
+
+    it('should render fewer labels than data points if not enough are passed in', () => {
+      const wrapper = shallow(<HorizontalBar data={[1, 2]} labels={['one']} />);
+      expect(wrapper.find('JubilationLabel').length).toBe(1);
+    });
+
+    it('should render a Label for labels passed in if there are matching data', () => {
+      const wrapper = shallow(<HorizontalBar data={[1, 2]} labels={['one', 'two', 'three']} />);
       expect(wrapper.find('JubilationLabel').length).toBe(2);
     });
   });

@@ -8749,10 +8749,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	scale.domain = function domain() {
-	  return [0, 100];
+	  return [100, 0];
 	};
 	scale.range = function domain() {
-	  return [100, 0];
+	  return [0, 100];
 	};
 
 	var defaultContext = exports.defaultContext = {
@@ -26576,7 +26576,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationChart2 = _interopRequireDefault(_jubilationChart);
 
-	var _jubilationHorizontalBar = __webpack_require__(195);
+	var _jubilationHorizontalBar = __webpack_require__(194);
 
 	var _jubilationHorizontalBar2 = _interopRequireDefault(_jubilationHorizontalBar);
 
@@ -26645,7 +26645,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(
 	          _jubilationChart2.default,
 	          { height: 300, width: 600 },
-	          _react2.default.createElement(_jubilationHorizontalBar2.default, { data: this.state.data })
+	          _react2.default.createElement(_jubilationHorizontalBar2.default, {
+	            data: this.state.data,
+	            labels: this.state.data.map(function (d, i) {
+	              return 'Bar ' + i;
+	            })
+	          })
 	        )
 	      );
 	    }
@@ -26665,6 +26670,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          { height: 300, width: 600 },
 	          _react2.default.createElement(_jubilationHorizontalBar2.default, {
 	            data: this.state.data,
+	            labels: this.state.data.map(function (d, i) {
+	              return 'Bar ' + i;
+	            }),
 	            color: _jubilationTheme2.default.colors[this.state.colors[0]]
 	          }),
 	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 2, title: 'X axis' })
@@ -26697,74 +26705,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = JubilationRect;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(51);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/**
-	 * A single SVG rectangle. A basic building block for bar graphs
-	 */
-	function JubilationRect(_ref, _ref2) {
-	  var _ref$x = _ref.x,
-	      x = _ref$x === undefined ? 0 : _ref$x,
-	      _ref$y = _ref.y,
-	      y = _ref$y === undefined ? 0 : _ref$y,
-	      color = _ref.color,
-	      _ref$style = _ref.style,
-	      style = _ref$style === undefined ? {} : _ref$style,
-	      _ref$width = _ref.width,
-	      width = _ref$width === undefined ? 10 : _ref$width,
-	      _ref$height = _ref.height,
-	      height = _ref$height === undefined ? 10 : _ref$height;
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var xScale = context.xScale,
-	      yScale = context.yScale;
-
-	  var fill = context.theme.colors[0];
-	  if (color) fill = color;
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { x: x, y: y, width: width, height: height, fill: fill, style: style } },
-	    function (data) {
-	      return _react2.default.createElement('rect', {
-	        x: xScale(data.x),
-	        y: yScale(data.y),
-	        width: data.width,
-	        height: data.height,
-	        fill: data.fill,
-	        style: data.style
-	      });
-	    }
-	  );
-	}
-
-
-	JubilationRect.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 195 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -26780,7 +26720,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationRect = __webpack_require__(194);
+	var _jubilationRect = __webpack_require__(195);
 
 	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
 
@@ -26868,6 +26808,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var _props = this.props,
 	          data = _props.data,
+	          labels = _props.labels,
 	          color = _props.color,
 	          style = _props.style;
 	      var xScale = this.context.JubilationContext.xScale;
@@ -26886,7 +26827,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            style: style
 	          });
 	        }),
-	        data.map(function (datum, i) {
+	        labels.slice(0, data.length).map(function (label, i) {
 	          return _react2.default.createElement(
 	            _jubilationLabel2.default,
 	            {
@@ -26895,7 +26836,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              dx: -5,
 	              textAnchor: 'end'
 	            },
-	            i
+	            label
 	          );
 	        })
 	      );
@@ -26905,9 +26846,77 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return JubilationHorizontalBarChart;
 	}(_react2.default.Component);
 
-	JubilationHorizontalBarChart.defaultProps = { data: [], gapWidth: 0.05 };
+	JubilationHorizontalBarChart.defaultProps = { data: [], labels: [], gapWidth: 0.05 };
 	JubilationHorizontalBarChart.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 	exports.default = JubilationHorizontalBarChart;
+
+/***/ },
+/* 195 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = JubilationRect;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * A single SVG rectangle. A basic building block for bar graphs
+	 */
+	function JubilationRect(_ref, _ref2) {
+	  var _ref$x = _ref.x,
+	      x = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y,
+	      y = _ref$y === undefined ? 0 : _ref$y,
+	      color = _ref.color,
+	      _ref$style = _ref.style,
+	      style = _ref$style === undefined ? {} : _ref$style,
+	      _ref$width = _ref.width,
+	      width = _ref$width === undefined ? 10 : _ref$width,
+	      _ref$height = _ref.height,
+	      height = _ref$height === undefined ? 10 : _ref$height;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var xScale = context.xScale,
+	      yScale = context.yScale;
+
+	  var fill = context.theme.colors[0];
+	  if (color) fill = color;
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { x: x, y: y, width: width, height: height, fill: fill, style: style } },
+	    function (data) {
+	      return _react2.default.createElement('rect', {
+	        x: xScale(data.x),
+	        y: yScale(data.y),
+	        width: data.width,
+	        height: data.height,
+	        fill: data.fill,
+	        style: data.style
+	      });
+	    }
+	  );
+	}
+
+
+	JubilationRect.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ }
 /******/ ])

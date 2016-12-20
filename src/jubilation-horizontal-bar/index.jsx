@@ -9,6 +9,7 @@ import getTicks from '../helpers/axis';
 
 type Props = {
   data: number[],
+  labels: string[],
   gapWidth: number,
   color?: string,
   style?: Object,
@@ -21,7 +22,7 @@ export default class JubilationHorizontalBarChart extends React.Component {
   uuid: string
   domainMap: DomainMap
 
-  static defaultProps: Props = { data: [], gapWidth: 0.05 };
+  static defaultProps: Props = { data: [], labels: [], gapWidth: 0.05 };
 
   static contextTypes = { JubilationContext: React.PropTypes.object }
 
@@ -72,7 +73,7 @@ export default class JubilationHorizontalBarChart extends React.Component {
   }
 
   render() {
-    const { data, color, style } = this.props;
+    const { data, labels, color, style } = this.props;
     const { xScale } = this.context.JubilationContext;
     return (
       <g>
@@ -87,14 +88,16 @@ export default class JubilationHorizontalBarChart extends React.Component {
             style={style}
           />
         )}
-        {data.map((datum, i) =>
+
+        {/* render up to as many labels as we have data points */}
+        {labels.slice(0, data.length).map((label, i) =>
           <Label
             key={i}
             y={this.getY(i) - (this.getDataBinSize() / 2)}
             dx={-5}
             textAnchor="end"
           >
-            {i}
+            {label}
           </Label>
         )}
       </g>

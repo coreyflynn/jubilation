@@ -8776,10 +8776,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	scale.domain = function domain() {
-	  return [0, 100];
+	  return [100, 0];
 	};
 	scale.range = function domain() {
-	  return [100, 0];
+	  return [0, 100];
 	};
 
 	var defaultContext = exports.defaultContext = {
