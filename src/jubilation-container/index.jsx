@@ -37,7 +37,7 @@ export default function JubilationContainer(
       <desc id="desc">{desc}</desc>
       {children}
     </svg>
-    );
+  );
 }
 
 JubilationContainer.defaultProps = {
