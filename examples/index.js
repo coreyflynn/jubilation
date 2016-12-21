@@ -26919,11 +26919,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      height = _ref$height === undefined ? 10 : _ref$height;
 	  var JubilationContext = _ref2.JubilationContext;
 
-	  var context = (0, _context2.default)(JubilationContext);
-	  var xScale = context.xScale,
-	      yScale = context.yScale;
+	  var _getContext = (0, _context2.default)(JubilationContext),
+	      xScale = _getContext.xScale,
+	      yScale = _getContext.yScale,
+	      theme = _getContext.theme;
 
-	  var fill = context.theme.colors[0];
+	  var fill = theme.colors[0];
 	  if (color) fill = color;
 
 	  return _react2.default.createElement(
