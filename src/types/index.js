@@ -24,6 +24,8 @@ declare type JubilationContext = {
   theme: Theme,
   xScale: Function,
   yScale: Function,
+  xRange: number[],
+  yRange: number[],
   addDomain: Function,
   removeDomain: Function,
   update: Function,

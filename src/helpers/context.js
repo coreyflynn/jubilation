@@ -9,6 +9,8 @@ export const defaultContext: JubilationContext = {
   theme: JubilationTheme,
   xScale: scale,
   yScale: scale,
+  xRange: [0, 300],
+  yRange: [0, 100],
   addDomain() {},
   removeDomain() {},
   update() {},

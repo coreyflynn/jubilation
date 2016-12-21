@@ -6,6 +6,7 @@ import Rect from '../jubilation-rect';
 import Label from '../jubilation-label';
 import getContext from '../helpers/context';
 import getTicks from '../helpers/axis';
+import getTextWidth from '../helpers/text';
 
 type Props = {
   data: number[],
@@ -29,14 +30,31 @@ export default class JubilationHorizontalBarChart extends React.Component {
   constructor(props: Props, context: Context) {
     super(props, context);
     this.uuid = uuid.v4();
-    this.domainMap = getDomainMap(this.uuid, props.data.map(d => ({ x: d, y: 0 })));
     this.context.JubilationContext = getContext(this.context.JubilationContext);
+    this.setXRange();
+    this.domainMap = getDomainMap(this.uuid, props.data.map(d => ({ x: d, y: 0 })));
     this.context.JubilationContext.addDomain(this.domainMap);
   }
 
   componentWillReceiveProps(nextProps: Props) {
     this.domainMap = getDomainMap(this.uuid, nextProps.data.map(d => ({ x: d, y: 0 })));
     this.context.JubilationContext.addDomain(this.domainMap);
+  }
+
+  /**
+   * Inteligently sets the chart's xRange given the passed in label lengths
+   */
+  setXRange(): void {
+    const { xRange } = this.context.JubilationContext;
+    const maxLabelWidth: number = this.props.labels
+      .map(l => getTextWidth(l))
+      .reduce((a, b) => {
+        if (a > b) {
+          return a;
+        }
+        return b;
+      }, 0);
+    this.context.JubilationContext.xRange = [maxLabelWidth + 5, xRange[1]];
   }
 
   getHeight() {

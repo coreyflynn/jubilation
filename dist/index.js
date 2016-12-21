@@ -8786,6 +8786,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  theme: _jubilationTheme2.default,
 	  xScale: scale,
 	  yScale: scale,
+	  xRange: [0, 300],
+	  yRange: [0, 100],
 	  addDomain: function addDomain() {},
 	  removeDomain: function removeDomain() {},
 	  update: function update() {}

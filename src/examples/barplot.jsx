@@ -33,7 +33,7 @@ class BarPlotExample extends Component {
         <JubilationChart height={300} width={600}>
           <HorizontalBarChart
             data={this.state.data}
-            labels={this.state.data.map((d, i) => `Bar ${i}`)}
+            labels={this.state.data.map((d, i) => `Label ${i}`)}
           />
         </JubilationChart>
       </div>
@@ -47,7 +47,7 @@ class BarPlotExample extends Component {
         <JubilationChart height={300} width={600}>
           <HorizontalBarChart
             data={this.state.data}
-            labels={this.state.data.map((d, i) => `Bar ${i}`)}
+            labels={this.state.data.map((d, i) => `Label ${i}`)}
             color={JubilationTheme.colors[this.state.colors[0]]}
           />
           <XAxis numTicks={2} title="X axis" />

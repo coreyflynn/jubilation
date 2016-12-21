@@ -48,6 +48,18 @@ describe('JubilationHorizontalBarChart', () => {
     });
   });
 
+  describe('setXRange', () => {
+    it('should set the context xRange min to 5 if there are no labels', () => {
+      const instance = shallow(<HorizontalBar />).instance();
+      expect(instance.context.JubilationContext.xRange[0]).toBe(5);
+    });
+
+    it('should set the context xRange min to the longest label plus 5 if there are labels', () => {
+      const instance = shallow(<HorizontalBar labels={['test']} />).instance();
+      expect(instance.context.JubilationContext.xRange[0]).toBe(61);
+    });
+  });
+
   describe('getHeight', () => {
     it('should compute a height that takes gapWidth into account', () => {
       const instance = shallow(<HorizontalBar data={[1]} />).instance();
