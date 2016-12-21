@@ -8759,6 +8759,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  theme: _jubilationTheme2.default,
 	  xScale: scale,
 	  yScale: scale,
+	  xRange: [0, 300],
+	  yRange: [0, 100],
 	  addDomain: function addDomain() {},
 	  removeDomain: function removeDomain() {},
 	  update: function update() {}
@@ -26648,7 +26650,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement(_jubilationHorizontalBar2.default, {
 	            data: this.state.data,
 	            labels: this.state.data.map(function (d, i) {
-	              return 'Bar ' + i;
+	              return 'Label ' + i;
 	            })
 	          })
 	        )
@@ -26671,7 +26673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement(_jubilationHorizontalBar2.default, {
 	            data: this.state.data,
 	            labels: this.state.data.map(function (d, i) {
-	              return 'Bar ' + i;
+	              return 'Label ' + i;
 	            }),
 	            color: _jubilationTheme2.default.colors[this.state.colors[0]]
 	          }),
@@ -26736,6 +26738,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _axis2 = _interopRequireDefault(_axis);
 
+	var _text = __webpack_require__(196);
+
+	var _text2 = _interopRequireDefault(_text);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26753,10 +26759,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _this = _possibleConstructorReturn(this, (JubilationHorizontalBarChart.__proto__ || Object.getPrototypeOf(JubilationHorizontalBarChart)).call(this, props, context));
 
 	    _this.uuid = _uuid2.default.v4();
+	    _this.context.JubilationContext = (0, _context2.default)(_this.context.JubilationContext);
+	    _this.setXRange();
 	    _this.domainMap = (0, _scatter2.default)(_this.uuid, props.data.map(function (d) {
 	      return { x: d, y: 0 };
 	    }));
-	    _this.context.JubilationContext = (0, _context2.default)(_this.context.JubilationContext);
 	    _this.context.JubilationContext.addDomain(_this.domainMap);
 	    return _this;
 	  }
@@ -26768,6 +26775,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return { x: d, y: 0 };
 	      }));
 	      this.context.JubilationContext.addDomain(this.domainMap);
+	    }
+
+	    /**
+	     * Inteligently sets the chart's xRange given the passed in label lengths
+	     */
+
+	  }, {
+	    key: 'setXRange',
+	    value: function setXRange() {
+	      var xRange = this.context.JubilationContext.xRange;
+
+	      var maxLabelWidth = this.props.labels.map(function (l) {
+	        return (0, _text2.default)(l);
+	      }).reduce(function (a, b) {
+	        if (a > b) {
+	          return a;
+	        }
+	        return b;
+	      }, 0);
+	      this.context.JubilationContext.xRange = [maxLabelWidth + 5, xRange[1]];
 	    }
 	  }, {
 	    key: 'getHeight',
@@ -26917,6 +26944,39 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	JubilationRect.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getTextWidth;
+
+	var _jubilationTheme = __webpack_require__(39);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getTextWidth(text) {
+	  var fontSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _jubilationTheme2.default.labelStyle.fontSize;
+	  var fontFamily = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Gill Sans';
+
+	  var can = document.createElement('canvas');
+	  var ctx = can.getContext('2d');
+	  // if we can get a canvas context, use it to measure the text
+	  if (!ctx) {
+	    // otherwise, fudge it by assuming all characters are the width of the fontSize. At least this
+	    // way we won't be too narrow 😜
+	    return text.length * fontSize;
+	  }
+	  ctx.font = fontSize + 'px ' + fontFamily;
+	  return ctx.measureText(text).width;
+	}
 
 /***/ }
 /******/ ])
