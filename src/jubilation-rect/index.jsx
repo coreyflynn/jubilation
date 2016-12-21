@@ -19,9 +19,8 @@ type Context = { JubilationContext: JubilationContext };
 export default function JubilationRect(
   { x = 0, y = 0, color, style = {}, width = 10, height = 10 }: Props,
   { JubilationContext }: Context): React.Element<*> {
-  const context = getContext(JubilationContext);
-  const { xScale, yScale } = context;
-  let fill = context.theme.colors[0];
+  const { xScale, yScale, theme } = getContext(JubilationContext);
+  let fill = theme.colors[0];
   if (color) fill = color;
 
   return (
