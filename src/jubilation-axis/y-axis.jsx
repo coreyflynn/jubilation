@@ -11,13 +11,13 @@ type Props = {
   title?: string,
   position?: number,
   numTicks?: number,
-  tickLines?: boolean,
+  extendTicks?: boolean,
   axisLine?: boolean
 };
 type Context = { JubilationContext: JubilationContext };
 
 export default function YAxis(
-  { min, max, title, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
+  { min, max, title, position = 0, numTicks = 0, extendTicks = false, axisLine = false }: Props,
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
@@ -37,7 +37,17 @@ export default function YAxis(
     <Animation data={{ min: computedMin, max: computedMax, position, dx, ticks }}>
       {data =>
         <g>
-          {/* tick values */}
+          {
+            data.extendTicks && data.ticks.map((tick) =>
+              <Line
+                x1={data.min}
+                x2={data.max}
+                y1={tick.y}
+                y2={tick.y}
+                stroke={"black"}
+              />
+            )
+          }
           <Label x={data.position} y={data.min} dx={data.dx} textAnchor="end">
             {Math.round(data.min)}
           </Label>

@@ -3,6 +3,7 @@ import React from 'react';
 import getContext from '../helpers/context';
 import getTicks from '../helpers/axis';
 import Label from '../jubilation-label';
+import Line from '../jubilation-line';
 import Animation from '../jubilation-animation';
 
 type Props = {
@@ -11,13 +12,13 @@ type Props = {
   title?: string,
   position?: number,
   numTicks?: number,
-  tickLines?: boolean,
+  extendTicks?: boolean,
   axisLine?: boolean
 };
 type Context = { JubilationContext: JubilationContext };
 
 export default function XAxis(
-  { min, max, title, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
+  { min, max, title, position = 0, numTicks = 0, extendTicks = false, axisLine = false }: Props,
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
@@ -34,10 +35,20 @@ export default function XAxis(
   const offset = context.theme.labelStyle.fontSize;
 
   return (
-    <Animation data={{ min: computedMin, max: computedMax, position, offset, ticks }}>
-      {data =>
+    <Animation data={{ min: computedMin, max: computedMax, position, offset, ticks, extendTicks }}>
+      {(data) =>
         <g>
-          {/* tick values */}
+          {
+            data.extendTicks && data.ticks.map((tick) =>
+              <Line
+                x1={tick.x}
+                x2={tick.x}
+                y1={data.min}
+                y2={data.max}
+                stroke={context.theme.axisColor}
+              />
+            )
+          }
           <Label x={data.min} y={data.position} dy={data.offset} textAnchor="middle">
             {Math.round(data.min)}
           </Label>
