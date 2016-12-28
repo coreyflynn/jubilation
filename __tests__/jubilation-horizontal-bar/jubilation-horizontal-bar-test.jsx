@@ -34,7 +34,7 @@ describe('JubilationHorizontalBarChart', () => {
     expect(instance.context.JubilationContext).toEqual(defaultContext);
   });
 
-  describe('ComponentWillRecieveProps', () => {
+  describe('ComponentWillReceiveProps', () => {
     it('should add data as x data to the domain map', () => {
       const wrapper = shallow(<HorizontalBar data={[1, 2]} />);
       const { domainMap, uuid } = wrapper.setProps({ data: [3, 4] }).instance();
