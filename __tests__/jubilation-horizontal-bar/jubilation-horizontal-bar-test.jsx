@@ -63,6 +63,8 @@ describe('JubilationHorizontalBarChart', () => {
   describe('getHeight', () => {
     it('should compute a height that takes gapWidth into account', () => {
       const instance = shallow(<HorizontalBar data={[1]} />).instance();
+      // the default chart height is 100px and the default gapWidth for the horizontal chart is
+      // 0.05 (5%). Therefore we expect the height for a single bar to be 90px (100px - 5% - 5%)
       expect(instance.getHeight()).toBe(90);
     });
   });
