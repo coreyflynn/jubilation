@@ -48,12 +48,7 @@ export default class JubilationHorizontalBarChart extends React.Component {
     const { xRange } = this.context.JubilationContext;
     const maxLabelWidth: number = this.props.labels
       .map(l => getTextWidth(l))
-      .reduce((a, b) => {
-        if (a > b) {
-          return a;
-        }
-        return b;
-      }, 0);
+      .reduce((a, b) => Math.max(a, b), 0);
     this.context.JubilationContext.xRange = [maxLabelWidth + 5, xRange[1]];
   }
 
