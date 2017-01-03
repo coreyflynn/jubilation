@@ -6,7 +6,7 @@ import JubilationTheme from '../jubilation-theme';
 import { XAxis, YAxis } from '../jubilation-axis';
 
 function randomPoints() {
-  return [1,2,3,4,5,6,7,8,9,10].map(() => ({ x: Math.random() * 600, y: Math.random() * 300 }))
+  return [...Array(10)].map(() => ({ x: Math.random() * 600, y: Math.random() * 300 }))
 }
 
 class AxisExample extends Component {
