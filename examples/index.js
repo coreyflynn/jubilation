@@ -8934,22 +8934,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var xMin = data.map(function (datum) {
 	    return datum.x;
 	  }).reduce(function (a, b) {
-	    if (a < b) return a;return b;
+	    return Math.min(a, b);
 	  }, data[0] ? data[0].x : 0);
 	  var yMin = data.map(function (datum) {
 	    return datum.y;
 	  }).reduce(function (a, b) {
-	    if (a < b) return a;return b;
+	    return Math.min(a, b);
 	  }, data[0] ? data[0].y : 0);
 	  var xMax = data.map(function (datum) {
 	    return datum.x;
 	  }).reduce(function (a, b) {
-	    if (a > b) return a;return b;
+	    return Math.max(a, b);
 	  }, data[0] ? data[0].x : 0);
 	  var yMax = data.map(function (datum) {
 	    return datum.y;
 	  }).reduce(function (a, b) {
-	    if (a > b) return a;return b;
+	    return Math.max(a, b);
 	  }, data[0] ? data[0].y : 0);
 	  return _defineProperty({}, id, { x: [xMin, xMax], y: [yMax, yMin] });
 	}
@@ -9088,13 +9088,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var ticks = [];
 
 	  for (var i = 0; i < numTicks; i += 1) {
-	    var _val = (max - min) / (numTicks + 1) * (i + 1) + min;
-	    var _x = axisType === 'x' ? _val : position;
-	    var _y = axisType === 'y' ? _val : position;
-	    var _textAnchor = axisType === 'x' ? 'middle' : 'end';
-	    var _dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
-	    var _dx = axisType === 'y' ? -5 : 0;
-	    ticks.push({ key: i, x: _x, y: _y, dy: _dy, dx: _dx, textAnchor: _textAnchor, val: _val });
+	    var val = (max - min) / (numTicks + 1) * (i + 1) + min;
+	    var x = axisType === 'x' ? val : position;
+	    var y = axisType === 'y' ? val : position;
+	    var textAnchor = axisType === 'x' ? 'middle' : 'end';
+	    var dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
+	    var dx = axisType === 'y' ? -5 : 0;
+	    ticks.push({ key: i, x: x, y: y, dy: dy, dx: dx, textAnchor: textAnchor, val: val });
 	  }
 	  return ticks;
 	}
@@ -26789,10 +26789,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var maxLabelWidth = this.props.labels.map(function (l) {
 	        return (0, _text2.default)(l);
 	      }).reduce(function (a, b) {
-	        if (a > b) {
-	          return a;
-	        }
-	        return b;
+	        return Math.max(a, b);
 	      }, 0);
 	      this.context.JubilationContext.xRange = [maxLabelWidth + 5, xRange[1]];
 	    }

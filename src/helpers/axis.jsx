@@ -1,14 +1,4 @@
 // @flow
-type Tick = {
-  key: number,
-  x: number,
-  y: number,
-  dx: number,
-  dy: number,
-  textAnchor: string,
-  val: number,
-}
-
 export default function getTicks(
   min: number,
   max: number,
