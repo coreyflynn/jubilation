@@ -2,6 +2,7 @@
 import React from 'react';
 import getContext from '../helpers/context';
 import getTicks from '../helpers/axis';
+import { YTick } from '../jubilation-tick';
 import Label from '../jubilation-label';
 import Animation from '../jubilation-animation';
 
@@ -37,21 +38,32 @@ export default function YAxis(
     <Animation data={{ min: computedMin, max: computedMax, position, dx, ticks }}>
       {data =>
         <g>
-          {
-            data.extendTicks && data.ticks.map((tick) =>
-              <Line
-                x1={data.min}
-                x2={data.max}
-                y1={tick.y}
-                y2={tick.y}
-                stroke={"black"}
-              />
-            )
-          }
+          <YTick
+            position={data.min}
+            dx={data.dx / 2}
+            context={context}
+            extended={extendTicks}
+          />
           <Label x={data.position} y={data.min} dx={data.dx} textAnchor="end">
             {Math.round(data.min)}
           </Label>
-          {data.ticks.map(tick => <Label {...tick}>{Math.round(tick.val)}</Label>)}
+          {data.ticks.map(tick =>
+           <g key={`YTick${tick.y}`}>
+              <YTick
+                position={tick.y}
+                dx={tick.dx / 2}
+                context={context}
+                extended={extendTicks}
+              />
+              <Label {...tick}>{Math.round(tick.val)}</Label>
+            </g> 
+          )}
+          <YTick
+            position={data.max}
+            dx={data.dx / 2}
+            context={context}
+            extended={extendTicks}
+          />
           <Label x={data.position} y={data.max} dx={data.dx} textAnchor="end">
             {Math.round(data.max)}
           </Label>
