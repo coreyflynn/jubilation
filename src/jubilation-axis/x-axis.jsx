@@ -37,7 +37,7 @@ export default function XAxis(
 
   return (
     <Animation data={{ min: computedXMin, max: computedXMax, position, offset, ticks }}>
-      {(data) =>
+      {data =>
         <g>
           <XTick
             position={data.min}
@@ -48,7 +48,7 @@ export default function XAxis(
             {Math.round(data.min)}
           </Label>
           {
-            data.ticks.map((tick) =>
+            data.ticks.map(tick =>
               <g key={`XTick${tick.x}`}>
                 <XTick
                   position={tick.x}
