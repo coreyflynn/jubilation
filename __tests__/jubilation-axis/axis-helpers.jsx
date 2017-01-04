@@ -28,8 +28,16 @@ export default function axisTests(Axis, textAnchor) {
     expect(mount(<Axis min={0} max={10} />).find('JubilationLabel').length).toBe(2);
   });
 
+  it('should only render two ticks by default', () => {
+    expect(mount(<Axis min={0} max={10} />).find('JubilationLine').length).toBe(2);
+  })
+
   it('should only render additional labels if numTicks > 0', () => {
     expect(mount(<Axis min={0} max={10} numTicks={1} />).find('JubilationLabel').length).toBe(3);
+  });
+
+  it('should only render additional ticks if numTicks > 0', () => {
+    expect(mount(<Axis min={0} max={10} numTicks={1} />).find('JubilationLine').length).toBe(3);
   });
 
   it('should only render a title labels if a title is supplied', () => {
