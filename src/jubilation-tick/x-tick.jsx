@@ -14,7 +14,7 @@ export default function XTick({ position, extended = false, context }: Props) {
       labelStyle: { fontSize },
     },
   } = context;
-  const [computedYMin, computedYMax] = yScale.domain();
+  const [computedYMax, computedYMin] = yScale.domain();
 
   return (<Line
     x1={position}
