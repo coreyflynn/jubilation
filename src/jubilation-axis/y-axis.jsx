@@ -48,7 +48,7 @@ export default function YAxis(
             {Math.round(data.min)}
           </Label>
           {data.ticks.map(tick =>
-           <g key={`YTick${tick.y}`}>
+            <g key={`YTick${tick.y}`}>
               <YTick
                 position={tick.y}
                 dx={tick.dx / 2}
@@ -56,7 +56,7 @@ export default function YAxis(
                 extended={extendTicks}
               />
               <Label {...tick}>{Math.round(tick.val)}</Label>
-            </g> 
+            </g>
           )}
           <YTick
             position={data.max}

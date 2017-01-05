@@ -8,12 +8,11 @@ function lineLength(line: JubilationLine): number {
   return Math.sqrt(
     Math.pow(line.prop('x2') - line.prop('x1'), 2) +
     Math.pow(line.prop('y2') - line.prop('y1'), 2)
-  )
+  );
 }
 
 describe.only('XTick', () => {
   const context = getContext();
-  const { theme, yScale } = context;
 
   it('should set default tick height based on theme', () => {
     const tick = mount(<XTick position={0} context={context} />).find('JubilationLine');

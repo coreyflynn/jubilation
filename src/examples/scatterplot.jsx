@@ -64,7 +64,7 @@ class ScatterPlotExample extends Component {
             size={10}
             style={{ opacity: 0.5 }}
           />
-          <XAxis numTicks={4} title="X axis" extendTicks={true} />
+          <XAxis numTicks={4} title="X axis" extendTicks />
           <YAxis numTicks={2} title="Y axis" />
         </JubilationChart>
       </div>

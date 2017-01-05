@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import Line from '../jubilation-line';
 
@@ -10,8 +11,8 @@ type Props = {
 export default function XTick({ position, extended = false, context }: Props) {
   const { yScale,
     theme: {
-      labelStyle: { fontSize }
-    }
+      labelStyle: { fontSize },
+    },
   } = context;
   const [computedYMin, computedYMax] = yScale.domain();
 

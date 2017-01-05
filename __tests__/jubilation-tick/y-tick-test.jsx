@@ -8,7 +8,7 @@ function lineLength(line: JubilationLine): number {
   return Math.sqrt(
     Math.pow(line.prop('x2') - line.prop('x1'), 2) +
     Math.pow(line.prop('y2') - line.prop('y1'), 2)
-  )
+  );
 }
 
 describe.only('YTick', () => {

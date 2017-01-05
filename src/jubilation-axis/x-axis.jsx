@@ -4,7 +4,6 @@ import getContext from '../helpers/context';
 import getTicks from '../helpers/axis';
 import { XTick } from '../jubilation-tick';
 import Label from '../jubilation-label';
-import Line from '../jubilation-line';
 import Animation from '../jubilation-animation';
 
 type Props = {
