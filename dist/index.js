@@ -8885,7 +8885,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _xAxis2 = _interopRequireDefault(_xAxis);
 
-	var _yAxis = __webpack_require__(57);
+	var _yAxis = __webpack_require__(60);
 
 	var _yAxis2 = _interopRequireDefault(_yAxis);
 
@@ -8917,15 +8917,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _jubilationTick = __webpack_require__(198);
+	var _jubilationTick = __webpack_require__(56);
 
 	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
-
-	var _jubilationLine = __webpack_require__(56);
-
-	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
 	var _jubilationAnimation = __webpack_require__(1);
 
@@ -9019,7 +9015,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  );
 	}
 
-
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
@@ -9056,6 +9051,75 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.YTick = exports.XTick = undefined;
+
+	var _xTick = __webpack_require__(57);
+
+	var _xTick2 = _interopRequireDefault(_xTick);
+
+	var _yTick = __webpack_require__(59);
+
+	var _yTick2 = _interopRequireDefault(_yTick);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.XTick = _xTick2.default;
+	exports.YTick = _yTick2.default;
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	exports.default = XTick;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationLine = __webpack_require__(58);
+
+	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function XTick(_ref) {
+	  var position = _ref.position,
+	      _ref$extended = _ref.extended,
+	      extended = _ref$extended === undefined ? false : _ref$extended,
+	      context = _ref.context;
+	  var yScale = context.yScale,
+	      fontSize = context.theme.labelStyle.fontSize;
+
+	  var _yScale$domain = yScale.domain(),
+	      _yScale$domain2 = _slicedToArray(_yScale$domain, 2),
+	      computedYMin = _yScale$domain2[0],
+	      computedYMax = _yScale$domain2[1];
+
+	  return _react2.default.createElement(_jubilationLine2.default, {
+	    x1: position,
+	    y1: computedYMax - fontSize / 4,
+	    x2: position,
+	    y2: extended ? computedYMin : computedYMax
+	  });
+	}
+
+/***/ },
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9124,7 +9188,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationLine.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 57 */
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	exports.default = YTick;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationLine = __webpack_require__(58);
+
+	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function YTick(_ref) {
+	  var position = _ref.position,
+	      _ref$extended = _ref.extended,
+	      extended = _ref$extended === undefined ? false : _ref$extended,
+	      _ref$dx = _ref.dx,
+	      dx = _ref$dx === undefined ? 0 : _ref$dx,
+	      context = _ref.context;
+
+	  var _context$xScale$domai = context.xScale.domain(),
+	      _context$xScale$domai2 = _slicedToArray(_context$xScale$domai, 2),
+	      computedXMin = _context$xScale$domai2[0],
+	      computedXMax = _context$xScale$domai2[1];
+
+	  return _react2.default.createElement(_jubilationLine2.default, {
+	    x1: computedXMin + dx,
+	    y1: position,
+	    x2: extended ? computedXMax : computedXMin,
+	    y2: position
+	  });
+	}
+
+/***/ },
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9145,6 +9254,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _axis = __webpack_require__(55);
 
 	var _axis2 = _interopRequireDefault(_axis);
+
+	var _jubilationTick = __webpack_require__(56);
 
 	var _jubilationLabel = __webpack_require__(48);
 
@@ -9190,14 +9301,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'g',
 	        null,
-	        data.extendTicks && data.ticks.map(function (tick) {
-	          return _react2.default.createElement(Line, {
-	            x1: data.min,
-	            x2: data.max,
-	            y1: tick.y,
-	            y2: tick.y,
-	            stroke: "black"
-	          });
+	        _react2.default.createElement(_jubilationTick.YTick, {
+	          position: data.min,
+	          dx: data.dx / 2,
+	          context: context,
+	          extended: extendTicks
 	        }),
 	        _react2.default.createElement(
 	          _jubilationLabel2.default,
@@ -9206,10 +9314,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ),
 	        data.ticks.map(function (tick) {
 	          return _react2.default.createElement(
-	            _jubilationLabel2.default,
-	            tick,
-	            Math.round(tick.val)
+	            'g',
+	            { key: 'YTick' + tick.y },
+	            _react2.default.createElement(_jubilationTick.YTick, {
+	              position: tick.y,
+	              dx: tick.dx / 2,
+	              context: context,
+	              extended: extendTicks
+	            }),
+	            _react2.default.createElement(
+	              _jubilationLabel2.default,
+	              tick,
+	              Math.round(tick.val)
+	            )
 	          );
+	        }),
+	        _react2.default.createElement(_jubilationTick.YTick, {
+	          position: data.max,
+	          dx: data.dx / 2,
+	          context: context,
+	          extended: extendTicks
 	        }),
 	        _react2.default.createElement(
 	          _jubilationLabel2.default,
@@ -9232,212 +9356,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  );
 	}
 
-
 	YAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */,
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */,
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */,
-/* 159 */,
-/* 160 */,
-/* 161 */,
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */,
-/* 169 */,
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */,
-/* 186 */,
-/* 187 */,
-/* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.XTick = undefined;
-
-	var _xTick = __webpack_require__(199);
-
-	var _xTick2 = _interopRequireDefault(_xTick);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.XTick = _xTick2.default;
-
-/***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-	exports.default = XTick;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _jubilationLine = __webpack_require__(56);
-
-	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function XTick(_ref) {
-	  var position = _ref.position,
-	      _ref$extended = _ref.extended,
-	      extended = _ref$extended === undefined ? false : _ref$extended,
-	      context = _ref.context;
-	  var yScale = context.yScale,
-	      fontSize = context.theme.labelStyle.fontSize;
-
-	  var _yScale$domain = yScale.domain(),
-	      _yScale$domain2 = _slicedToArray(_yScale$domain, 2),
-	      computedYMin = _yScale$domain2[0],
-	      computedYMax = _yScale$domain2[1];
-
-	  return _react2.default.createElement(_jubilationLine2.default, {
-	    x1: position,
-	    y1: computedYMax - fontSize / 4,
-	    x2: position,
-	    y2: extended ? computedYMin : computedYMax
-	  });
-	}
 
 /***/ }
 /******/ ])
