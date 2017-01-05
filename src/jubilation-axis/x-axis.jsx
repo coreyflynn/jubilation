@@ -38,14 +38,16 @@ export default function XAxis(
     <Animation data={{ min: computedXMin, max: computedXMax, position, offset, ticks }}>
       {data =>
         <g>
-          <XTick
-            position={data.min}
-            context={context}
-            extended={extendTicks}
-          />
-          <Label x={data.min} y={data.position} dy={data.offset} textAnchor="middle">
-            {Math.round(data.min)}
-          </Label>
+          <g>
+            <XTick
+              position={data.min}
+              context={context}
+              extended={extendTicks}
+            />
+            <Label x={data.min} y={data.position} dy={data.offset} textAnchor="middle">
+              {Math.round(data.min)}
+            </Label>
+          </g>
           {
             data.ticks.map(tick =>
               <g key={`XTick${tick.x}`}>
@@ -58,14 +60,16 @@ export default function XAxis(
               </g>
             )
           }
-          <XTick
-            position={data.max}
-            context={context}
-            extended={extendTicks}
-          />
-          <Label x={data.max} y={data.position} dy={data.offset} textAnchor="middle">
-            {Math.round(data.max)}
-          </Label>
+          <g>
+            <XTick
+              position={data.max}
+              context={context}
+              extended={extendTicks}
+            />
+            <Label x={data.max} y={data.position} dy={data.offset} textAnchor="middle">
+              {Math.round(data.max)}
+            </Label>
+          </g>
 
           {/* axis title */}
           {title && <Label

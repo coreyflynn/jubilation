@@ -6,7 +6,10 @@ export default function axisTests(Axis, textAnchor) {
     expect(shallow(<Axis />).find('JubilationAnimation').length).toBe(1);
   });
 
-  it('should render a group tag', () => { expect(mount(<Axis />).find('g').length).toBe(1); });
+  it('should render a group tag for the axis and each tick', () => {
+    // One for the axis, one each for min/max ticks
+    expect(mount(<Axis />).find('g').length).toBe(3);
+  });
 
   it('should render a min label', () => {
     expect(mount(<Axis min={0} max={10} />).find('JubilationLabel').at(0).text()).toBe('0');

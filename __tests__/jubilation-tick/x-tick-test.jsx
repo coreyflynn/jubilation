@@ -26,6 +26,6 @@ describe.only('XTick', () => {
 
     // 100 is the default domain for Y
     // 3.5 === theme.labelStyle.fontSize / 4 for default theme
-    expect(lineLength(tick)).toEqual(100 - 3.5);
+    expect(lineLength(tick)).toEqual(100 + 3.5);
   });
 });

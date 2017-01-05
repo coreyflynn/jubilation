@@ -14,12 +14,12 @@ export default function XTick({ position, extended = false, context }: Props) {
       labelStyle: { fontSize },
     },
   } = context;
-  const [computedYMax, computedYMin] = yScale.domain();
+  const [computedYMin, computedYMax] = yScale.domain();
 
   return (<Line
     x1={position}
-    y1={computedYMax - (fontSize / 4)}
     x2={position}
+    y1={computedYMax - (fontSize / 4)}
     y2={extended ? computedYMin : computedYMax}
   />);
 }

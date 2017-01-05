@@ -38,15 +38,17 @@ export default function YAxis(
     <Animation data={{ min: computedMin, max: computedMax, position, dx, ticks }}>
       {data =>
         <g>
-          <YTick
-            position={data.min}
-            dx={data.dx / 2}
-            context={context}
-            extended={extendTicks}
-          />
-          <Label x={data.position} y={data.min} dx={data.dx} textAnchor="end">
-            {Math.round(data.min)}
-          </Label>
+          <g>
+            <YTick
+              position={data.min}
+              dx={data.dx / 2}
+              context={context}
+              extended={extendTicks}
+            />
+            <Label x={data.position} y={data.min} dx={data.dx} textAnchor="end">
+              {Math.round(data.min)}
+            </Label>
+          </g>
           {data.ticks.map(tick =>
             <g key={`YTick${tick.y}`}>
               <YTick
@@ -58,16 +60,17 @@ export default function YAxis(
               <Label {...tick}>{Math.round(tick.val)}</Label>
             </g>
           )}
-          <YTick
-            position={data.max}
-            dx={data.dx / 2}
-            context={context}
-            extended={extendTicks}
-          />
-          <Label x={data.position} y={data.max} dx={data.dx} textAnchor="end">
-            {Math.round(data.max)}
-          </Label>
-
+          <g>
+            <YTick
+              position={data.max}
+              dx={data.dx / 2}
+              context={context}
+              extended={extendTicks}
+            />
+            <Label x={data.position} y={data.max} dx={data.dx} textAnchor="end">
+              {Math.round(data.max)}
+            </Label>
+          </g>
           {/* axis title */}
           {title && <Label
             x={data.position}

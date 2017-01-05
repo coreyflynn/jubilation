@@ -8660,6 +8660,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.defaultContext = undefined;
 	exports.default = getContext;
 
 	var _jubilationTheme = __webpack_require__(37);
@@ -8668,22 +8669,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function scale(x) {
+	  return x;
+	}
+
+	scale.domain = function domain() {
+	  return [100, 0];
+	};
+	scale.range = function domain() {
+	  return [0, 100];
+	};
+
+	var defaultContext = exports.defaultContext = {
+	  theme: _jubilationTheme2.default,
+	  xScale: scale,
+	  yScale: scale,
+	  xRange: [0, 300],
+	  yRange: [0, 100],
+	  addDomain: function addDomain() {},
+	  removeDomain: function removeDomain() {},
+	  update: function update() {}
+	};
+
 	function getContext(context) {
-	  if (context) return context;
-	  function scale(x) {
-	    return x;
-	  }
-	  scale.domain = function domain() {
-	    return [0, 100];
-	  };
-	  return {
-	    theme: _jubilationTheme2.default,
-	    xScale: scale,
-	    yScale: scale,
-	    addDomain: function addDomain() {},
-	    removeDomain: function removeDomain() {},
-	    update: function update() {}
-	  };
+	  return context || defaultContext;
 	}
 
 /***/ },
@@ -8850,22 +8859,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var xMin = data.map(function (datum) {
 	    return datum.x;
 	  }).reduce(function (a, b) {
-	    if (a < b) return a;return b;
+	    return Math.min(a, b);
 	  }, data[0] ? data[0].x : 0);
 	  var yMin = data.map(function (datum) {
 	    return datum.y;
 	  }).reduce(function (a, b) {
-	    if (a < b) return a;return b;
+	    return Math.min(a, b);
 	  }, data[0] ? data[0].y : 0);
 	  var xMax = data.map(function (datum) {
 	    return datum.x;
 	  }).reduce(function (a, b) {
-	    if (a > b) return a;return b;
+	    return Math.max(a, b);
 	  }, data[0] ? data[0].x : 0);
 	  var yMax = data.map(function (datum) {
 	    return datum.y;
 	  }).reduce(function (a, b) {
-	    if (a > b) return a;return b;
+	    return Math.max(a, b);
 	  }, data[0] ? data[0].y : 0);
 	  return _defineProperty({}, id, { x: [xMin, xMax], y: [yMax, yMin] });
 	}
@@ -8963,15 +8972,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'g',
 	        null,
-	        _react2.default.createElement(_jubilationTick.XTick, {
-	          position: data.min,
-	          context: context,
-	          extended: extendTicks
-	        }),
 	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.min, y: data.position, dy: data.offset, textAnchor: 'middle' },
-	          Math.round(data.min)
+	          'g',
+	          null,
+	          _react2.default.createElement(_jubilationTick.XTick, {
+	            position: data.min,
+	            context: context,
+	            extended: extendTicks
+	          }),
+	          _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            { x: data.min, y: data.position, dy: data.offset, textAnchor: 'middle' },
+	            Math.round(data.min)
+	          )
 	        ),
 	        data.ticks.map(function (tick) {
 	          return _react2.default.createElement(
@@ -8989,15 +9002,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            )
 	          );
 	        }),
-	        _react2.default.createElement(_jubilationTick.XTick, {
-	          position: data.max,
-	          context: context,
-	          extended: extendTicks
-	        }),
 	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.max, y: data.position, dy: data.offset, textAnchor: 'middle' },
-	          Math.round(data.max)
+	          'g',
+	          null,
+	          _react2.default.createElement(_jubilationTick.XTick, {
+	            position: data.max,
+	            context: context,
+	            extended: extendTicks
+	          }),
+	          _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            { x: data.max, y: data.position, dy: data.offset, textAnchor: 'middle' },
+	            Math.round(data.max)
+	          )
 	        ),
 	        title && _react2.default.createElement(
 	          _jubilationLabel2.default,
@@ -9112,8 +9129,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  return _react2.default.createElement(_jubilationLine2.default, {
 	    x1: position,
-	    y1: computedYMax - fontSize / 4,
 	    x2: position,
+	    y1: computedYMax - fontSize / 4,
 	    y2: extended ? computedYMin : computedYMax
 	  });
 	}
@@ -9301,16 +9318,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'g',
 	        null,
-	        _react2.default.createElement(_jubilationTick.YTick, {
-	          position: data.min,
-	          dx: data.dx / 2,
-	          context: context,
-	          extended: extendTicks
-	        }),
 	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.position, y: data.min, dx: data.dx, textAnchor: 'end' },
-	          Math.round(data.min)
+	          'g',
+	          null,
+	          _react2.default.createElement(_jubilationTick.YTick, {
+	            position: data.min,
+	            dx: data.dx / 2,
+	            context: context,
+	            extended: extendTicks
+	          }),
+	          _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            { x: data.position, y: data.min, dx: data.dx, textAnchor: 'end' },
+	            Math.round(data.min)
+	          )
 	        ),
 	        data.ticks.map(function (tick) {
 	          return _react2.default.createElement(
@@ -9329,16 +9350,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	            )
 	          );
 	        }),
-	        _react2.default.createElement(_jubilationTick.YTick, {
-	          position: data.max,
-	          dx: data.dx / 2,
-	          context: context,
-	          extended: extendTicks
-	        }),
 	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.position, y: data.max, dx: data.dx, textAnchor: 'end' },
-	          Math.round(data.max)
+	          'g',
+	          null,
+	          _react2.default.createElement(_jubilationTick.YTick, {
+	            position: data.max,
+	            dx: data.dx / 2,
+	            context: context,
+	            extended: extendTicks
+	          }),
+	          _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            { x: data.position, y: data.max, dx: data.dx, textAnchor: 'end' },
+	            Math.round(data.max)
+	          )
 	        ),
 	        title && _react2.default.createElement(
 	          _jubilationLabel2.default,
