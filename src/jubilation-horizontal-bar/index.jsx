@@ -75,14 +75,14 @@ export default class JubilationHorizontalBarChart extends React.Component {
 
   getLabelPositions() {
     const { yScale } = this.context.JubilationContext;
-    return getTicks(
-      yScale.domain()[1],
-      yScale.domain()[0],
-      this.props.data.length,
-      'y',
-      0,
-      this.context.JubilationContext
-    );
+    return getTicks({
+      min: yScale.domain()[1],
+      max: yScale.domain()[0],
+      numTicks: this.props.data.length,
+      axisType: 'y',
+      position: 0,
+      context: this.context.JubilationContext,
+    });
   }
 
   render() {

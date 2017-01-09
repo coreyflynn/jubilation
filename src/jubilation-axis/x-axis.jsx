@@ -2,6 +2,7 @@
 import React from 'react';
 import getContext from '../helpers/context';
 import getTicks from '../helpers/axis';
+import { XTick } from '../jubilation-tick';
 import Label from '../jubilation-label';
 import Animation from '../jubilation-animation';
 
@@ -11,33 +12,64 @@ type Props = {
   title?: string,
   position?: number,
   numTicks?: number,
-  tickLines?: boolean,
+  extendTicks?: boolean,
   axisLine?: boolean
 };
 type Context = { JubilationContext: JubilationContext };
 
 export default function XAxis(
-  { min, max, title, position = 0, numTicks = 0, tickLines = false, axisLine = false }: Props,
+  { min, max, title, position = 0, numTicks = 0, extendTicks = false, axisLine = false }: Props,
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
-  const computedMin = min || min === 0 ? min : context.xScale.domain()[0];
-  const computedMax = max || max === 0 ? max : context.xScale.domain()[1];
-  const ticks = getTicks(computedMin, computedMax, numTicks, 'x', position, context);
+  const computedXMin = min || min === 0 ? min : context.xScale.domain()[0];
+  const computedXMax = max || max === 0 ? max : context.xScale.domain()[1];
+  const ticks = getTicks({
+    min: computedXMin,
+    max: computedXMax,
+    numTicks,
+    axisType: 'x',
+    position,
+    context,
+  });
   const offset = context.theme.labelStyle.fontSize;
 
   return (
-    <Animation data={{ min: computedMin, max: computedMax, position, offset, ticks }}>
+    <Animation data={{ min: computedXMin, max: computedXMax, position, offset, ticks }}>
       {data =>
         <g>
-          {/* tick values */}
-          <Label x={data.min} y={data.position} dy={data.offset} textAnchor="middle">
-            {Math.round(data.min)}
-          </Label>
-          {data.ticks.map(tick => <Label {...tick}>{Math.round(tick.val)}</Label>)}
-          <Label x={data.max} y={data.position} dy={data.offset} textAnchor="middle">
-            {Math.round(data.max)}
-          </Label>
+          <g>
+            <XTick
+              position={data.min}
+              context={context}
+              extended={extendTicks}
+            />
+            <Label x={data.min} y={data.position} dy={data.offset} textAnchor="middle">
+              {Math.round(data.min)}
+            </Label>
+          </g>
+          {
+            data.ticks.map(tick =>
+              <g key={`XTick${tick.x}`}>
+                <XTick
+                  position={tick.x}
+                  context={context}
+                  extended={extendTicks}
+                />
+                <Label {...tick}>{Math.round(tick.val)}</Label>
+              </g>
+            )
+          }
+          <g>
+            <XTick
+              position={data.max}
+              context={context}
+              extended={extendTicks}
+            />
+            <Label x={data.max} y={data.position} dy={data.offset} textAnchor="middle">
+              {Math.round(data.max)}
+            </Label>
+          </g>
 
           {/* axis title */}
           {title && <Label
