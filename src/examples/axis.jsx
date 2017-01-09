@@ -105,8 +105,8 @@ class AxisExample extends Component {
         </form>
         <JubilationChart height={300} width={600}>
           <JubilationScatter data={this.state.points} />
-          {showX && <XAxis numTicks={numXTicks} extendTicks={extendXTicks} title="X axis" /> }
-          {showY && <YAxis numTicks={numYTicks} extendTicks={extendYTicks} title="Y axis" /> }
+          {<XAxis numTicks={numXTicks} extendTicks={extendXTicks} title="X axis" axisLine={showX} />}
+          {<YAxis numTicks={numYTicks} extendTicks={extendYTicks} title="Y axis" axisLine={showY} />}
         </JubilationChart>
       </div>
     );

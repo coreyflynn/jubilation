@@ -4,6 +4,7 @@ import getContext from '../helpers/context';
 import getTicks from '../helpers/axis';
 import { XTick } from '../jubilation-tick';
 import Label from '../jubilation-label';
+import Line from '../jubilation-line';
 import Animation from '../jubilation-animation';
 
 type Props = {
@@ -38,6 +39,12 @@ export default function XAxis(
     <Animation data={{ min: computedXMin, max: computedXMax, position, offset, ticks }}>
       {data =>
         <g>
+          {axisLine && <Line
+            x1={computedXMin}
+            x2={computedXMax}
+            y1={context.yScale.domain()[1]}
+            y2={context.yScale.domain()[1]}
+          />}
           <g>
             <XTick
               position={data.min}

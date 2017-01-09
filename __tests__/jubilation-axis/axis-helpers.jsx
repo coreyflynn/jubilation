@@ -71,4 +71,13 @@ export default function axisTests(Axis, textAnchor) {
     expect(mount(<Axis min={0} max={10} numTicks={1} />)
       .find('JubilationLabel').at(1).props().textAnchor).toBe(textAnchor);
   });
+
+  it('should only render an axis line if axisLine is set', () => {
+    // Just the two ticks at the min/max
+    expect(mount(<Axis min={0} max={10} />).find('JubilationLine').length)
+      .toBe(2);
+
+    expect(mount(<Axis min={0} max={10} axisLine />).find('JubilationLine').length)
+      .toBe(3);
+  });
 }
