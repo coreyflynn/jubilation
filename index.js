@@ -8933,8 +8933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      position = _ref$position === undefined ? 0 : _ref$position,
 	      _ref$numTicks = _ref.numTicks,
 	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
-	      _ref$extendTicks = _ref.extendTicks,
-	      extendTicks = _ref$extendTicks === undefined ? false : _ref$extendTicks,
+	      tickType = _ref.tickType,
 	      _ref$axisLine = _ref.axisLine,
 	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
 	  var JubilationContext = _ref2.JubilationContext;
@@ -8971,7 +8970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement(_jubilationTick.XTick, {
 	            position: data.min,
 	            context: context,
-	            extended: extendTicks
+	            tickType: tickType
 	          }),
 	          _react2.default.createElement(
 	            _jubilationLabel2.default,
@@ -8986,7 +8985,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2.default.createElement(_jubilationTick.XTick, {
 	              position: tick.x,
 	              context: context,
-	              extended: extendTicks
+	              tickType: tickType
 	            }),
 	            _react2.default.createElement(
 	              _jubilationLabel2.default,
@@ -9001,7 +9000,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement(_jubilationTick.XTick, {
 	            position: data.max,
 	            context: context,
-	            extended: extendTicks
+	            tickType: tickType
 	          }),
 	          _react2.default.createElement(
 	            _jubilationLabel2.default,
@@ -9069,7 +9068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.YTick = exports.XTick = undefined;
+	exports.YTick = exports.XTick = exports.Tick = undefined;
 
 	var _xTick = __webpack_require__(57);
 
@@ -9080,6 +9079,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _yTick2 = _interopRequireDefault(_yTick);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Tick = exports.Tick = {
+	  'none': 'no tick displays',
+	  'short': 'a small tick on the axis is displayed',
+	  'full': 'a tick across the chart is displayed'
+	};
 
 	exports.XTick = _xTick2.default;
 	exports.YTick = _yTick2.default;
@@ -9110,22 +9115,32 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function XTick(_ref) {
 	  var position = _ref.position,
-	      _ref$extended = _ref.extended,
-	      extended = _ref$extended === undefined ? false : _ref$extended,
+	      _ref$tickType = _ref.tickType,
+	      tickType = _ref$tickType === undefined ? 'short' : _ref$tickType,
 	      context = _ref.context;
 	  var yScale = context.yScale,
 	      fontSize = context.theme.labelStyle.fontSize;
 
 	  var _yScale$domain = yScale.domain(),
 	      _yScale$domain2 = _slicedToArray(_yScale$domain, 2),
-	      computedYMin = _yScale$domain2[0],
-	      computedYMax = _yScale$domain2[1];
+	      computedYMax = _yScale$domain2[0],
+	      computedYMin = _yScale$domain2[1];
+
+	  var typeMap = {
+	    none: [computedYMin, computedYMin],
+	    short: [computedYMin - fontSize / 4, computedYMin],
+	    full: [computedYMin - fontSize / 4, computedYMax]
+	  };
+
+	  var _typeMap$tickType = _slicedToArray(typeMap[tickType], 2),
+	      bottom = _typeMap$tickType[0],
+	      top = _typeMap$tickType[1];
 
 	  return _react2.default.createElement(_jubilationLine2.default, {
 	    x1: position,
 	    x2: position,
-	    y1: computedYMax - fontSize / 4,
-	    y2: extended ? computedYMin : computedYMax
+	    y1: bottom,
+	    y2: top
 	  });
 	}
 
@@ -9224,8 +9239,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function YTick(_ref) {
 	  var position = _ref.position,
-	      _ref$extended = _ref.extended,
-	      extended = _ref$extended === undefined ? false : _ref$extended,
+	      _ref$tickType = _ref.tickType,
+	      tickType = _ref$tickType === undefined ? 'short' : _ref$tickType,
 	      _ref$dx = _ref.dx,
 	      dx = _ref$dx === undefined ? 0 : _ref$dx,
 	      context = _ref.context;
@@ -9235,11 +9250,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      computedXMin = _context$xScale$domai2[0],
 	      computedXMax = _context$xScale$domai2[1];
 
+	  var typeMap = {
+	    none: [computedXMin, computedXMin],
+	    short: [computedXMin + dx / 2, computedXMin],
+	    full: [computedXMin + dx / 2, computedXMax]
+	  };
+
+	  var _typeMap$tickType = _slicedToArray(typeMap[tickType], 2),
+	      left = _typeMap$tickType[0],
+	      right = _typeMap$tickType[1];
+
 	  return _react2.default.createElement(_jubilationLine2.default, {
-	    x1: computedXMin + dx,
 	    y1: position,
-	    x2: extended ? computedXMax : computedXMin,
-	    y2: position
+	    y2: position,
+	    x1: left,
+	    x2: right
 	  });
 	}
 
@@ -9290,8 +9315,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      position = _ref$position === undefined ? 0 : _ref$position,
 	      _ref$numTicks = _ref.numTicks,
 	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
-	      _ref$extendTicks = _ref.extendTicks,
-	      extendTicks = _ref$extendTicks === undefined ? false : _ref$extendTicks,
+	      tickType = _ref.tickType,
 	      _ref$axisLine = _ref.axisLine,
 	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
 	  var JubilationContext = _ref2.JubilationContext;
@@ -9327,9 +9351,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          null,
 	          _react2.default.createElement(_jubilationTick.YTick, {
 	            position: data.min,
-	            dx: data.dx / 2,
+	            dx: data.dx,
 	            context: context,
-	            extended: extendTicks
+	            tickType: tickType
 	          }),
 	          _react2.default.createElement(
 	            _jubilationLabel2.default,
@@ -9343,9 +9367,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            { key: 'YTick' + tick.y },
 	            _react2.default.createElement(_jubilationTick.YTick, {
 	              position: tick.y,
-	              dx: tick.dx / 2,
+	              dx: tick.dx,
 	              context: context,
-	              extended: extendTicks
+	              tickType: tickType
 	            }),
 	            _react2.default.createElement(
 	              _jubilationLabel2.default,
@@ -9359,9 +9383,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          null,
 	          _react2.default.createElement(_jubilationTick.YTick, {
 	            position: data.max,
-	            dx: data.dx / 2,
+	            dx: data.dx,
 	            context: context,
-	            extended: extendTicks
+	            tickType: tickType
 	          }),
 	          _react2.default.createElement(
 	            _jubilationLabel2.default,
@@ -26398,6 +26422,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 
+	function validateTickType(eventType) {
+	  if (['none', 'short', 'full'].indexOf(eventType) > -1) {
+	    return eventType;
+	  };
+	  return 'short';
+	}
+
 	var AxisExample = function (_Component) {
 	  _inherits(AxisExample, _Component);
 
@@ -26409,13 +26440,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.toggle = _this.toggle.bind(_this);
 	    _this.updateNumX = _this.updateNumX.bind(_this);
 	    _this.updateNumY = _this.updateNumY.bind(_this);
+	    _this.updateXTicks = _this.updateXTicks.bind(_this);
+	    _this.updateYTicks = _this.updateYTicks.bind(_this);
 	    _this.state = {
 	      showX: true,
 	      numXTicks: 2,
-	      extendXTicks: true,
+	      tickTypeX: 'short',
 	      showY: true,
 	      numYTicks: 2,
-	      extendYTicks: true,
+	      tickTypeY: 'short',
 	      points: randomPoints()
 	    };
 	    return _this;
@@ -26434,10 +26467,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 	    }
 	  }, {
+	    key: 'updateXTicks',
+	    value: function updateXTicks(event) {
+	      this.setState({
+	        tickTypeX: validateTickType(event.target.value)
+	      });
+	    }
+	  }, {
 	    key: 'updateNumY',
 	    value: function updateNumY(event) {
 	      this.setState({
 	        numYTicks: parseInt(event.target.value, 10)
+	      });
+	    }
+	  }, {
+	    key: 'updateYTicks',
+	    value: function updateYTicks(event) {
+	      this.setState({
+	        tickTypeY: validateTickType(event.target.value)
 	      });
 	    }
 	  }, {
@@ -26447,11 +26494,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var _state = this.state,
 	          showX = _state.showX,
-	          numXTicks = _state.numXTicks,
-	          extendXTicks = _state.extendXTicks,
 	          showY = _state.showY,
+	          numXTicks = _state.numXTicks,
 	          numYTicks = _state.numYTicks,
-	          extendYTicks = _state.extendYTicks;
+	          tickTypeX = _state.tickTypeX,
+	          tickTypeY = _state.tickTypeY;
 
 
 	      return _react2.default.createElement(
@@ -26479,11 +26526,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ),
 	            _react2.default.createElement(
 	              'label',
-	              { htmlFor: 'extendXTicks' },
+	              { htmlFor: 'tickTypeX' },
 	              'Extend X Ticks',
-	              _react2.default.createElement('input', { id: 'extendXTicks', type: 'checkbox', checked: extendXTicks, value: extendXTicks, onChange: function onChange() {
-	                  return _this2.toggle('extendXTicks');
-	                } })
+	              _react2.default.createElement(
+	                'select',
+	                { id: 'tickTypeX', type: 'checkbox', value: tickTypeX, onChange: this.updateXTicks },
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'none' },
+	                  'none'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'short' },
+	                  'short'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'full' },
+	                  'full'
+	                )
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -26507,9 +26570,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	              'label',
 	              { htmlFor: 'extendYTicks' },
 	              'Extend Y Ticks',
-	              _react2.default.createElement('input', { id: 'extendYTicks', type: 'checkbox', checked: extendYTicks, value: extendYTicks, onChange: function onChange() {
-	                  return _this2.toggle('extendYTicks');
-	                } })
+	              _react2.default.createElement(
+	                'select',
+	                { id: 'tickTypeY', type: 'checkbox', value: tickTypeY, onChange: this.updateYTicks },
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'none' },
+	                  'none'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'short' },
+	                  'short'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'full' },
+	                  'full'
+	                )
+	              )
 	            )
 	          )
 	        ),
@@ -26517,8 +26596,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _jubilationChart2.default,
 	          { height: 300, width: 600 },
 	          _react2.default.createElement(_jubilationScatter2.default, { data: this.state.points }),
-	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: numXTicks, extendTicks: extendXTicks, title: 'X axis', axisLine: showX }),
-	          _react2.default.createElement(_jubilationAxis.YAxis, { numTicks: numYTicks, extendTicks: extendYTicks, title: 'Y axis', axisLine: showY })
+	          _react2.default.createElement(_jubilationAxis.XAxis, { title: 'X axis', numTicks: numXTicks, tickType: tickTypeX, axisLine: showX }),
+	          _react2.default.createElement(_jubilationAxis.YAxis, { title: 'Y axis', numTicks: numYTicks, tickType: tickTypeY, axisLine: showY })
 	        )
 	      );
 	    }
