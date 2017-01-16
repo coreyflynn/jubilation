@@ -74,7 +74,7 @@ export default class JubilationVerticalBarChart extends React.Component {
 
   render() {
     const { data, labels, color, style } = this.props;
-    const { yScale } = this.context.JubilationContext;
+    const { yScale, theme } = this.context.JubilationContext;
     return (
       <g>
         {data.map((datum, i) =>
@@ -83,7 +83,7 @@ export default class JubilationVerticalBarChart extends React.Component {
             x={this.getX(i)}
             y={datum}
             width={this.getWidth()}
-            height={yScale(datum)}
+            height={yScale(0) - yScale(datum)}
             color={color}
             style={style}
           />
@@ -94,7 +94,7 @@ export default class JubilationVerticalBarChart extends React.Component {
           <Label
             key={i}
             x={this.getX(i) + (this.getDataBinSize() / 2)}
-            dy={5}
+            dy={theme.labelStyle.fontSize}
             textAnchor="middle"
           >
             {label}

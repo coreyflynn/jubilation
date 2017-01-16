@@ -4,13 +4,13 @@ import JubilationChart from '../jubilation-chart';
 import HorizontalBarChart from '../jubilation-horizontal-bar';
 import VerticalBarChart from '../jubilation-vertical-bar';
 import JubilationTheme from '../jubilation-theme';
-import { XAxis } from '../jubilation-axis';
+import { XAxis, YAxis } from '../jubilation-axis';
 
 
 function getData() {
   const data = [];
   for (let i = 0; i < Math.ceil(Math.random() * 10); i += 1) {
-    data.push(100);
+    data.push(Math.random() * 500);
   }
   return data;
 }
@@ -66,6 +66,7 @@ class BarPlotExample extends Component {
             data={this.state.data}
             labels={this.state.data.map((d, i) => `Label ${i}`)}
           />
+          <YAxis numTicks={2} title="Y axis" />
         </JubilationChart>
       </div>
     );

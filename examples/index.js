@@ -26356,7 +26356,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function getData() {
 	  var data = [];
 	  for (var i = 0; i < Math.ceil(Math.random() * 10); i += 1) {
-	    data.push(100);
+	    data.push(Math.random() * 500);
 	  }
 	  return data;
 	}
@@ -26457,7 +26457,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            labels: this.state.data.map(function (d, i) {
 	              return 'Label ' + i;
 	            })
-	          })
+	          }),
+	          _react2.default.createElement(_jubilationAxis.YAxis, { numTicks: 2, title: 'Y axis' })
 	        )
 	      );
 	    }
@@ -27124,7 +27125,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          labels = _props.labels,
 	          color = _props.color,
 	          style = _props.style;
-	      var yScale = this.context.JubilationContext.yScale;
+	      var _context$JubilationCo = this.context.JubilationContext,
+	          yScale = _context$JubilationCo.yScale,
+	          theme = _context$JubilationCo.theme;
 
 	      return _react2.default.createElement(
 	        'g',
@@ -27135,7 +27138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            x: _this2.getX(i),
 	            y: datum,
 	            width: _this2.getWidth(),
-	            height: yScale(datum),
+	            height: yScale(0) - yScale(datum),
 	            color: color,
 	            style: style
 	          });
@@ -27146,7 +27149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            {
 	              key: i,
 	              x: _this2.getX(i) + _this2.getDataBinSize() / 2,
-	              dy: 5,
+	              dy: theme.labelStyle.fontSize,
 	              textAnchor: 'middle'
 	            },
 	            label

@@ -9765,7 +9765,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          labels = _props.labels,
 	          color = _props.color,
 	          style = _props.style;
-	      var yScale = this.context.JubilationContext.yScale;
+	      var _context$JubilationCo = this.context.JubilationContext,
+	          yScale = _context$JubilationCo.yScale,
+	          theme = _context$JubilationCo.theme;
 
 	      return _react2.default.createElement(
 	        'g',
@@ -9776,7 +9778,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            x: _this2.getX(i),
 	            y: datum,
 	            width: _this2.getWidth(),
-	            height: yScale(datum),
+	            height: yScale(0) - yScale(datum),
 	            color: color,
 	            style: style
 	          });
@@ -9787,7 +9789,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            {
 	              key: i,
 	              x: _this2.getX(i) + _this2.getDataBinSize() / 2,
-	              dy: 5,
+	              dy: theme.labelStyle.fontSize,
 	              textAnchor: 'middle'
 	            },
 	            label
