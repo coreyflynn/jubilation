@@ -8877,7 +8877,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _xAxis2 = _interopRequireDefault(_xAxis);
 
-	var _yAxis = __webpack_require__(55);
+	var _yAxis = __webpack_require__(60);
 
 	var _yAxis2 = _interopRequireDefault(_yAxis);
 
@@ -8905,17 +8905,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(56);
+	var _axis = __webpack_require__(55);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _jubilationTick = __webpack_require__(57);
+	var _jubilationTick = __webpack_require__(56);
 
 	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationLine = __webpack_require__(59);
+	var _jubilationLine = __webpack_require__(58);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
@@ -9030,6 +9030,221 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 55 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getTicks;
+	function getTicks(_ref) {
+	  var min = _ref.min,
+	      max = _ref.max,
+	      numTicks = _ref.numTicks,
+	      axisType = _ref.axisType,
+	      position = _ref.position,
+	      context = _ref.context;
+
+	  var ticks = [];
+
+	  for (var i = 0; i < numTicks; i += 1) {
+	    var _val = (max - min) / (numTicks + 1) * (i + 1) + min;
+	    var _x = axisType === 'x' ? _val : position;
+	    var _y = axisType === 'y' ? _val : position;
+	    var _textAnchor = axisType === 'x' ? 'middle' : 'end';
+	    var _dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
+	    var _dx = axisType === 'y' ? -5 : 0;
+	    ticks.push({ key: i, x: _x, y: _y, dy: _dy, dx: _dx, textAnchor: _textAnchor, val: _val });
+	  }
+	  return ticks;
+	}
+
+/***/ },
+/* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.YTick = exports.XTick = undefined;
+
+	var _xTick = __webpack_require__(57);
+
+	var _xTick2 = _interopRequireDefault(_xTick);
+
+	var _yTick = __webpack_require__(59);
+
+	var _yTick2 = _interopRequireDefault(_yTick);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.XTick = _xTick2.default;
+	exports.YTick = _yTick2.default;
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	exports.default = XTick;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationLine = __webpack_require__(58);
+
+	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function XTick(_ref) {
+	  var position = _ref.position,
+	      _ref$extended = _ref.extended,
+	      extended = _ref$extended === undefined ? false : _ref$extended,
+	      context = _ref.context;
+	  var yScale = context.yScale,
+	      fontSize = context.theme.labelStyle.fontSize;
+
+	  var _yScale$domain = yScale.domain(),
+	      _yScale$domain2 = _slicedToArray(_yScale$domain, 2),
+	      computedYMin = _yScale$domain2[0],
+	      computedYMax = _yScale$domain2[1];
+
+	  return _react2.default.createElement(_jubilationLine2.default, {
+	    x1: position,
+	    x2: position,
+	    y1: computedYMax - fontSize / 4,
+	    y2: extended ? computedYMin : computedYMax
+	  });
+	}
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = JubilationLine;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(49);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	/**
+	 * A line segment, defined by two endpoints. Returns an SVG line element.
+	 */
+	function JubilationLine(_ref, _ref2) {
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var _ref$x = _ref.x1,
+	      x1 = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y1,
+	      y1 = _ref$y === undefined ? 0 : _ref$y,
+	      _ref$x2 = _ref.x2,
+	      x2 = _ref$x2 === undefined ? 1 : _ref$x2,
+	      _ref$y2 = _ref.y2,
+	      y2 = _ref$y2 === undefined ? 1 : _ref$y2,
+	      rest = _objectWithoutProperties(_ref, ['x1', 'y1', 'x2', 'y2']);
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var xScale = context.xScale,
+	      yScale = context.yScale,
+	      fill = context.theme.labelStyle.fill;
+
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { x1: x1, x2: x2, y1: y1, y2: y2, fill: fill } },
+	    function (data) {
+	      return _react2.default.createElement('line', _extends({
+	        x1: xScale(data.x1),
+	        y1: yScale(data.y1),
+	        x2: xScale(data.x2),
+	        y2: yScale(data.y2),
+	        stroke: data.fill
+	      }, rest));
+	    }
+	  );
+	}
+
+	JubilationLine.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	exports.default = YTick;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationLine = __webpack_require__(58);
+
+	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function YTick(_ref) {
+	  var position = _ref.position,
+	      _ref$extended = _ref.extended,
+	      extended = _ref$extended === undefined ? false : _ref$extended,
+	      _ref$dx = _ref.dx,
+	      dx = _ref$dx === undefined ? 0 : _ref$dx,
+	      context = _ref.context;
+
+	  var _context$xScale$domai = context.xScale.domain(),
+	      _context$xScale$domai2 = _slicedToArray(_context$xScale$domai, 2),
+	      computedXMin = _context$xScale$domai2[0],
+	      computedXMax = _context$xScale$domai2[1];
+
+	  return _react2.default.createElement(_jubilationLine2.default, {
+	    x1: computedXMin + dx,
+	    y1: position,
+	    x2: extended ? computedXMax : computedXMin,
+	    y2: position
+	  });
+	}
+
+/***/ },
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9047,17 +9262,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(56);
+	var _axis = __webpack_require__(55);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _jubilationTick = __webpack_require__(57);
+	var _jubilationTick = __webpack_require__(56);
 
 	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationLine = __webpack_require__(59);
+	var _jubilationLine = __webpack_require__(58);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
@@ -9172,221 +9387,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	YAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 56 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = getTicks;
-	function getTicks(_ref) {
-	  var min = _ref.min,
-	      max = _ref.max,
-	      numTicks = _ref.numTicks,
-	      axisType = _ref.axisType,
-	      position = _ref.position,
-	      context = _ref.context;
-
-	  var ticks = [];
-
-	  for (var i = 0; i < numTicks; i += 1) {
-	    var _val = (max - min) / (numTicks + 1) * (i + 1) + min;
-	    var _x = axisType === 'x' ? _val : position;
-	    var _y = axisType === 'y' ? _val : position;
-	    var _textAnchor = axisType === 'x' ? 'middle' : 'end';
-	    var _dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
-	    var _dx = axisType === 'y' ? -5 : 0;
-	    ticks.push({ key: i, x: _x, y: _y, dy: _dy, dx: _dx, textAnchor: _textAnchor, val: _val });
-	  }
-	  return ticks;
-	}
-
-/***/ },
-/* 57 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.YTick = exports.XTick = undefined;
-
-	var _xTick = __webpack_require__(58);
-
-	var _xTick2 = _interopRequireDefault(_xTick);
-
-	var _yTick = __webpack_require__(60);
-
-	var _yTick2 = _interopRequireDefault(_yTick);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.XTick = _xTick2.default;
-	exports.YTick = _yTick2.default;
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-	exports.default = XTick;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _jubilationLine = __webpack_require__(59);
-
-	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function XTick(_ref) {
-	  var position = _ref.position,
-	      _ref$extended = _ref.extended,
-	      extended = _ref$extended === undefined ? false : _ref$extended,
-	      context = _ref.context;
-	  var yScale = context.yScale,
-	      fontSize = context.theme.labelStyle.fontSize;
-
-	  var _yScale$domain = yScale.domain(),
-	      _yScale$domain2 = _slicedToArray(_yScale$domain, 2),
-	      computedYMin = _yScale$domain2[0],
-	      computedYMax = _yScale$domain2[1];
-
-	  return _react2.default.createElement(_jubilationLine2.default, {
-	    x1: position,
-	    x2: position,
-	    y1: computedYMax - fontSize / 4,
-	    y2: extended ? computedYMin : computedYMax
-	  });
-	}
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports.default = JubilationLine;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(49);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	/**
-	 * A line segment, defined by two endpoints. Returns an SVG line element.
-	 */
-	function JubilationLine(_ref, _ref2) {
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var _ref$x = _ref.x1,
-	      x1 = _ref$x === undefined ? 0 : _ref$x,
-	      _ref$y = _ref.y1,
-	      y1 = _ref$y === undefined ? 0 : _ref$y,
-	      _ref$x2 = _ref.x2,
-	      x2 = _ref$x2 === undefined ? 1 : _ref$x2,
-	      _ref$y2 = _ref.y2,
-	      y2 = _ref$y2 === undefined ? 1 : _ref$y2,
-	      rest = _objectWithoutProperties(_ref, ['x1', 'y1', 'x2', 'y2']);
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var xScale = context.xScale,
-	      yScale = context.yScale,
-	      fill = context.theme.labelStyle.fill;
-
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { x1: x1, x2: x2, y1: y1, y2: y2, fill: fill } },
-	    function (data) {
-	      return _react2.default.createElement('line', _extends({
-	        x1: xScale(data.x1),
-	        y1: yScale(data.y1),
-	        x2: xScale(data.x2),
-	        y2: yScale(data.y2),
-	        stroke: data.fill
-	      }, rest));
-	    }
-	  );
-	}
-
-	JubilationLine.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-	exports.default = YTick;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _jubilationLine = __webpack_require__(59);
-
-	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function YTick(_ref) {
-	  var position = _ref.position,
-	      _ref$extended = _ref.extended,
-	      extended = _ref$extended === undefined ? false : _ref$extended,
-	      _ref$dx = _ref.dx,
-	      dx = _ref$dx === undefined ? 0 : _ref$dx,
-	      context = _ref.context;
-
-	  var _context$xScale$domai = context.xScale.domain(),
-	      _context$xScale$domai2 = _slicedToArray(_context$xScale$domai, 2),
-	      computedXMin = _context$xScale$domai2[0],
-	      computedXMax = _context$xScale$domai2[1];
-
-	  return _react2.default.createElement(_jubilationLine2.default, {
-	    x1: computedXMin + dx,
-	    y1: position,
-	    x2: extended ? computedXMax : computedXMin,
-	    y2: position
-	  });
-	}
 
 /***/ },
 /* 61 */
@@ -26430,14 +26430,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'updateNumX',
 	    value: function updateNumX(event) {
 	      this.setState({
-	        numXTicks: event.target.value
+	        numXTicks: parseInt(event.target.value, 10)
 	      });
 	    }
 	  }, {
 	    key: 'updateNumY',
 	    value: function updateNumY(event) {
 	      this.setState({
-	        numYTicks: event.target.value
+	        numYTicks: parseInt(event.target.value, 10)
 	      });
 	    }
 	  }, {
@@ -26705,7 +26705,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(56);
+	var _axis = __webpack_require__(55);
 
 	var _axis2 = _interopRequireDefault(_axis);
 

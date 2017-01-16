@@ -14,6 +14,12 @@ type State = {
   points: Object[],
 }
 
+type FormEvent = {
+  target: {
+    value: string
+  }
+}
+
 function randomPoints() {
   return [...Array(10)].map(() => (
     { x: Math.random() * 600, y: Math.random() * 300 })
@@ -49,15 +55,15 @@ class AxisExample extends Component {
     });
   }
 
-  updateNumX(event: Object) {
+  updateNumX(event: FormEvent) {
     this.setState({
-      numXTicks: event.target.value,
+      numXTicks: parseInt(event.target.value, 10),
     });
   }
 
-  updateNumY(event: Object) {
+  updateNumY(event: FormEvent) {
     this.setState({
-      numYTicks: event.target.value,
+      numYTicks: parseInt(event.target.value, 10),
     });
   }
 
