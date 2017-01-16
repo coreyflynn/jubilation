@@ -9786,8 +9786,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _jubilationLabel2.default,
 	            {
 	              key: i,
-	              y: _this2.getX(i) - _this2.getDataBinSize() / 2,
-	              dx: -5,
+	              x: _this2.getX(i) + _this2.getDataBinSize() / 2,
+	              dy: 5,
 	              textAnchor: 'middle'
 	            },
 	            label

@@ -93,8 +93,8 @@ export default class JubilationVerticalBarChart extends React.Component {
         {labels.slice(0, data.length).map((label, i) =>
           <Label
             key={i}
-            y={this.getX(i) - (this.getDataBinSize() / 2)}
-            dx={-5}
+            x={this.getX(i) + (this.getDataBinSize() / 2)}
+            dy={5}
             textAnchor="middle"
           >
             {label}
