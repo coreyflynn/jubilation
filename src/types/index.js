@@ -29,12 +29,12 @@ declare type JubilationContext = {
   addDomain: Function,
   removeDomain: Function,
   update: Function,
-}
+};
 
 declare type Point = {
   x: number,
   y: number,
-}
+};
 
 declare type DomainMap = {
   [key: string]: {
@@ -42,3 +42,5 @@ declare type DomainMap = {
     y?: number[],
   }
 };
+
+declare type TickType = 'none' | 'short' | 'full';

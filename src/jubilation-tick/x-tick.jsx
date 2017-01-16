@@ -4,22 +4,29 @@ import Line from '../jubilation-line';
 
 type Props = {
   position: number,
-  extended?: boolean,
-  context: JubilationContext
+  tickType?: TickType,
+  context: JubilationContext,
 };
 
-export default function XTick({ position, extended = false, context }: Props) {
-  const { yScale,
+export default function XTick({ position, tickType = 'short', context }: Props): React.Element<*> {
+  const {
+    yScale,
     theme: {
       labelStyle: { fontSize },
     },
   } = context;
-  const [computedYMin, computedYMax] = yScale.domain();
+  const [computedYMax, computedYMin] = yScale.domain();
+  const typeMap = {
+    none: [computedYMin, computedYMin],
+    short: [computedYMin - (fontSize / 4), computedYMin],
+    full: [computedYMin - (fontSize / 4), computedYMax],
+  };
+  const [bottom, top] = typeMap[tickType];
 
   return (<Line
     x1={position}
     x2={position}
-    y1={computedYMax - (fontSize / 4)}
-    y2={extended ? computedYMin : computedYMax}
+    y1={bottom}
+    y2={top}
   />);
 }

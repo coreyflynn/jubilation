@@ -13,13 +13,13 @@ type Props = {
   title?: string,
   position?: number,
   numTicks?: number,
-  extendTicks?: boolean,
+  tickType?: TickType,
   axisLine?: boolean
 };
 type Context = { JubilationContext: JubilationContext };
 
 export default function XAxis(
-  { min, max, title, position = 0, numTicks = 0, extendTicks = false, axisLine = false }: Props,
+  { min, max, title, position = 0, numTicks = 0, tickType, axisLine = false }: Props,
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
@@ -49,7 +49,7 @@ export default function XAxis(
             <XTick
               position={data.min}
               context={context}
-              extended={extendTicks}
+              tickType={tickType}
             />
             <Label x={data.min} y={data.position} dy={data.offset} textAnchor="middle">
               {Math.round(data.min)}
@@ -61,7 +61,7 @@ export default function XAxis(
                 <XTick
                   position={tick.x}
                   context={context}
-                  extended={extendTicks}
+                  tickType={tickType}
                 />
                 <Label {...tick}>{Math.round(tick.val)}</Label>
               </g>
@@ -71,7 +71,7 @@ export default function XAxis(
             <XTick
               position={data.max}
               context={context}
-              extended={extendTicks}
+              tickType={tickType}
             />
             <Label x={data.max} y={data.position} dy={data.offset} textAnchor="middle">
               {Math.round(data.max)}
