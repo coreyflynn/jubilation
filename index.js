@@ -26408,14 +26408,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'updateNumX',
 	    value: function updateNumX(event) {
 	      this.setState({
-	        numXTicks: event.target.value
+	        numXTicks: parseInt(event.target.value, 10)
 	      });
 	    }
 	  }, {
 	    key: 'updateNumY',
 	    value: function updateNumY(event) {
 	      this.setState({
-	        numYTicks: event.target.value
+	        numYTicks: parseInt(event.target.value, 10)
 	      });
 	    }
 	  }, {
