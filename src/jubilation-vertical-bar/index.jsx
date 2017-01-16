@@ -73,7 +73,7 @@ export default class JubilationVerticalBarChart extends React.Component {
   }
 
   render() {
-    const { data, labels, color, style } = this.props;
+    const { data, labels, color, style, gapWidth } = this.props;
     const { yScale, theme } = this.context.JubilationContext;
     return (
       <g>
@@ -93,7 +93,7 @@ export default class JubilationVerticalBarChart extends React.Component {
         {labels.slice(0, data.length).map((label, i) =>
           <Label
             key={i}
-            x={this.getX(i) + (this.getDataBinSize() / 2)}
+            x={(this.getX(i) + (this.getDataBinSize() / 2)) - (this.getDataBinSize() * gapWidth)}
             dy={theme.labelStyle.fontSize}
             textAnchor="middle"
           >

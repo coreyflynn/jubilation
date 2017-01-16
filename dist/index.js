@@ -93,15 +93,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _jubilationHorizontalBar = __webpack_require__(198);
+	var _jubilationHorizontalBar = __webpack_require__(55);
 
 	var _jubilationHorizontalBar2 = _interopRequireDefault(_jubilationHorizontalBar);
 
-	var _jubilationVerticalBar = __webpack_require__(202);
+	var _jubilationVerticalBar = __webpack_require__(59);
 
 	var _jubilationVerticalBar2 = _interopRequireDefault(_jubilationVerticalBar);
 
-	var _jubilationAxis = __webpack_require__(55);
+	var _jubilationAxis = __webpack_require__(60);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9000,386 +9000,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.YAxis = exports.XAxis = undefined;
-
-	var _xAxis = __webpack_require__(56);
-
-	var _xAxis2 = _interopRequireDefault(_xAxis);
-
-	var _yAxis = __webpack_require__(62);
-
-	var _yAxis2 = _interopRequireDefault(_yAxis);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.XAxis = _xAxis2.default;
-	exports.YAxis = _yAxis2.default;
-
-/***/ },
-/* 56 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = XAxis;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(51);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _axis = __webpack_require__(57);
-
-	var _axis2 = _interopRequireDefault(_axis);
-
-	var _jubilationLabel = __webpack_require__(50);
-
-	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function XAxis(_ref, _ref2) {
-	  var min = _ref.min,
-	      max = _ref.max,
-	      title = _ref.title,
-	      _ref$position = _ref.position,
-	      position = _ref$position === undefined ? 0 : _ref$position,
-	      _ref$numTicks = _ref.numTicks,
-	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
-	      _ref$tickLines = _ref.tickLines,
-	      tickLines = _ref$tickLines === undefined ? false : _ref$tickLines,
-	      _ref$axisLine = _ref.axisLine,
-	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = min || min === 0 ? min : context.xScale.domain()[0];
-	  var computedMax = max || max === 0 ? max : context.xScale.domain()[1];
-	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'x', position, context);
-	  var offset = context.theme.labelStyle.fontSize;
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { min: computedMin, max: computedMax, position: position, offset: offset, ticks: ticks } },
-	    function (data) {
-	      return _react2.default.createElement(
-	        'g',
-	        null,
-	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.min, y: data.position, dy: data.offset, textAnchor: 'middle' },
-	          Math.round(data.min)
-	        ),
-	        data.ticks.map(function (tick) {
-	          return _react2.default.createElement(
-	            _jubilationLabel2.default,
-	            tick,
-	            Math.round(tick.val)
-	          );
-	        }),
-	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.max, y: data.position, dy: data.offset, textAnchor: 'middle' },
-	          Math.round(data.max)
-	        ),
-	        title && _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          {
-	            x: (data.max - data.min) / 2 + data.min,
-	            y: data.position,
-	            dy: data.offset * 2 + 2,
-	            style: { fontSize: context.theme.labelStyle.fontSize * context.theme.scale },
-	            textAnchor: 'middle'
-	          },
-	          title
-	        )
-	      );
-	    }
-	  );
-	}
-
-
-	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 57 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = getTicks;
-	function getTicks(min, max, numTicks, axisType, position, context) {
-	  var ticks = [];
-
-	  for (var i = 0; i < numTicks; i += 1) {
-	    var val = (max - min) / (numTicks + 1) * (i + 1) + min;
-	    var x = axisType === 'x' ? val : position;
-	    var y = axisType === 'y' ? val : position;
-	    var textAnchor = axisType === 'x' ? 'middle' : 'end';
-	    var dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
-	    var dx = axisType === 'y' ? -5 : 0;
-	    ticks.push({ key: i, x: x, y: y, dy: dy, dx: dx, textAnchor: textAnchor, val: val });
-	  }
-	  return ticks;
-	}
-
-/***/ },
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = YAxis;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(51);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _axis = __webpack_require__(57);
-
-	var _axis2 = _interopRequireDefault(_axis);
-
-	var _jubilationLabel = __webpack_require__(50);
-
-	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function YAxis(_ref, _ref2) {
-	  var min = _ref.min,
-	      max = _ref.max,
-	      title = _ref.title,
-	      _ref$position = _ref.position,
-	      position = _ref$position === undefined ? 0 : _ref$position,
-	      _ref$numTicks = _ref.numTicks,
-	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
-	      _ref$tickLines = _ref.tickLines,
-	      tickLines = _ref$tickLines === undefined ? false : _ref$tickLines,
-	      _ref$axisLine = _ref.axisLine,
-	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var computedMin = min || min === 0 ? min : context.yScale.domain()[1];
-	  var computedMax = max || max === 0 ? max : context.yScale.domain()[0];
-	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'y', position, context);
-	  var dx = -5;
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { min: computedMin, max: computedMax, position: position, dx: dx, ticks: ticks } },
-	    function (data) {
-	      return _react2.default.createElement(
-	        'g',
-	        null,
-	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.position, y: data.min, dx: data.dx, textAnchor: 'end' },
-	          Math.round(data.min)
-	        ),
-	        data.ticks.map(function (tick) {
-	          return _react2.default.createElement(
-	            _jubilationLabel2.default,
-	            tick,
-	            Math.round(tick.val)
-	          );
-	        }),
-	        _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          { x: data.position, y: data.max, dx: data.dx, textAnchor: 'end' },
-	          Math.round(data.max)
-	        ),
-	        title && _react2.default.createElement(
-	          _jubilationLabel2.default,
-	          {
-	            x: data.position,
-	            y: data.max,
-	            dy: -context.theme.labelStyle.fontSize * context.theme.scale,
-	            style: { fontSize: context.theme.labelStyle.fontSize * context.theme.scale },
-	            textAnchor: 'start'
-	          },
-	          title
-	        )
-	      );
-	    }
-	  );
-	}
-
-
-	YAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */,
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */,
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */,
-/* 159 */,
-/* 160 */,
-/* 161 */,
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */,
-/* 169 */,
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */,
-/* 186 */,
-/* 187 */,
-/* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -9395,7 +9015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationRect = __webpack_require__(199);
+	var _jubilationRect = __webpack_require__(56);
 
 	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
 
@@ -9411,7 +9031,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _text = __webpack_require__(200);
+	var _text = __webpack_require__(58);
 
 	var _text2 = _interopRequireDefault(_text);
 
@@ -9548,7 +9168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JubilationHorizontalBarChart;
 
 /***/ },
-/* 199 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9617,7 +9237,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationRect.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 200 */
+/* 57 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getTicks;
+	function getTicks(min, max, numTicks, axisType, position, context) {
+	  var ticks = [];
+
+	  for (var i = 0; i < numTicks; i += 1) {
+	    var val = (max - min) / (numTicks + 1) * (i + 1) + min;
+	    var x = axisType === 'x' ? val : position;
+	    var y = axisType === 'y' ? val : position;
+	    var textAnchor = axisType === 'x' ? 'middle' : 'end';
+	    var dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
+	    var dx = axisType === 'y' ? -5 : 0;
+	    ticks.push({ key: i, x: x, y: y, dy: dy, dx: dx, textAnchor: textAnchor, val: val });
+	  }
+	  return ticks;
+	}
+
+/***/ },
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9650,8 +9295,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 201 */,
-/* 202 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9674,7 +9318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationRect = __webpack_require__(199);
+	var _jubilationRect = __webpack_require__(56);
 
 	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
 
@@ -9764,7 +9408,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          data = _props.data,
 	          labels = _props.labels,
 	          color = _props.color,
-	          style = _props.style;
+	          style = _props.style,
+	          gapWidth = _props.gapWidth;
 	      var _context$JubilationCo = this.context.JubilationContext,
 	          yScale = _context$JubilationCo.yScale,
 	          theme = _context$JubilationCo.theme;
@@ -9788,7 +9433,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _jubilationLabel2.default,
 	            {
 	              key: i,
-	              x: _this2.getX(i) + _this2.getDataBinSize() / 2,
+	              x: _this2.getX(i) + _this2.getDataBinSize() / 2 - _this2.getDataBinSize() * gapWidth,
 	              dy: theme.labelStyle.fontSize,
 	              textAnchor: 'middle'
 	            },
@@ -9805,6 +9450,222 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationVerticalBarChart.defaultProps = { data: [], labels: [], gapWidth: 0.05 };
 	JubilationVerticalBarChart.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 	exports.default = JubilationVerticalBarChart;
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.YAxis = exports.XAxis = undefined;
+
+	var _xAxis = __webpack_require__(61);
+
+	var _xAxis2 = _interopRequireDefault(_xAxis);
+
+	var _yAxis = __webpack_require__(62);
+
+	var _yAxis2 = _interopRequireDefault(_yAxis);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.XAxis = _xAxis2.default;
+	exports.YAxis = _yAxis2.default;
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = XAxis;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _axis = __webpack_require__(57);
+
+	var _axis2 = _interopRequireDefault(_axis);
+
+	var _jubilationLabel = __webpack_require__(50);
+
+	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function XAxis(_ref, _ref2) {
+	  var min = _ref.min,
+	      max = _ref.max,
+	      title = _ref.title,
+	      _ref$position = _ref.position,
+	      position = _ref$position === undefined ? 0 : _ref$position,
+	      _ref$numTicks = _ref.numTicks,
+	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
+	      _ref$tickLines = _ref.tickLines,
+	      tickLines = _ref$tickLines === undefined ? false : _ref$tickLines,
+	      _ref$axisLine = _ref.axisLine,
+	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var computedMin = min || min === 0 ? min : context.xScale.domain()[0];
+	  var computedMax = max || max === 0 ? max : context.xScale.domain()[1];
+	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'x', position, context);
+	  var offset = context.theme.labelStyle.fontSize;
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { min: computedMin, max: computedMax, position: position, offset: offset, ticks: ticks } },
+	    function (data) {
+	      return _react2.default.createElement(
+	        'g',
+	        null,
+	        _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          { x: data.min, y: data.position, dy: data.offset, textAnchor: 'middle' },
+	          Math.round(data.min)
+	        ),
+	        data.ticks.map(function (tick) {
+	          return _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            tick,
+	            Math.round(tick.val)
+	          );
+	        }),
+	        _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          { x: data.max, y: data.position, dy: data.offset, textAnchor: 'middle' },
+	          Math.round(data.max)
+	        ),
+	        title && _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          {
+	            x: (data.max - data.min) / 2 + data.min,
+	            y: data.position,
+	            dy: data.offset * 2 + 2,
+	            style: { fontSize: context.theme.labelStyle.fontSize * context.theme.scale },
+	            textAnchor: 'middle'
+	          },
+	          title
+	        )
+	      );
+	    }
+	  );
+	}
+
+
+	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = YAxis;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _axis = __webpack_require__(57);
+
+	var _axis2 = _interopRequireDefault(_axis);
+
+	var _jubilationLabel = __webpack_require__(50);
+
+	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function YAxis(_ref, _ref2) {
+	  var min = _ref.min,
+	      max = _ref.max,
+	      title = _ref.title,
+	      _ref$position = _ref.position,
+	      position = _ref$position === undefined ? 0 : _ref$position,
+	      _ref$numTicks = _ref.numTicks,
+	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
+	      _ref$tickLines = _ref.tickLines,
+	      tickLines = _ref$tickLines === undefined ? false : _ref$tickLines,
+	      _ref$axisLine = _ref.axisLine,
+	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var computedMin = min || min === 0 ? min : context.yScale.domain()[1];
+	  var computedMax = max || max === 0 ? max : context.yScale.domain()[0];
+	  var ticks = (0, _axis2.default)(computedMin, computedMax, numTicks, 'y', position, context);
+	  var dx = -5;
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { min: computedMin, max: computedMax, position: position, dx: dx, ticks: ticks } },
+	    function (data) {
+	      return _react2.default.createElement(
+	        'g',
+	        null,
+	        _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          { x: data.position, y: data.min, dx: data.dx, textAnchor: 'end' },
+	          Math.round(data.min)
+	        ),
+	        data.ticks.map(function (tick) {
+	          return _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            tick,
+	            Math.round(tick.val)
+	          );
+	        }),
+	        _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          { x: data.position, y: data.max, dx: data.dx, textAnchor: 'end' },
+	          Math.round(data.max)
+	        ),
+	        title && _react2.default.createElement(
+	          _jubilationLabel2.default,
+	          {
+	            x: data.position,
+	            y: data.max,
+	            dy: -context.theme.labelStyle.fontSize * context.theme.scale,
+	            style: { fontSize: context.theme.labelStyle.fontSize * context.theme.scale },
+	            textAnchor: 'start'
+	          },
+	          title
+	        )
+	      );
+	    }
+	  );
+	}
+
+
+	YAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ }
 /******/ ])
