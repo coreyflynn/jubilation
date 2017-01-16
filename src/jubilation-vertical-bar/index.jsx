@@ -52,12 +52,12 @@ export default class JubilationVerticalBarChart extends React.Component {
   }
 
   getDataBinSize(): number {
-    return this.context.JubilationContext.xScale.domain()[0] / this.props.data.length;
+    return this.context.JubilationContext.xScale.domain()[1] / this.props.data.length;
   }
 
   getX(i: number): number {
     const dataBinSize = this.getDataBinSize();
-    return ((i + 1) * dataBinSize) + (dataBinSize * this.props.gapWidth);
+    return ((i) * dataBinSize) + (dataBinSize * this.props.gapWidth);
   }
 
   getLabelPositions(): Tick[] {
@@ -75,7 +75,6 @@ export default class JubilationVerticalBarChart extends React.Component {
   render() {
     const { data, labels, color, style } = this.props;
     const { yScale } = this.context.JubilationContext;
-    console.log(yScale(100));
     return (
       <g>
         {data.map((datum, i) =>

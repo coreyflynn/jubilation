@@ -64,7 +64,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _scatterplot = __webpack_require__(196);
+	var _scatterplot = __webpack_require__(201);
 
 	var _scatterplot2 = _interopRequireDefault(_scatterplot);
 
@@ -8963,467 +8963,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _uuid = __webpack_require__(37);
-
-	var _uuid2 = _interopRequireDefault(_uuid);
-
-	var _scatter = __webpack_require__(54);
-
-	var _scatter2 = _interopRequireDefault(_scatter);
-
-	var _jubilationRect = __webpack_require__(56);
-
-	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
-
-	var _jubilationLabel = __webpack_require__(50);
-
-	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
-
-	var _context = __webpack_require__(51);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _axis = __webpack_require__(57);
-
-	var _axis2 = _interopRequireDefault(_axis);
-
-	var _text = __webpack_require__(58);
-
-	var _text2 = _interopRequireDefault(_text);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var JubilationHorizontalBarChart = function (_React$Component) {
-	  _inherits(JubilationHorizontalBarChart, _React$Component);
-
-	  function JubilationHorizontalBarChart(props, context) {
-	    _classCallCheck(this, JubilationHorizontalBarChart);
-
-	    var _this = _possibleConstructorReturn(this, (JubilationHorizontalBarChart.__proto__ || Object.getPrototypeOf(JubilationHorizontalBarChart)).call(this, props, context));
-
-	    _this.uuid = _uuid2.default.v4();
-	    _this.context.JubilationContext = (0, _context2.default)(_this.context.JubilationContext);
-	    _this.setXRange();
-	    _this.domainMap = (0, _scatter2.default)(_this.uuid, props.data.map(function (d) {
-	      return { x: d, y: 0 };
-	    }));
-	    _this.context.JubilationContext.addDomain(_this.domainMap);
-	    return _this;
-	  }
-
-	  _createClass(JubilationHorizontalBarChart, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.domainMap = (0, _scatter2.default)(this.uuid, nextProps.data.map(function (d) {
-	        return { x: d, y: 0 };
-	      }));
-	      this.context.JubilationContext.addDomain(this.domainMap);
-	    }
-
-	    /**
-	     * Inteligently sets the chart's xRange given the passed in label lengths
-	     */
-
-	  }, {
-	    key: 'setXRange',
-	    value: function setXRange() {
-	      var xRange = this.context.JubilationContext.xRange;
-
-	      var maxLabelWidth = this.props.labels.map(function (l) {
-	        return (0, _text2.default)(l);
-	      }).reduce(function (a, b) {
-	        return Math.max(a, b);
-	      }, 0);
-	      this.context.JubilationContext.xRange = [maxLabelWidth + 5, xRange[1]];
-	    }
-	  }, {
-	    key: 'getHeight',
-	    value: function getHeight() {
-	      var binHeight = this.getBinHeight();
-	      return binHeight - this.props.gapWidth * binHeight * 2;
-	    }
-	  }, {
-	    key: 'getBinHeight',
-	    value: function getBinHeight() {
-	      var min = this.context.JubilationContext.yScale.range()[0];
-	      var max = this.context.JubilationContext.yScale.range()[1];
-	      var yHeight = max - min;
-	      return yHeight / this.props.data.length;
-	    }
-	  }, {
-	    key: 'getDataBinSize',
-	    value: function getDataBinSize() {
-	      return this.context.JubilationContext.yScale.domain()[0] / this.props.data.length;
-	    }
-	  }, {
-	    key: 'getY',
-	    value: function getY(i) {
-	      var dataBinSize = this.getDataBinSize();
-	      return (i + 1) * dataBinSize - dataBinSize * this.props.gapWidth;
-	    }
-	  }, {
-	    key: 'getLabelPositions',
-	    value: function getLabelPositions() {
-	      var yScale = this.context.JubilationContext.yScale;
-
-	      return (0, _axis2.default)(yScale.domain()[1], yScale.domain()[0], this.props.data.length, 'y', 0, this.context.JubilationContext);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var _props = this.props,
-	          data = _props.data,
-	          labels = _props.labels,
-	          color = _props.color,
-	          style = _props.style;
-	      var xScale = this.context.JubilationContext.xScale;
-
-	      return _react2.default.createElement(
-	        'g',
-	        null,
-	        data.map(function (datum, i) {
-	          return _react2.default.createElement(_jubilationRect2.default, {
-	            key: i,
-	            x: 0,
-	            y: _this2.getY(i),
-	            width: xScale(datum),
-	            height: _this2.getHeight(),
-	            color: color,
-	            style: style
-	          });
-	        }),
-	        labels.slice(0, data.length).map(function (label, i) {
-	          return _react2.default.createElement(
-	            _jubilationLabel2.default,
-	            {
-	              key: i,
-	              y: _this2.getY(i) - _this2.getDataBinSize() / 2,
-	              dx: -5,
-	              textAnchor: 'end'
-	            },
-	            label
-	          );
-	        })
-	      );
-	    }
-	  }]);
-
-	  return JubilationHorizontalBarChart;
-	}(_react2.default.Component);
-
-	JubilationHorizontalBarChart.defaultProps = { data: [], labels: [], gapWidth: 0.05 };
-	JubilationHorizontalBarChart.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-	exports.default = JubilationHorizontalBarChart;
-
-/***/ },
-/* 56 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = JubilationRect;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(51);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/**
-	 * A single SVG rectangle. A basic building block for bar graphs
-	 */
-	function JubilationRect(_ref, _ref2) {
-	  var _ref$x = _ref.x,
-	      x = _ref$x === undefined ? 0 : _ref$x,
-	      _ref$y = _ref.y,
-	      y = _ref$y === undefined ? 0 : _ref$y,
-	      color = _ref.color,
-	      _ref$style = _ref.style,
-	      style = _ref$style === undefined ? {} : _ref$style,
-	      _ref$width = _ref.width,
-	      width = _ref$width === undefined ? 10 : _ref$width,
-	      _ref$height = _ref.height,
-	      height = _ref$height === undefined ? 10 : _ref$height;
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var _getContext = (0, _context2.default)(JubilationContext),
-	      xScale = _getContext.xScale,
-	      yScale = _getContext.yScale,
-	      theme = _getContext.theme;
-
-	  var fill = theme.colors[0];
-	  if (color) fill = color;
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { x: x, y: y, width: width, height: height, fill: fill, style: style } },
-	    function (data) {
-	      return _react2.default.createElement('rect', {
-	        x: xScale(data.x),
-	        y: yScale(data.y),
-	        width: data.width,
-	        height: data.height,
-	        fill: data.fill,
-	        style: data.style
-	      });
-	    }
-	  );
-	}
-
-
-	JubilationRect.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 57 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = getTicks;
-	function getTicks(min, max, numTicks, axisType, position, context) {
-	  var ticks = [];
-
-	  for (var i = 0; i < numTicks; i += 1) {
-	    var val = (max - min) / (numTicks + 1) * (i + 1) + min;
-	    var x = axisType === 'x' ? val : position;
-	    var y = axisType === 'y' ? val : position;
-	    var textAnchor = axisType === 'x' ? 'middle' : 'end';
-	    var dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
-	    var dx = axisType === 'y' ? -5 : 0;
-	    ticks.push({ key: i, x: x, y: y, dy: dy, dx: dx, textAnchor: textAnchor, val: val });
-	  }
-	  return ticks;
-	}
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = getTextWidth;
-
-	var _jubilationTheme = __webpack_require__(39);
-
-	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getTextWidth(text) {
-	  var fontSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _jubilationTheme2.default.labelStyle.fontSize;
-	  var fontFamily = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Gill Sans';
-
-	  var can = document.createElement('canvas');
-	  var ctx = can.getContext('2d');
-	  // if we can get a canvas context, use it to measure the text
-	  if (!ctx) {
-	    // otherwise, fudge it by assuming all characters are the width of the fontSize. At least this
-	    // way we won't be too narrow 😜
-	    return text.length * fontSize;
-	  }
-	  ctx.font = fontSize + 'px ' + fontFamily;
-	  return ctx.measureText(text).width;
-	}
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _uuid = __webpack_require__(37);
-
-	var _uuid2 = _interopRequireDefault(_uuid);
-
-	var _scatter = __webpack_require__(54);
-
-	var _scatter2 = _interopRequireDefault(_scatter);
-
-	var _jubilationRect = __webpack_require__(56);
-
-	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
-
-	var _jubilationLabel = __webpack_require__(50);
-
-	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
-
-	var _context = __webpack_require__(51);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _axis = __webpack_require__(57);
-
-	var _axis2 = _interopRequireDefault(_axis);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var JubilationVerticalBarChart = function (_React$Component) {
-	  _inherits(JubilationVerticalBarChart, _React$Component);
-
-	  function JubilationVerticalBarChart(props, context) {
-	    _classCallCheck(this, JubilationVerticalBarChart);
-
-	    var _this = _possibleConstructorReturn(this, (JubilationVerticalBarChart.__proto__ || Object.getPrototypeOf(JubilationVerticalBarChart)).call(this, props, context));
-
-	    _this.uuid = _uuid2.default.v4();
-	    _this.context.JubilationContext = (0, _context2.default)(_this.context.JubilationContext);
-	    _this.domainMap = (0, _scatter2.default)(_this.uuid, props.data.map(function (d) {
-	      return { x: 0, y: d };
-	    }));
-	    _this.context.JubilationContext.addDomain(_this.domainMap);
-	    return _this;
-	  }
-
-	  _createClass(JubilationVerticalBarChart, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.domainMap = (0, _scatter2.default)(this.uuid, nextProps.data.map(function (d) {
-	        return { x: 0, y: d };
-	      }));
-	      this.context.JubilationContext.addDomain(this.domainMap);
-	    }
-	  }, {
-	    key: 'getWidth',
-	    value: function getWidth() {
-	      var binWidth = this.getBinWidth();
-	      return binWidth - this.props.gapWidth * binWidth * 2;
-	    }
-	  }, {
-	    key: 'getBinWidth',
-	    value: function getBinWidth() {
-	      var min = this.context.JubilationContext.xScale.range()[0];
-	      var max = this.context.JubilationContext.xScale.range()[1];
-	      var xWidth = max - min;
-	      return xWidth / this.props.data.length;
-	    }
-	  }, {
-	    key: 'getDataBinSize',
-	    value: function getDataBinSize() {
-	      return this.context.JubilationContext.xScale.domain()[0] / this.props.data.length;
-	    }
-	  }, {
-	    key: 'getX',
-	    value: function getX(i) {
-	      var dataBinSize = this.getDataBinSize();
-	      return (i + 1) * dataBinSize + dataBinSize * this.props.gapWidth;
-	    }
-	  }, {
-	    key: 'getLabelPositions',
-	    value: function getLabelPositions() {
-	      var xScale = this.context.JubilationContext.xScale;
-
-	      return (0, _axis2.default)(xScale.domain()[0], xScale.domain()[1], this.props.data.length, 'x', 0, this.context.JubilationContext);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var _props = this.props,
-	          data = _props.data,
-	          labels = _props.labels,
-	          color = _props.color,
-	          style = _props.style;
-	      var yScale = this.context.JubilationContext.yScale;
-
-	      console.log(yScale(100));
-	      return _react2.default.createElement(
-	        'g',
-	        null,
-	        data.map(function (datum, i) {
-	          return _react2.default.createElement(_jubilationRect2.default, {
-	            key: i,
-	            x: _this2.getX(i),
-	            y: datum,
-	            width: _this2.getWidth(),
-	            height: yScale(datum),
-	            color: color,
-	            style: style
-	          });
-	        }),
-	        labels.slice(0, data.length).map(function (label, i) {
-	          return _react2.default.createElement(
-	            _jubilationLabel2.default,
-	            {
-	              key: i,
-	              y: _this2.getX(i) - _this2.getDataBinSize() / 2,
-	              dx: -5,
-	              textAnchor: 'middle'
-	            },
-	            label
-	          );
-	        })
-	      );
-	    }
-	  }]);
-
-	  return JubilationVerticalBarChart;
-	}(_react2.default.Component);
-
-	JubilationVerticalBarChart.defaultProps = { data: [], labels: [], gapWidth: 0.05 };
-	JubilationVerticalBarChart.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-	exports.default = JubilationVerticalBarChart;
-
-/***/ },
-/* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	exports.YAxis = exports.XAxis = undefined;
 
-	var _xAxis = __webpack_require__(61);
+	var _xAxis = __webpack_require__(56);
 
 	var _xAxis2 = _interopRequireDefault(_xAxis);
 
@@ -9437,7 +8979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YAxis = _yAxis2.default;
 
 /***/ },
-/* 61 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9533,6 +9075,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
+/* 57 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getTicks;
+	function getTicks(min, max, numTicks, axisType, position, context) {
+	  var ticks = [];
+
+	  for (var i = 0; i < numTicks; i += 1) {
+	    var val = (max - min) / (numTicks + 1) * (i + 1) + min;
+	    var x = axisType === 'x' ? val : position;
+	    var y = axisType === 'y' ? val : position;
+	    var textAnchor = axisType === 'x' ? 'middle' : 'end';
+	    var dy = axisType === 'x' ? context.theme.labelStyle.fontSize : 0;
+	    var dx = axisType === 'y' ? -5 : 0;
+	    ticks.push({ key: i, x: x, y: y, dy: dy, dx: dx, textAnchor: textAnchor, val: val });
+	  }
+	  return ticks;
+	}
+
+/***/ },
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
 /* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -26740,7 +26311,454 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ },
-/* 196 */
+/* 196 */,
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jubilationChart = __webpack_require__(35);
+
+	var _jubilationChart2 = _interopRequireDefault(_jubilationChart);
+
+	var _jubilationHorizontalBar = __webpack_require__(198);
+
+	var _jubilationHorizontalBar2 = _interopRequireDefault(_jubilationHorizontalBar);
+
+	var _jubilationVerticalBar = __webpack_require__(202);
+
+	var _jubilationVerticalBar2 = _interopRequireDefault(_jubilationVerticalBar);
+
+	var _jubilationTheme = __webpack_require__(39);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	var _jubilationAxis = __webpack_require__(55);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function getData() {
+	  var data = [];
+	  for (var i = 0; i < Math.ceil(Math.random() * 10); i += 1) {
+	    data.push(100);
+	  }
+	  return data;
+	}
+
+	var BarPlotExample = function (_Component) {
+	  _inherits(BarPlotExample, _Component);
+
+	  function BarPlotExample() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, BarPlotExample);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BarPlotExample.__proto__ || Object.getPrototypeOf(BarPlotExample)).call.apply(_ref, [this].concat(args))), _this), _this.state = { data: getData(), colors: [0] }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  _createClass(BarPlotExample, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      setInterval(function () {
+	        _this2.setState({
+	          data: getData(),
+	          colors: [Math.round(Math.random() * 3)]
+	        });
+	      }, 5000);
+	    }
+	  }, {
+	    key: 'renderBasicHorizontal',
+	    value: function renderBasicHorizontal() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Basic Horizontal Bar Plot'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          _react2.default.createElement(_jubilationHorizontalBar2.default, {
+	            data: this.state.data,
+	            labels: this.state.data.map(function (d, i) {
+	              return 'Label ' + i;
+	            })
+	          })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderHorizontalWithAxes',
+	    value: function renderHorizontalWithAxes() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'With Axis'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          _react2.default.createElement(_jubilationHorizontalBar2.default, {
+	            data: this.state.data,
+	            labels: this.state.data.map(function (d, i) {
+	              return 'Label ' + i;
+	            }),
+	            color: _jubilationTheme2.default.colors[this.state.colors[0]]
+	          }),
+	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 2, title: 'X axis' })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderBasicVertical',
+	    value: function renderBasicVertical() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Basic Vertical Bar Plot'
+	        ),
+	        _react2.default.createElement(
+	          _jubilationChart2.default,
+	          { height: 300, width: 600 },
+	          _react2.default.createElement(_jubilationVerticalBar2.default, {
+	            data: this.state.data,
+	            labels: this.state.data.map(function (d, i) {
+	              return 'Label ' + i;
+	            })
+	          })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        this.renderBasicVertical(),
+	        this.renderBasicHorizontal(),
+	        this.renderHorizontalWithAxes()
+	      );
+	    }
+	  }]);
+
+	  return BarPlotExample;
+	}(_react.Component);
+
+	exports.default = BarPlotExample;
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _uuid = __webpack_require__(37);
+
+	var _uuid2 = _interopRequireDefault(_uuid);
+
+	var _scatter = __webpack_require__(54);
+
+	var _scatter2 = _interopRequireDefault(_scatter);
+
+	var _jubilationRect = __webpack_require__(199);
+
+	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
+
+	var _jubilationLabel = __webpack_require__(50);
+
+	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
+
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _axis = __webpack_require__(57);
+
+	var _axis2 = _interopRequireDefault(_axis);
+
+	var _text = __webpack_require__(200);
+
+	var _text2 = _interopRequireDefault(_text);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var JubilationHorizontalBarChart = function (_React$Component) {
+	  _inherits(JubilationHorizontalBarChart, _React$Component);
+
+	  function JubilationHorizontalBarChart(props, context) {
+	    _classCallCheck(this, JubilationHorizontalBarChart);
+
+	    var _this = _possibleConstructorReturn(this, (JubilationHorizontalBarChart.__proto__ || Object.getPrototypeOf(JubilationHorizontalBarChart)).call(this, props, context));
+
+	    _this.uuid = _uuid2.default.v4();
+	    _this.context.JubilationContext = (0, _context2.default)(_this.context.JubilationContext);
+	    _this.setXRange();
+	    _this.domainMap = (0, _scatter2.default)(_this.uuid, props.data.map(function (d) {
+	      return { x: d, y: 0 };
+	    }));
+	    _this.context.JubilationContext.addDomain(_this.domainMap);
+	    return _this;
+	  }
+
+	  _createClass(JubilationHorizontalBarChart, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.domainMap = (0, _scatter2.default)(this.uuid, nextProps.data.map(function (d) {
+	        return { x: d, y: 0 };
+	      }));
+	      this.context.JubilationContext.addDomain(this.domainMap);
+	    }
+
+	    /**
+	     * Inteligently sets the chart's xRange given the passed in label lengths
+	     */
+
+	  }, {
+	    key: 'setXRange',
+	    value: function setXRange() {
+	      var xRange = this.context.JubilationContext.xRange;
+
+	      var maxLabelWidth = this.props.labels.map(function (l) {
+	        return (0, _text2.default)(l);
+	      }).reduce(function (a, b) {
+	        return Math.max(a, b);
+	      }, 0);
+	      this.context.JubilationContext.xRange = [maxLabelWidth + 5, xRange[1]];
+	    }
+	  }, {
+	    key: 'getHeight',
+	    value: function getHeight() {
+	      var binHeight = this.getBinHeight();
+	      return binHeight - this.props.gapWidth * binHeight * 2;
+	    }
+	  }, {
+	    key: 'getBinHeight',
+	    value: function getBinHeight() {
+	      var min = this.context.JubilationContext.yScale.range()[0];
+	      var max = this.context.JubilationContext.yScale.range()[1];
+	      var yHeight = max - min;
+	      return yHeight / this.props.data.length;
+	    }
+	  }, {
+	    key: 'getDataBinSize',
+	    value: function getDataBinSize() {
+	      return this.context.JubilationContext.yScale.domain()[0] / this.props.data.length;
+	    }
+	  }, {
+	    key: 'getY',
+	    value: function getY(i) {
+	      var dataBinSize = this.getDataBinSize();
+	      return (i + 1) * dataBinSize - dataBinSize * this.props.gapWidth;
+	    }
+	  }, {
+	    key: 'getLabelPositions',
+	    value: function getLabelPositions() {
+	      var yScale = this.context.JubilationContext.yScale;
+
+	      return (0, _axis2.default)(yScale.domain()[1], yScale.domain()[0], this.props.data.length, 'y', 0, this.context.JubilationContext);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var _props = this.props,
+	          data = _props.data,
+	          labels = _props.labels,
+	          color = _props.color,
+	          style = _props.style;
+	      var xScale = this.context.JubilationContext.xScale;
+
+	      return _react2.default.createElement(
+	        'g',
+	        null,
+	        data.map(function (datum, i) {
+	          return _react2.default.createElement(_jubilationRect2.default, {
+	            key: i,
+	            x: 0,
+	            y: _this2.getY(i),
+	            width: xScale(datum),
+	            height: _this2.getHeight(),
+	            color: color,
+	            style: style
+	          });
+	        }),
+	        labels.slice(0, data.length).map(function (label, i) {
+	          return _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            {
+	              key: i,
+	              y: _this2.getY(i) - _this2.getDataBinSize() / 2,
+	              dx: -5,
+	              textAnchor: 'end'
+	            },
+	            label
+	          );
+	        })
+	      );
+	    }
+	  }]);
+
+	  return JubilationHorizontalBarChart;
+	}(_react2.default.Component);
+
+	JubilationHorizontalBarChart.defaultProps = { data: [], labels: [], gapWidth: 0.05 };
+	JubilationHorizontalBarChart.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+	exports.default = JubilationHorizontalBarChart;
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = JubilationRect;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * A single SVG rectangle. A basic building block for bar graphs
+	 */
+	function JubilationRect(_ref, _ref2) {
+	  var _ref$x = _ref.x,
+	      x = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y,
+	      y = _ref$y === undefined ? 0 : _ref$y,
+	      color = _ref.color,
+	      _ref$style = _ref.style,
+	      style = _ref$style === undefined ? {} : _ref$style,
+	      _ref$width = _ref.width,
+	      width = _ref$width === undefined ? 10 : _ref$width,
+	      _ref$height = _ref.height,
+	      height = _ref$height === undefined ? 10 : _ref$height;
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var _getContext = (0, _context2.default)(JubilationContext),
+	      xScale = _getContext.xScale,
+	      yScale = _getContext.yScale,
+	      theme = _getContext.theme;
+
+	  var fill = theme.colors[0];
+	  if (color) fill = color;
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { x: x, y: y, width: width, height: height, fill: fill, style: style } },
+	    function (data) {
+	      return _react2.default.createElement('rect', {
+	        x: xScale(data.x),
+	        y: yScale(data.y),
+	        width: data.width,
+	        height: data.height,
+	        fill: data.fill,
+	        style: data.style
+	      });
+	    }
+	  );
+	}
+
+
+	JubilationRect.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getTextWidth;
+
+	var _jubilationTheme = __webpack_require__(39);
+
+	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getTextWidth(text) {
+	  var fontSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _jubilationTheme2.default.labelStyle.fontSize;
+	  var fontFamily = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Gill Sans';
+
+	  var can = document.createElement('canvas');
+	  var ctx = can.getContext('2d');
+	  // if we can get a canvas context, use it to measure the text
+	  if (!ctx) {
+	    // otherwise, fudge it by assuming all characters are the width of the fontSize. At least this
+	    // way we won't be too narrow 😜
+	    return text.length * fontSize;
+	  }
+	  ctx.font = fontSize + 'px ' + fontFamily;
+	  return ctx.measureText(text).width;
+	}
+
+/***/ },
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26767,7 +26785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _jubilationAxis = __webpack_require__(60);
+	var _jubilationAxis = __webpack_require__(55);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26992,7 +27010,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = ScatterPlotExample;
 
 /***/ },
-/* 197 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27007,23 +27025,29 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jubilationChart = __webpack_require__(35);
+	var _uuid = __webpack_require__(37);
 
-	var _jubilationChart2 = _interopRequireDefault(_jubilationChart);
+	var _uuid2 = _interopRequireDefault(_uuid);
 
-	var _jubilationHorizontalBar = __webpack_require__(55);
+	var _scatter = __webpack_require__(54);
 
-	var _jubilationHorizontalBar2 = _interopRequireDefault(_jubilationHorizontalBar);
+	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationVerticalBar = __webpack_require__(59);
+	var _jubilationRect = __webpack_require__(199);
 
-	var _jubilationVerticalBar2 = _interopRequireDefault(_jubilationVerticalBar);
+	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
 
-	var _jubilationTheme = __webpack_require__(39);
+	var _jubilationLabel = __webpack_require__(50);
 
-	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
+	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationAxis = __webpack_require__(60);
+	var _context = __webpack_require__(51);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _axis = __webpack_require__(57);
+
+	var _axis2 = _interopRequireDefault(_axis);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27033,129 +27057,111 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	function getData() {
-	  var data = [];
-	  for (var i = 0; i < Math.ceil(Math.random() * 10); i += 1) {
-	    data.push(100);
-	  }
-	  return data;
-	}
+	var JubilationVerticalBarChart = function (_React$Component) {
+	  _inherits(JubilationVerticalBarChart, _React$Component);
 
-	var BarPlotExample = function (_Component) {
-	  _inherits(BarPlotExample, _Component);
+	  function JubilationVerticalBarChart(props, context) {
+	    _classCallCheck(this, JubilationVerticalBarChart);
 
-	  function BarPlotExample() {
-	    var _ref;
+	    var _this = _possibleConstructorReturn(this, (JubilationVerticalBarChart.__proto__ || Object.getPrototypeOf(JubilationVerticalBarChart)).call(this, props, context));
 
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, BarPlotExample);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BarPlotExample.__proto__ || Object.getPrototypeOf(BarPlotExample)).call.apply(_ref, [this].concat(args))), _this), _this.state = { data: getData(), colors: [0] }, _temp), _possibleConstructorReturn(_this, _ret);
+	    _this.uuid = _uuid2.default.v4();
+	    _this.context.JubilationContext = (0, _context2.default)(_this.context.JubilationContext);
+	    _this.domainMap = (0, _scatter2.default)(_this.uuid, props.data.map(function (d) {
+	      return { x: 0, y: d };
+	    }));
+	    _this.context.JubilationContext.addDomain(_this.domainMap);
+	    return _this;
 	  }
 
-	  _createClass(BarPlotExample, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      // setInterval(() => {
-	      //   this.setState({
-	      //     data: getData(),
-	      //     colors: [Math.round(Math.random() * 3)],
-	      //   });
-	      // }, 5000);
+	  _createClass(JubilationVerticalBarChart, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.domainMap = (0, _scatter2.default)(this.uuid, nextProps.data.map(function (d) {
+	        return { x: 0, y: d };
+	      }));
+	      this.context.JubilationContext.addDomain(this.domainMap);
 	    }
 	  }, {
-	    key: 'renderBasicHorizontal',
-	    value: function renderBasicHorizontal() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Basic Horizontal Bar Plot'
-	        ),
-	        _react2.default.createElement(
-	          _jubilationChart2.default,
-	          { height: 300, width: 600 },
-	          _react2.default.createElement(_jubilationHorizontalBar2.default, {
-	            data: this.state.data,
-	            labels: this.state.data.map(function (d, i) {
-	              return 'Label ' + i;
-	            })
-	          })
-	        )
-	      );
+	    key: 'getWidth',
+	    value: function getWidth() {
+	      var binWidth = this.getBinWidth();
+	      return binWidth - this.props.gapWidth * binWidth * 2;
 	    }
 	  }, {
-	    key: 'renderHorizontalWithAxes',
-	    value: function renderHorizontalWithAxes() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'With Axis'
-	        ),
-	        _react2.default.createElement(
-	          _jubilationChart2.default,
-	          { height: 300, width: 600 },
-	          _react2.default.createElement(_jubilationHorizontalBar2.default, {
-	            data: this.state.data,
-	            labels: this.state.data.map(function (d, i) {
-	              return 'Label ' + i;
-	            }),
-	            color: _jubilationTheme2.default.colors[this.state.colors[0]]
-	          }),
-	          _react2.default.createElement(_jubilationAxis.XAxis, { numTicks: 2, title: 'X axis' })
-	        )
-	      );
+	    key: 'getBinWidth',
+	    value: function getBinWidth() {
+	      var min = this.context.JubilationContext.xScale.range()[0];
+	      var max = this.context.JubilationContext.xScale.range()[1];
+	      var xWidth = max - min;
+	      return xWidth / this.props.data.length;
 	    }
 	  }, {
-	    key: 'renderBasicVertical',
-	    value: function renderBasicVertical() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Basic Vertical Bar Plot'
-	        ),
-	        _react2.default.createElement(
-	          _jubilationChart2.default,
-	          { height: 300, width: 600 },
-	          _react2.default.createElement(_jubilationVerticalBar2.default, {
-	            data: this.state.data,
-	            labels: this.state.data.map(function (d, i) {
-	              return 'Label ' + i;
-	            })
-	          })
-	        )
-	      );
+	    key: 'getDataBinSize',
+	    value: function getDataBinSize() {
+	      return this.context.JubilationContext.xScale.domain()[1] / this.props.data.length;
+	    }
+	  }, {
+	    key: 'getX',
+	    value: function getX(i) {
+	      var dataBinSize = this.getDataBinSize();
+	      return i * dataBinSize + dataBinSize * this.props.gapWidth;
+	    }
+	  }, {
+	    key: 'getLabelPositions',
+	    value: function getLabelPositions() {
+	      var xScale = this.context.JubilationContext.xScale;
+
+	      return (0, _axis2.default)(xScale.domain()[0], xScale.domain()[1], this.props.data.length, 'x', 0, this.context.JubilationContext);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
+	      var _props = this.props,
+	          data = _props.data,
+	          labels = _props.labels,
+	          color = _props.color,
+	          style = _props.style;
+	      var yScale = this.context.JubilationContext.yScale;
+
 	      return _react2.default.createElement(
-	        'div',
+	        'g',
 	        null,
-	        this.renderBasicHorizontal(),
-	        this.renderHorizontalWithAxes(),
-	        this.renderBasicVertical()
+	        data.map(function (datum, i) {
+	          return _react2.default.createElement(_jubilationRect2.default, {
+	            key: i,
+	            x: _this2.getX(i),
+	            y: datum,
+	            width: _this2.getWidth(),
+	            height: yScale(datum),
+	            color: color,
+	            style: style
+	          });
+	        }),
+	        labels.slice(0, data.length).map(function (label, i) {
+	          return _react2.default.createElement(
+	            _jubilationLabel2.default,
+	            {
+	              key: i,
+	              y: _this2.getX(i) - _this2.getDataBinSize() / 2,
+	              dx: -5,
+	              textAnchor: 'middle'
+	            },
+	            label
+	          );
+	        })
 	      );
 	    }
 	  }]);
 
-	  return BarPlotExample;
-	}(_react.Component);
+	  return JubilationVerticalBarChart;
+	}(_react2.default.Component);
 
-	exports.default = BarPlotExample;
+	JubilationVerticalBarChart.defaultProps = { data: [], labels: [], gapWidth: 0.05 };
+	JubilationVerticalBarChart.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+	exports.default = JubilationVerticalBarChart;
 
 /***/ }
 /******/ ])

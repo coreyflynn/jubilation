@@ -19,12 +19,12 @@ class BarPlotExample extends Component {
   state = { data: getData(), colors: [0] }
 
   componentDidMount() {
-    // setInterval(() => {
-    //   this.setState({
-    //     data: getData(),
-    //     colors: [Math.round(Math.random() * 3)],
-    //   });
-    // }, 5000);
+    setInterval(() => {
+      this.setState({
+        data: getData(),
+        colors: [Math.round(Math.random() * 3)],
+      });
+    }, 5000);
   }
 
   renderBasicHorizontal() {
@@ -74,9 +74,9 @@ class BarPlotExample extends Component {
   render() {
     return (
       <div>
+        {this.renderBasicVertical()}
         {this.renderBasicHorizontal()}
         {this.renderHorizontalWithAxes()}
-        {this.renderBasicVertical()}
       </div>
     );
   }
