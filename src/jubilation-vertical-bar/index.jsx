@@ -75,13 +75,14 @@ export default class JubilationVerticalBarChart extends React.Component {
   render() {
     const { data, labels, color, style } = this.props;
     const { yScale } = this.context.JubilationContext;
+    console.log(yScale(100));
     return (
       <g>
         {data.map((datum, i) =>
           <Rect
             key={i}
-            x={0}
-            y={this.getX(i)}
+            x={this.getX(i)}
+            y={datum}
             width={this.getWidth()}
             height={yScale(datum)}
             color={color}
