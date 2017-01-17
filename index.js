@@ -8744,21 +8744,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function scale(x) {
+	function yScale(x) {
 	  return x;
 	}
 
-	scale.domain = function domain() {
+	yScale.domain = function domain() {
 	  return [100, 0];
 	};
-	scale.range = function domain() {
+	yScale.range = function domain() {
 	  return [0, 100];
+	};
+
+	function xScale(x) {
+	  return x;
+	}
+	xScale.domain = function domain() {
+	  return [0, 300];
+	};
+	xScale.range = function domain() {
+	  return [0, 300];
 	};
 
 	var defaultContext = exports.defaultContext = {
 	  theme: _jubilationTheme2.default,
-	  xScale: scale,
-	  yScale: scale,
+	  xScale: xScale,
+	  yScale: yScale,
 	  xRange: [0, 300],
 	  yRange: [0, 100],
 	  addDomain: function addDomain() {},
