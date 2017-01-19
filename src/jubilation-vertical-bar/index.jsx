@@ -62,14 +62,14 @@ export default class JubilationVerticalBarChart extends React.Component {
 
   getLabelPositions(): Tick[] {
     const { xScale } = this.context.JubilationContext;
-    return getTicks(
-      xScale.domain()[0],
-      xScale.domain()[1],
-      this.props.data.length,
-      'x',
-      0,
-      this.context.JubilationContext
-    );
+    return getTicks({
+      min: xScale.domain()[0],
+      max: xScale.domain()[1],
+      numTicks: this.props.data.length,
+      axisType: 'x',
+      position: 0,
+      context: this.context.JubilationContext,
+    });
   }
 
   render() {
