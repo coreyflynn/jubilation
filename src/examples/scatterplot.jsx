@@ -32,7 +32,7 @@ class ScatterPlotExample extends Component {
   renderBasic() {
     return (
       <div>
-        <h1>Basic Scatter Plot</h1>
+        <h2>Basic Scatter Plot</h2>
         <JubilationChart height={300} width={600}>
           <JubilationScatter data={this.state.points} />
         </JubilationChart>
@@ -43,10 +43,10 @@ class ScatterPlotExample extends Component {
   renderWithAxes() {
     return (
       <div>
-        <h1>With Axes</h1>
+        <h2>With Axes</h2>
         <JubilationChart height={300} width={600}>
           <JubilationScatter data={this.state.points} />
-          <XAxis numTicks={2} title="X axis" />
+          <XAxis numTicks={1} title="X axis" />
           <YAxis numTicks={2} title="Y axis" />
         </JubilationChart>
       </div>
@@ -56,7 +56,7 @@ class ScatterPlotExample extends Component {
   renderCustomPoints() {
     return (
       <div>
-        <h1>Custom Points</h1>
+        <h2>Custom Points</h2>
         <JubilationChart height={300} width={600}>
           <JubilationScatter
             data={this.state.points}
@@ -64,7 +64,7 @@ class ScatterPlotExample extends Component {
             size={10}
             style={{ opacity: 0.5 }}
           />
-          <XAxis numTicks={2} title="X axis" />
+          <XAxis numTicks={4} title="X axis" extendTicks />
           <YAxis numTicks={2} title="Y axis" />
         </JubilationChart>
       </div>
@@ -74,7 +74,7 @@ class ScatterPlotExample extends Component {
   renderColorTrans() {
     return (
       <div>
-        <h1>Color Transitions</h1>
+        <h2>Color Transitions</h2>
         <JubilationChart height={300} width={600}>
           <JubilationScatter
             data={this.state.points}
@@ -92,7 +92,7 @@ class ScatterPlotExample extends Component {
   renderMultiple() {
     return (
       <div>
-        <h1>Multiple Series</h1>
+        <h2>Multiple Series</h2>
         <JubilationChart height={300} width={600}>
           <JubilationScatter
             data={getPoints()}
@@ -116,7 +116,7 @@ class ScatterPlotExample extends Component {
   renderMultipleAxes() {
     return (
       <div>
-        <h1>Multiple Axes</h1>
+        <h2>Multiple Axes</h2>
         <JubilationChart height={300} width={600}>
           <JubilationScatter
             data={this.state.points}

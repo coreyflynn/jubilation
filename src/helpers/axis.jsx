@@ -1,11 +1,30 @@
 // @flow
-export default function getTicks(
+type AxisType =
+  | 'x'
+  | 'y';
+
+type Props = {
   min: number,
   max: number,
   numTicks: number,
-  axisType: string,
+  axisType: AxisType,
   position: number,
-  context: JubilationContext): Tick[] {
+  context: JubilationContext
+};
+
+type Tick = {
+  key: number,
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  textAnchor: string,
+  val: number,
+};
+
+export default function getTicks({
+  min, max, numTicks, axisType, position, context,
+}: Props): Tick[] {
   const ticks = [];
 
   for (let i = 0; i < numTicks; i += 1) {
