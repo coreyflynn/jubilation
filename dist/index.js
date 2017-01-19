@@ -9421,7 +9421,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function getLabelPositions() {
 	      var xScale = this.context.JubilationContext.xScale;
 
-	      return (0, _axis2.default)(xScale.domain()[0], xScale.domain()[1], this.props.data.length, 'x', 0, this.context.JubilationContext);
+	      return (0, _axis2.default)({
+	        min: xScale.domain()[0],
+	        max: xScale.domain()[1],
+	        numTicks: this.props.data.length,
+	        axisType: 'x',
+	        position: 0,
+	        context: this.context.JubilationContext
+	      });
 	    }
 	  }, {
 	    key: 'render',
