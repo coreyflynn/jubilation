@@ -2,14 +2,15 @@
 import React, { Component } from 'react';
 import JubilationChart from '../jubilation-chart';
 import HorizontalBarChart from '../jubilation-horizontal-bar';
+import VerticalBarChart from '../jubilation-vertical-bar';
 import JubilationTheme from '../jubilation-theme';
-import { XAxis } from '../jubilation-axis';
+import { XAxis, YAxis } from '../jubilation-axis';
 
 
 function getData() {
   const data = [];
   for (let i = 0; i < Math.ceil(Math.random() * 10); i += 1) {
-    data.push(Math.random() * 3000);
+    data.push(Math.random() * 500);
   }
   return data;
 }
@@ -26,10 +27,10 @@ class BarPlotExample extends Component {
     }, 5000);
   }
 
-  renderBasic() {
+  renderBasicHorizontal() {
     return (
       <div>
-        <h1>Basic Bar Plot</h1>
+        <h2>Basic Horizontal Bar Plot</h2>
         <JubilationChart height={300} width={600}>
           <HorizontalBarChart
             data={this.state.data}
@@ -40,10 +41,10 @@ class BarPlotExample extends Component {
     );
   }
 
-  renderWithAxes() {
+  renderHorizontalWithAxes() {
     return (
       <div>
-        <h1>With Axis</h1>
+        <h2>With Axis</h2>
         <JubilationChart height={300} width={600}>
           <HorizontalBarChart
             data={this.state.data}
@@ -56,11 +57,27 @@ class BarPlotExample extends Component {
     );
   }
 
+  renderBasicVertical() {
+    return (
+      <div>
+        <h2>Basic Vertical Bar Plot</h2>
+        <JubilationChart height={300} width={600}>
+          <VerticalBarChart
+            data={this.state.data}
+            labels={this.state.data.map((d, i) => `Label ${i}`)}
+          />
+          <YAxis numTicks={2} title="Y axis" />
+        </JubilationChart>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
-        {this.renderBasic()}
-        {this.renderWithAxes()}
+        {this.renderBasicVertical()}
+        {this.renderBasicHorizontal()}
+        {this.renderHorizontalWithAxes()}
       </div>
     );
   }
