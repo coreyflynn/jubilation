@@ -9204,16 +9204,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	      yScale = _getContext.yScale,
 	      theme = _getContext.theme;
 
+	  var targetX = xScale(x);
+	  var targetY = yScale(y);
 	  var fill = theme.colors[0];
 	  if (color) fill = color;
 
 	  return _react2.default.createElement(
 	    _jubilationAnimation2.default,
-	    { data: { x: x, y: y, width: width, height: height, fill: fill, style: style } },
+	    { data: { targetX: targetX, targetY: targetY, width: width, height: height, fill: fill, style: style } },
 	    function (data) {
 	      return _react2.default.createElement('rect', {
-	        x: xScale(data.x),
-	        y: yScale(data.y),
+	        x: data.targetX,
+	        y: data.targetY,
 	        width: data.width,
 	        height: data.height,
 	        fill: data.fill,
