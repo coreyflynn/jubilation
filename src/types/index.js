@@ -42,3 +42,13 @@ declare type DomainMap = {
     y?: number[],
   }
 };
+
+declare type Tick = {
+  key: number,
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  textAnchor: string,
+  val: number,
+}

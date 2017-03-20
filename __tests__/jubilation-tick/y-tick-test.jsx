@@ -30,7 +30,7 @@ describe.only('YTick', () => {
   it('should set extended tick length based on chart size', () => {
     const tick = mount(<YTick position={0} context={context} extended />).find('JubilationLine');
 
-    // 100 is the default domain for X
-    expect(lineLength(tick)).toEqual(100);
+    // 300 is the default domain for X
+    expect(lineLength(tick)).toEqual(300);
   });
 });

@@ -7,6 +7,8 @@ import JubilationPoint from './jubilation-point';
 import JubilationProvider from './jubilation-provider';
 import JubilationScatter from './jubilation-scatter';
 import JubilationTheme from './jubilation-theme';
+import JubilationHorizontalBar from './jubilation-horizontal-bar';
+import JubilationVerticalBar from './jubilation-vertical-bar';
 import { XAxis, YAxis } from './jubilation-axis';
 
 export {
@@ -18,6 +20,8 @@ export {
   JubilationProvider,
   JubilationScatter,
   JubilationTheme,
+  JubilationHorizontalBar,
+  JubilationVerticalBar,
   XAxis,
   YAxis,
 };
