@@ -6,11 +6,11 @@ import { XAxis, YAxis } from '../jubilation-axis';
 
 type State = {
   showX: boolean,
-  numXTicks: number,
-  extendXTicks: boolean,
   showY: boolean,
+  numXTicks: number,
   numYTicks: number,
-  extendYTicks: boolean,
+  tickTypeX: TickType,
+  tickTypeY: TickType,
   points: Object[],
 }
 
@@ -26,25 +26,40 @@ function randomPoints() {
   );
 }
 
+function validateTickType(eventType: string): TickType {
+  switch (eventType) {
+    case 'none':
+    case 'short':
+    case 'full':
+      return eventType;
+    default:
+      return ('short': TickType);
+  }
+}
+
 class AxisExample extends Component {
 
   state: State
   toggle: Function
   updateNumX: Function
   updateNumY: Function
+  updateXTicks: Function
+  updateYTicks: Function
 
   constructor(props: Object) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.updateNumX = this.updateNumX.bind(this);
     this.updateNumY = this.updateNumY.bind(this);
+    this.updateXTicks = this.updateXTicks.bind(this);
+    this.updateYTicks = this.updateYTicks.bind(this);
     this.state = {
       showX: true,
       numXTicks: 2,
-      extendXTicks: true,
+      tickTypeX: 'short',
       showY: true,
       numYTicks: 2,
-      extendYTicks: true,
+      tickTypeY: 'short',
       points: randomPoints(),
     };
   }
@@ -61,20 +76,32 @@ class AxisExample extends Component {
     });
   }
 
+  updateXTicks(event: FormEvent) {
+    this.setState({
+      tickTypeX: validateTickType(event.target.value),
+    });
+  }
+
   updateNumY(event: FormEvent) {
     this.setState({
       numYTicks: parseInt(event.target.value, 10),
     });
   }
 
+  updateYTicks(event: FormEvent) {
+    this.setState({
+      tickTypeY: validateTickType(event.target.value),
+    });
+  }
+
   render() {
     const {
       showX,
-      numXTicks,
-      extendXTicks,
       showY,
+      numXTicks,
       numYTicks,
-      extendYTicks,
+      tickTypeX,
+      tickTypeY,
     } = this.state;
 
     return (
@@ -89,9 +116,13 @@ class AxisExample extends Component {
               Number of X Ticks
               <input id="updateNumX" type="number" value={numXTicks} onChange={this.updateNumX} />
             </label>
-            <label htmlFor="extendXTicks">
+            <label htmlFor="tickTypeX">
               Extend X Ticks
-              <input id="extendXTicks" type="checkbox" checked={extendXTicks} value={extendXTicks} onChange={() => this.toggle('extendXTicks')} />
+              <select id="tickTypeX" type="checkbox" value={tickTypeX} onChange={this.updateXTicks}>
+                <option value="none">none</option>
+                <option value="short">short</option>
+                <option value="full">full</option>
+              </select>
             </label>
           </div>
           <div>
@@ -105,14 +136,18 @@ class AxisExample extends Component {
             </label>
             <label htmlFor="extendYTicks">
               Extend Y Ticks
-              <input id="extendYTicks" type="checkbox" checked={extendYTicks} value={extendYTicks} onChange={() => this.toggle('extendYTicks')} />
+              <select id="tickTypeY" type="checkbox" value={tickTypeY} onChange={this.updateYTicks}>
+                <option value="none">none</option>
+                <option value="short">short</option>
+                <option value="full">full</option>
+              </select>
             </label>
           </div>
         </form>
         <JubilationChart height={300} width={600}>
           <JubilationScatter data={this.state.points} />
-          {showX && <XAxis numTicks={numXTicks} extendTicks={extendXTicks} title="X axis" /> }
-          {showY && <YAxis numTicks={numYTicks} extendTicks={extendYTicks} title="Y axis" /> }
+          {<XAxis title="X axis" numTicks={numXTicks} tickType={tickTypeX} axisLine={showX} />}
+          {<YAxis title="Y axis" numTicks={numYTicks} tickType={tickTypeY} axisLine={showY} />}
         </JubilationChart>
       </div>
     );

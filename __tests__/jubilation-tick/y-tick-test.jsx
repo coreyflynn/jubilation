@@ -14,21 +14,21 @@ function lineLength(line: JubilationLine): number {
 describe.only('YTick', () => {
   const context = getContext();
 
-  it('should set default tick width of 0', () => {
+  it('should set default tick style of "short"', () => {
     const tick = mount(<YTick position={0} context={context} />).find('JubilationLine');
 
     // Default Y-tick is length 0
     expect(lineLength(tick)).toEqual(0);
   });
 
-  it('should set tick length based on dx', () => {
-    const tick = mount(<YTick position={0} dx={-2.5} context={context} />).find('JubilationLine');
+  it('should set "short" tick length based on dx', () => {
+    const tick = mount(<YTick position={0} dx={5} context={context} tickType={'short'} />).find('JubilationLine');
 
     expect(lineLength(tick)).toEqual(2.5);
   });
 
-  it('should set extended tick length based on chart size', () => {
-    const tick = mount(<YTick position={0} context={context} extended />).find('JubilationLine');
+  it('should set "full" tick length based on chart size and dx', () => {
+    const tick = mount(<YTick position={0} context={context} tickType={'full'} />).find('JubilationLine');
 
     // 300 is the default domain for X
     expect(lineLength(tick)).toEqual(300);

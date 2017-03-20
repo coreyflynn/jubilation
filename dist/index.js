@@ -9535,6 +9535,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
+	var _jubilationLine = __webpack_require__(64);
+
+	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
+
 	var _jubilationAnimation = __webpack_require__(1);
 
 	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
@@ -9549,8 +9553,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      position = _ref$position === undefined ? 0 : _ref$position,
 	      _ref$numTicks = _ref.numTicks,
 	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
-	      _ref$extendTicks = _ref.extendTicks,
-	      extendTicks = _ref$extendTicks === undefined ? false : _ref$extendTicks,
+	      tickType = _ref.tickType,
 	      _ref$axisLine = _ref.axisLine,
 	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
 	  var JubilationContext = _ref2.JubilationContext;
@@ -9575,13 +9578,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'g',
 	        null,
+	        axisLine && _react2.default.createElement(_jubilationLine2.default, {
+	          x1: computedXMin,
+	          x2: computedXMax,
+	          y1: context.yScale.domain()[1],
+	          y2: context.yScale.domain()[1]
+	        }),
 	        _react2.default.createElement(
 	          'g',
 	          null,
 	          _react2.default.createElement(_jubilationTick.XTick, {
 	            position: data.min,
 	            context: context,
-	            extended: extendTicks
+	            tickType: tickType
 	          }),
 	          _react2.default.createElement(
 	            _jubilationLabel2.default,
@@ -9596,7 +9605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2.default.createElement(_jubilationTick.XTick, {
 	              position: tick.x,
 	              context: context,
-	              extended: extendTicks
+	              tickType: tickType
 	            }),
 	            _react2.default.createElement(
 	              _jubilationLabel2.default,
@@ -9611,7 +9620,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement(_jubilationTick.XTick, {
 	            position: data.max,
 	            context: context,
-	            extended: extendTicks
+	            tickType: tickType
 	          }),
 	          _react2.default.createElement(
 	            _jubilationLabel2.default,
@@ -9634,6 +9643,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  );
 	}
+
 
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
@@ -9687,22 +9697,32 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function XTick(_ref) {
 	  var position = _ref.position,
-	      _ref$extended = _ref.extended,
-	      extended = _ref$extended === undefined ? false : _ref$extended,
+	      _ref$tickType = _ref.tickType,
+	      tickType = _ref$tickType === undefined ? 'short' : _ref$tickType,
 	      context = _ref.context;
 	  var yScale = context.yScale,
 	      fontSize = context.theme.labelStyle.fontSize;
 
 	  var _yScale$domain = yScale.domain(),
 	      _yScale$domain2 = _slicedToArray(_yScale$domain, 2),
-	      computedYMin = _yScale$domain2[0],
-	      computedYMax = _yScale$domain2[1];
+	      computedYMax = _yScale$domain2[0],
+	      computedYMin = _yScale$domain2[1];
+
+	  var typeMap = {
+	    none: [computedYMin, computedYMin],
+	    short: [computedYMin - fontSize / 4, computedYMin],
+	    full: [computedYMin - fontSize / 4, computedYMax]
+	  };
+
+	  var _typeMap$tickType = _slicedToArray(typeMap[tickType], 2),
+	      bottom = _typeMap$tickType[0],
+	      top = _typeMap$tickType[1];
 
 	  return _react2.default.createElement(_jubilationLine2.default, {
 	    x1: position,
 	    x2: position,
-	    y1: computedYMax - fontSize / 4,
-	    y2: extended ? computedYMin : computedYMax
+	    y1: bottom,
+	    y2: top
 	  });
 	}
 
@@ -9801,8 +9821,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function YTick(_ref) {
 	  var position = _ref.position,
-	      _ref$extended = _ref.extended,
-	      extended = _ref$extended === undefined ? false : _ref$extended,
+	      _ref$tickType = _ref.tickType,
+	      tickType = _ref$tickType === undefined ? 'short' : _ref$tickType,
 	      _ref$dx = _ref.dx,
 	      dx = _ref$dx === undefined ? 0 : _ref$dx,
 	      context = _ref.context;
@@ -9812,11 +9832,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      computedXMin = _context$xScale$domai2[0],
 	      computedXMax = _context$xScale$domai2[1];
 
+	  var typeMap = {
+	    none: [computedXMin, computedXMin],
+	    short: [computedXMin + dx / 2, computedXMin],
+	    full: [computedXMin + dx / 2, computedXMax]
+	  };
+
+	  var _typeMap$tickType = _slicedToArray(typeMap[tickType], 2),
+	      left = _typeMap$tickType[0],
+	      right = _typeMap$tickType[1];
+
 	  return _react2.default.createElement(_jubilationLine2.default, {
-	    x1: computedXMin + dx,
 	    y1: position,
-	    x2: extended ? computedXMax : computedXMin,
-	    y2: position
+	    y2: position,
+	    x1: left,
+	    x2: right
 	  });
 	}
 
@@ -9849,6 +9879,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
+	var _jubilationLine = __webpack_require__(64);
+
+	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
+
 	var _jubilationAnimation = __webpack_require__(1);
 
 	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
@@ -9863,8 +9897,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      position = _ref$position === undefined ? 0 : _ref$position,
 	      _ref$numTicks = _ref.numTicks,
 	      numTicks = _ref$numTicks === undefined ? 0 : _ref$numTicks,
-	      _ref$extendTicks = _ref.extendTicks,
-	      extendTicks = _ref$extendTicks === undefined ? false : _ref$extendTicks,
+	      tickType = _ref.tickType,
 	      _ref$axisLine = _ref.axisLine,
 	      axisLine = _ref$axisLine === undefined ? false : _ref$axisLine;
 	  var JubilationContext = _ref2.JubilationContext;
@@ -9889,14 +9922,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'g',
 	        null,
+	        axisLine && _react2.default.createElement(_jubilationLine2.default, {
+	          y1: computedMin,
+	          y2: computedMax,
+	          x1: context.xScale.domain()[0],
+	          x2: context.xScale.domain()[0]
+	        }),
 	        _react2.default.createElement(
 	          'g',
 	          null,
 	          _react2.default.createElement(_jubilationTick.YTick, {
 	            position: data.min,
-	            dx: data.dx / 2,
+	            dx: data.dx,
 	            context: context,
-	            extended: extendTicks
+	            tickType: tickType
 	          }),
 	          _react2.default.createElement(
 	            _jubilationLabel2.default,
@@ -9910,9 +9949,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            { key: 'YTick' + tick.y },
 	            _react2.default.createElement(_jubilationTick.YTick, {
 	              position: tick.y,
-	              dx: tick.dx / 2,
+	              dx: tick.dx,
 	              context: context,
-	              extended: extendTicks
+	              tickType: tickType
 	            }),
 	            _react2.default.createElement(
 	              _jubilationLabel2.default,
@@ -9926,9 +9965,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          null,
 	          _react2.default.createElement(_jubilationTick.YTick, {
 	            position: data.max,
-	            dx: data.dx / 2,
+	            dx: data.dx,
 	            context: context,
-	            extended: extendTicks
+	            tickType: tickType
 	          }),
 	          _react2.default.createElement(
 	            _jubilationLabel2.default,
@@ -9951,6 +9990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  );
 	}
+
 
 	YAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
