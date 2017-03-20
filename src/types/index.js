@@ -43,7 +43,6 @@ declare type DomainMap = {
   }
 };
 
-declare type TickType = 'none' | 'short' | 'full';
 declare type Tick = {
   key: number,
   x: number,
@@ -53,3 +52,5 @@ declare type Tick = {
   textAnchor: string,
   val: number,
 }
+
+declare type TickType = 'none' | 'short' | 'full';

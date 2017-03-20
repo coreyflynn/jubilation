@@ -20,15 +20,17 @@ export default function JubilationRect(
   { x = 0, y = 0, color, style = {}, width = 10, height = 10 }: Props,
   { JubilationContext }: Context): React.Element<*> {
   const { xScale, yScale, theme } = getContext(JubilationContext);
+  const targetX = xScale(x);
+  const targetY = yScale(y);
   let fill = theme.colors[0];
   if (color) fill = color;
 
   return (
-    <Animation data={{ x, y, width, height, fill, style }}>
+    <Animation data={{ targetX, targetY, width, height, fill, style }}>
       {data =>
         <rect
-          x={xScale(data.x)}
-          y={yScale(data.y)}
+          x={data.targetX}
+          y={data.targetY}
           width={data.width}
           height={data.height}
           fill={data.fill}
