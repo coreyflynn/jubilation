@@ -22,7 +22,7 @@ describe.only('XTick', () => {
   });
 
   it('should set extended tick height based on chart size', () => {
-    const tick = mount(<XTick position={0} context={context} extended />).find('JubilationLine');
+    const tick = mount(<XTick position={0} context={context} tickType={'full'} />).find('JubilationLine');
 
     // 100 is the default domain for Y
     // 3.5 === theme.labelStyle.fontSize / 4 for default theme

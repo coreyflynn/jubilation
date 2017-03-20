@@ -4,6 +4,7 @@ import getContext from '../helpers/context';
 import getTicks from '../helpers/axis';
 import { YTick } from '../jubilation-tick';
 import Label from '../jubilation-label';
+import Line from '../jubilation-line';
 import Animation from '../jubilation-animation';
 
 type Props = {
@@ -12,13 +13,13 @@ type Props = {
   title?: string,
   position?: number,
   numTicks?: number,
-  extendTicks?: boolean,
+  tickType?: TickType,
   axisLine?: boolean
 };
 type Context = { JubilationContext: JubilationContext };
 
 export default function YAxis(
-  { min, max, title, position = 0, numTicks = 0, extendTicks = false, axisLine = false }: Props,
+  { min, max, title, position = 0, numTicks = 0, tickType, axisLine = false }: Props,
   { JubilationContext }: Context
   ): React.Element<*> {
   const context = getContext(JubilationContext);
@@ -38,12 +39,18 @@ export default function YAxis(
     <Animation data={{ min: computedMin, max: computedMax, position, dx, ticks }}>
       {data =>
         <g>
+          {axisLine && <Line
+            y1={computedMin}
+            y2={computedMax}
+            x1={context.xScale.domain()[0]}
+            x2={context.xScale.domain()[0]}
+          />}
           <g>
             <YTick
               position={data.min}
-              dx={data.dx / 2}
+              dx={data.dx}
               context={context}
-              extended={extendTicks}
+              tickType={tickType}
             />
             <Label x={data.position} y={data.min} dx={data.dx} textAnchor="end">
               {Math.round(data.min)}
@@ -53,9 +60,9 @@ export default function YAxis(
             <g key={`YTick${tick.y}`}>
               <YTick
                 position={tick.y}
-                dx={tick.dx / 2}
+                dx={tick.dx}
                 context={context}
-                extended={extendTicks}
+                tickType={tickType}
               />
               <Label {...tick}>{Math.round(tick.val)}</Label>
             </g>
@@ -63,9 +70,9 @@ export default function YAxis(
           <g>
             <YTick
               position={data.max}
-              dx={data.dx / 2}
+              dx={data.dx}
               context={context}
-              extended={extendTicks}
+              tickType={tickType}
             />
             <Label x={data.position} y={data.max} dx={data.dx} textAnchor="end">
               {Math.round(data.max)}
