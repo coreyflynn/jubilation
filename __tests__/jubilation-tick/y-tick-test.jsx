@@ -1,10 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { YTick } from '../../src/jubilation-tick';
-import JubilationLine from '../../src/jubilation-line';
 import getContext from '../../src/helpers/context';
 
-function lineLength(line: JubilationLine): number {
+function lineLength(line) {
   return Math.sqrt(
     Math.pow(line.prop('x2') - line.prop('x1'), 2) +
     Math.pow(line.prop('y2') - line.prop('y1'), 2)
