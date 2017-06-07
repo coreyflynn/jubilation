@@ -1,16 +1,9 @@
 // @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AxisExample from './axis';
-import BarPlotExample from './barplot';
-import ScatterPlotExample from './scatterplot';
+import Examples from './examples';
 
 ReactDOM.render(
-  <div>
-    <h1>Axis Examples</h1>
-    <AxisExample />
-    <BarPlotExample />
-    <ScatterPlotExample />
-  </div>,
+  <Examples />,
   document.getElementById('root')
 );
