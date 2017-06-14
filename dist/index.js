@@ -59,7 +59,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.YAxis = exports.XAxis = exports.JubilationVerticalBar = exports.JubilationHorizontalBar = exports.JubilationTheme = exports.JubilationScatter = exports.JubilationProvider = exports.JubilationPoint = exports.JubilationLabel = exports.JubilationContainer = exports.JubilationChart = exports.JubilationAnimation = undefined;
+	exports.YAxis = exports.XAxis = exports.JubilationLineChart = exports.JubilationVerticalBar = exports.JubilationHorizontalBar = exports.JubilationTheme = exports.JubilationScatter = exports.JubilationProvider = exports.JubilationPoint = exports.JubilationLabel = exports.JubilationContainer = exports.JubilationChart = exports.JubilationAnimation = undefined;
 
 	var _jubilationAnimation = __webpack_require__(1);
 
@@ -89,19 +89,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jubilationScatter2 = _interopRequireDefault(_jubilationScatter);
 
+	var _jubilationLineChart = __webpack_require__(53);
+
+	var _jubilationLineChart2 = _interopRequireDefault(_jubilationLineChart);
+
 	var _jubilationTheme = __webpack_require__(37);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _jubilationHorizontalBar = __webpack_require__(53);
+	var _jubilationHorizontalBar = __webpack_require__(56);
 
 	var _jubilationHorizontalBar2 = _interopRequireDefault(_jubilationHorizontalBar);
 
-	var _jubilationVerticalBar = __webpack_require__(57);
+	var _jubilationVerticalBar = __webpack_require__(60);
 
 	var _jubilationVerticalBar2 = _interopRequireDefault(_jubilationVerticalBar);
 
-	var _jubilationAxis = __webpack_require__(58);
+	var _jubilationAxis = __webpack_require__(61);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -115,6 +119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.JubilationTheme = _jubilationTheme2.default;
 	exports.JubilationHorizontalBar = _jubilationHorizontalBar2.default;
 	exports.JubilationVerticalBar = _jubilationVerticalBar2.default;
+	exports.JubilationLineChart = _jubilationLineChart2.default;
 	exports.XAxis = _jubilationAxis.XAxis;
 	exports.YAxis = _jubilationAxis.YAxis;
 
@@ -8909,6 +8914,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -8923,7 +8932,214 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationRect = __webpack_require__(54);
+	var _jubilationPoint = __webpack_require__(50);
+
+	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
+
+	var _jubilationLine = __webpack_require__(54);
+
+	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
+
+	var _lineChart = __webpack_require__(55);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var JubilationLineChart = function (_React$Component) {
+	  _inherits(JubilationLineChart, _React$Component);
+
+	  function JubilationLineChart(props, context) {
+	    _classCallCheck(this, JubilationLineChart);
+
+	    var _this = _possibleConstructorReturn(this, (JubilationLineChart.__proto__ || Object.getPrototypeOf(JubilationLineChart)).call(this, props, context));
+
+	    _this.uuid = _uuid2.default.v4();
+	    _this.domainMap = (0, _scatter2.default)(_this.uuid, props.data);
+	    _this.context.JubilationContext.addDomain(_this.domainMap);
+	    return _this;
+	  }
+
+	  _createClass(JubilationLineChart, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.domainMap = (0, _scatter2.default)(this.uuid, nextProps.data);
+	      this.context.JubilationContext.addDomain(this.domainMap);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          color = _props.color,
+	          size = _props.size,
+	          style = _props.style,
+	          showPoints = _props.showPoints,
+	          data = _props.data;
+
+
+	      var pointPairs = (0, _lineChart.toPairs)((0, _lineChart.sortByX)(data));
+
+	      return _react2.default.createElement(
+	        'g',
+	        null,
+	        pointPairs.map(function (_ref) {
+	          var _ref2 = _slicedToArray(_ref, 2),
+	              point1 = _ref2[0],
+	              point2 = _ref2[1];
+
+	          return _react2.default.createElement(
+	            'g',
+	            null,
+	            showPoints && _react2.default.createElement(_jubilationPoint2.default, _extends({}, point1, { color: color, size: size, style: style })),
+	            _react2.default.createElement(_jubilationLine2.default, { x1: point1.x, x2: point2.x, y1: point1.y, y2: point2.y }),
+	            showPoints && _react2.default.createElement(_jubilationPoint2.default, _extends({}, point2, { color: color, size: size, style: style }))
+	          );
+	        })
+	      );
+	    }
+	  }]);
+
+	  return JubilationLineChart;
+	}(_react2.default.Component);
+
+	JubilationLineChart.defaultProps = { data: [] };
+	JubilationLineChart.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+	exports.default = JubilationLineChart;
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = JubilationLine;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(49);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	/**
+	 * A line segment, defined by two endpoints. Returns an SVG line element.
+	 */
+	function JubilationLine(_ref, _ref2) {
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var _ref$x = _ref.x1,
+	      x1 = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y1,
+	      y1 = _ref$y === undefined ? 0 : _ref$y,
+	      _ref$x2 = _ref.x2,
+	      x2 = _ref$x2 === undefined ? 1 : _ref$x2,
+	      _ref$y2 = _ref.y2,
+	      y2 = _ref$y2 === undefined ? 1 : _ref$y2,
+	      rest = _objectWithoutProperties(_ref, ['x1', 'y1', 'x2', 'y2']);
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var xScale = context.xScale,
+	      yScale = context.yScale,
+	      fill = context.theme.labelStyle.fill;
+
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { x1: x1, x2: x2, y1: y1, y2: y2, fill: fill } },
+	    function (data) {
+	      return _react2.default.createElement('line', _extends({
+	        x1: xScale(data.x1),
+	        y1: yScale(data.y1),
+	        x2: xScale(data.x2),
+	        y2: yScale(data.y2),
+	        stroke: data.fill
+	      }, rest));
+	    }
+	  );
+	}
+
+	JubilationLine.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
+/* 55 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.sortByX = sortByX;
+	exports.toPairs = toPairs;
+	function sortByX(data) {
+	  if (data === []) {
+	    return [];
+	  }
+
+	  return data.sort(function (a, b) {
+	    return a.x - b.x;
+	  });
+	}
+
+	function pairwise(arr, callback) {
+	  var result = [];
+	  arr.reduce(function (prev, current) {
+	    result.push(callback(prev, current));
+	    return current;
+	  });
+	  return result;
+	}
+
+	function toPairs(baseArray) {
+	  return pairwise(baseArray, function (a, b) {
+	    return [a, b];
+	  });
+	}
+
+/***/ },
+/* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _uuid = __webpack_require__(35);
+
+	var _uuid2 = _interopRequireDefault(_uuid);
+
+	var _scatter = __webpack_require__(52);
+
+	var _scatter2 = _interopRequireDefault(_scatter);
+
+	var _jubilationRect = __webpack_require__(57);
 
 	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
 
@@ -8935,11 +9151,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(55);
+	var _axis = __webpack_require__(58);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _text = __webpack_require__(56);
+	var _text = __webpack_require__(59);
 
 	var _text2 = _interopRequireDefault(_text);
 
@@ -9083,7 +9299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JubilationHorizontalBarChart;
 
 /***/ },
-/* 54 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9154,7 +9370,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationRect.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 55 */
+/* 58 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9186,7 +9402,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 56 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9219,7 +9435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 57 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9242,7 +9458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationRect = __webpack_require__(54);
+	var _jubilationRect = __webpack_require__(57);
 
 	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
 
@@ -9254,7 +9470,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(55);
+	var _axis = __webpack_require__(58);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
@@ -9383,7 +9599,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JubilationVerticalBarChart;
 
 /***/ },
-/* 58 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9393,11 +9609,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.YAxis = exports.XAxis = undefined;
 
-	var _xAxis = __webpack_require__(59);
+	var _xAxis = __webpack_require__(62);
 
 	var _xAxis2 = _interopRequireDefault(_xAxis);
 
-	var _yAxis = __webpack_require__(64);
+	var _yAxis = __webpack_require__(66);
 
 	var _yAxis2 = _interopRequireDefault(_yAxis);
 
@@ -9407,7 +9623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YAxis = _yAxis2.default;
 
 /***/ },
-/* 59 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9425,17 +9641,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(55);
+	var _axis = __webpack_require__(58);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _jubilationTick = __webpack_require__(60);
+	var _jubilationTick = __webpack_require__(63);
 
 	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationLine = __webpack_require__(62);
+	var _jubilationLine = __webpack_require__(54);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
@@ -9548,7 +9764,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 60 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9558,11 +9774,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.YTick = exports.XTick = undefined;
 
-	var _xTick = __webpack_require__(61);
+	var _xTick = __webpack_require__(64);
 
 	var _xTick2 = _interopRequireDefault(_xTick);
 
-	var _yTick = __webpack_require__(63);
+	var _yTick = __webpack_require__(65);
 
 	var _yTick2 = _interopRequireDefault(_yTick);
 
@@ -9572,7 +9788,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YTick = _yTick2.default;
 
 /***/ },
-/* 61 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9589,7 +9805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jubilationLine = __webpack_require__(62);
+	var _jubilationLine = __webpack_require__(54);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
@@ -9627,76 +9843,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports.default = JubilationLine;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(49);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	/**
-	 * A line segment, defined by two endpoints. Returns an SVG line element.
-	 */
-	function JubilationLine(_ref, _ref2) {
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var _ref$x = _ref.x1,
-	      x1 = _ref$x === undefined ? 0 : _ref$x,
-	      _ref$y = _ref.y1,
-	      y1 = _ref$y === undefined ? 0 : _ref$y,
-	      _ref$x2 = _ref.x2,
-	      x2 = _ref$x2 === undefined ? 1 : _ref$x2,
-	      _ref$y2 = _ref.y2,
-	      y2 = _ref$y2 === undefined ? 1 : _ref$y2,
-	      rest = _objectWithoutProperties(_ref, ['x1', 'y1', 'x2', 'y2']);
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var xScale = context.xScale,
-	      yScale = context.yScale,
-	      fill = context.theme.labelStyle.fill;
-
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { x1: x1, x2: x2, y1: y1, y2: y2, fill: fill } },
-	    function (data) {
-	      return _react2.default.createElement('line', _extends({
-	        x1: xScale(data.x1),
-	        y1: yScale(data.y1),
-	        x2: xScale(data.x2),
-	        y2: yScale(data.y2),
-	        stroke: data.fill
-	      }, rest));
-	    }
-	  );
-	}
-
-	JubilationLine.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9713,7 +9860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jubilationLine = __webpack_require__(62);
+	var _jubilationLine = __webpack_require__(54);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
@@ -9751,7 +9898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9769,17 +9916,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(55);
+	var _axis = __webpack_require__(58);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _jubilationTick = __webpack_require__(60);
+	var _jubilationTick = __webpack_require__(63);
 
 	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationLine = __webpack_require__(62);
+	var _jubilationLine = __webpack_require__(54);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 

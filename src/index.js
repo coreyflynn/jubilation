@@ -6,6 +6,7 @@ import JubilationLabel from './jubilation-label';
 import JubilationPoint from './jubilation-point';
 import JubilationProvider from './jubilation-provider';
 import JubilationScatter from './jubilation-scatter';
+import JubilationLineChart from './jubilation-line-chart';
 import JubilationTheme from './jubilation-theme';
 import JubilationHorizontalBar from './jubilation-horizontal-bar';
 import JubilationVerticalBar from './jubilation-vertical-bar';
@@ -22,6 +23,7 @@ export {
   JubilationTheme,
   JubilationHorizontalBar,
   JubilationVerticalBar,
+  JubilationLineChart,
   XAxis,
   YAxis,
 };
