@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AxisExample from './axis';
 import BarPlotExample from './barplot';
+import LineExample from './line';
 import ScatterPlotExample from './scatterplot';
 
 ReactDOM.render(
@@ -11,6 +12,7 @@ ReactDOM.render(
     <AxisExample />
     <BarPlotExample />
     <ScatterPlotExample />
+    <LineExample />
   </div>,
   document.getElementById('root')
 );

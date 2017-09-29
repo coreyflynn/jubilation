@@ -59,49 +59,53 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.YAxis = exports.XAxis = exports.JubilationVerticalBar = exports.JubilationHorizontalBar = exports.JubilationTheme = exports.JubilationScatter = exports.JubilationProvider = exports.JubilationPoint = exports.JubilationLabel = exports.JubilationContainer = exports.JubilationChart = exports.JubilationAnimation = undefined;
+	exports.YAxis = exports.XAxis = exports.JubilationLineChart = exports.JubilationVerticalBar = exports.JubilationHorizontalBar = exports.JubilationTheme = exports.JubilationScatter = exports.JubilationProvider = exports.JubilationPoint = exports.JubilationLabel = exports.JubilationContainer = exports.JubilationChart = exports.JubilationAnimation = undefined;
 
 	var _jubilationAnimation = __webpack_require__(1);
 
 	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
 
-	var _jubilationChart = __webpack_require__(35);
+	var _jubilationChart = __webpack_require__(33);
 
 	var _jubilationChart2 = _interopRequireDefault(_jubilationChart);
 
-	var _jubilationContainer = __webpack_require__(48);
+	var _jubilationContainer = __webpack_require__(46);
 
 	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
 
-	var _jubilationLabel = __webpack_require__(50);
+	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationPoint = __webpack_require__(52);
+	var _jubilationPoint = __webpack_require__(50);
 
 	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
 
-	var _jubilationProvider = __webpack_require__(36);
+	var _jubilationProvider = __webpack_require__(34);
 
 	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
 
-	var _jubilationScatter = __webpack_require__(53);
+	var _jubilationScatter = __webpack_require__(51);
 
 	var _jubilationScatter2 = _interopRequireDefault(_jubilationScatter);
 
-	var _jubilationTheme = __webpack_require__(39);
+	var _jubilationLineChart = __webpack_require__(53);
+
+	var _jubilationLineChart2 = _interopRequireDefault(_jubilationLineChart);
+
+	var _jubilationTheme = __webpack_require__(37);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _jubilationHorizontalBar = __webpack_require__(55);
+	var _jubilationHorizontalBar = __webpack_require__(56);
 
 	var _jubilationHorizontalBar2 = _interopRequireDefault(_jubilationHorizontalBar);
 
-	var _jubilationVerticalBar = __webpack_require__(59);
+	var _jubilationVerticalBar = __webpack_require__(60);
 
 	var _jubilationVerticalBar2 = _interopRequireDefault(_jubilationVerticalBar);
 
-	var _jubilationAxis = __webpack_require__(60);
+	var _jubilationAxis = __webpack_require__(61);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -115,6 +119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.JubilationTheme = _jubilationTheme2.default;
 	exports.JubilationHorizontalBar = _jubilationHorizontalBar2.default;
 	exports.JubilationVerticalBar = _jubilationVerticalBar2.default;
+	exports.JubilationLineChart = _jubilationLineChart2.default;
 	exports.XAxis = _jubilationAxis.XAxis;
 	exports.YAxis = _jubilationAxis.YAxis;
 
@@ -134,13 +139,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _d3Ease = __webpack_require__(31);
+	var _d3Ease = __webpack_require__(29);
 
 	var d3Ease = _interopRequireWildcard(_d3Ease);
 
-	var _d3Interpolate = __webpack_require__(32);
+	var _d3Interpolate = __webpack_require__(30);
 
-	var _d3Timer = __webpack_require__(34);
+	var _d3Timer = __webpack_require__(32);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -294,7 +299,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule React
 	 */
 
 	'use strict';
@@ -302,15 +306,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _assign = __webpack_require__(4);
 
 	var ReactChildren = __webpack_require__(5);
-	var ReactComponent = __webpack_require__(17);
-	var ReactPureComponent = __webpack_require__(20);
-	var ReactClass = __webpack_require__(21);
-	var ReactDOMFactories = __webpack_require__(26);
+	var ReactComponent = __webpack_require__(18);
+	var ReactPureComponent = __webpack_require__(21);
+	var ReactClass = __webpack_require__(22);
+	var ReactDOMFactories = __webpack_require__(24);
 	var ReactElement = __webpack_require__(9);
-	var ReactPropTypes = __webpack_require__(27);
-	var ReactVersion = __webpack_require__(29);
+	var ReactPropTypes = __webpack_require__(25);
+	var ReactVersion = __webpack_require__(27);
 
-	var onlyChild = __webpack_require__(30);
+	var onlyChild = __webpack_require__(28);
 	var warning = __webpack_require__(11);
 
 	var createElement = ReactElement.createElement;
@@ -476,7 +480,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactChildren
 	 */
 
 	'use strict';
@@ -485,7 +488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactElement = __webpack_require__(9);
 
 	var emptyFunction = __webpack_require__(12);
-	var traverseAllChildren = __webpack_require__(14);
+	var traverseAllChildren = __webpack_require__(15);
 
 	var twoArgumentPooler = PooledClass.twoArgumentPooler;
 	var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -516,8 +519,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	PooledClass.addPoolingTo(ForEachBookKeeping, twoArgumentPooler);
 
 	function forEachSingleChild(bookKeeping, child, name) {
-	  var func = bookKeeping.func;
-	  var context = bookKeeping.context;
+	  var func = bookKeeping.func,
+	      context = bookKeeping.context;
 
 	  func.call(context, child, bookKeeping.count++);
 	}
@@ -569,10 +572,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	PooledClass.addPoolingTo(MapBookKeeping, fourArgumentPooler);
 
 	function mapSingleChildIntoContext(bookKeeping, child, childKey) {
-	  var result = bookKeeping.result;
-	  var keyPrefix = bookKeeping.keyPrefix;
-	  var func = bookKeeping.func;
-	  var context = bookKeeping.context;
+	  var result = bookKeeping.result,
+	      keyPrefix = bookKeeping.keyPrefix,
+	      func = bookKeeping.func,
+	      context = bookKeeping.context;
 
 	  var mappedChild = func.call(context, child, bookKeeping.count++);
 	  if (Array.isArray(mappedChild)) {
@@ -671,7 +674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule PooledClass
+	 * 
 	 */
 
 	'use strict';
@@ -764,6 +767,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Function} pooler Customizable pooler.
 	 */
 	var addPoolingTo = function addPoolingTo(CopyConstructor, pooler) {
+	  // Casting as any so that flow ignores the actual implementation and trusts
+	  // it to match the type we declared
 	  var NewKlass = CopyConstructor;
 	  NewKlass.instancePool = [];
 	  NewKlass.getPooled = pooler || DEFAULT_POOLER;
@@ -797,7 +802,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule reactProdInvariant
 	 * 
 	 */
 	'use strict';
@@ -895,7 +899,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactElement
 	 */
 
 	'use strict';
@@ -910,9 +913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var canDefineProperty = __webpack_require__(13);
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 
-	// The Symbol used to tag the ReactElement type. If there is no native Symbol
-	// nor polyfill, then a plain number is used for performance.
-	var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 0xeac7;
+	var REACT_ELEMENT_TYPE = __webpack_require__(14);
 
 	var RESERVED_PROPS = {
 	  key: true,
@@ -1016,7 +1017,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // This can be replaced with a WeakMap once they are implemented in
 	    // commonly used development environments.
 	    element._store = {};
-	    var shadowChildren = Array.isArray(props.children) ? props.children.slice(0) : props.children;
 
 	    // To make comparing ReactElements easier for testing purposes, we make
 	    // the validation flag non-enumerable (where possible, which should
@@ -1036,12 +1036,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        writable: false,
 	        value: self
 	      });
-	      Object.defineProperty(element, '_shadowChildren', {
-	        configurable: false,
-	        enumerable: false,
-	        writable: false,
-	        value: shadowChildren
-	      });
 	      // Two elements created in two different places should be considered
 	      // equal for testing purposes and therefore we hide it from enumeration.
 	      Object.defineProperty(element, '_source', {
@@ -1053,7 +1047,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	      element._store.validated = false;
 	      element._self = self;
-	      element._shadowChildren = shadowChildren;
 	      element._source = source;
 	    }
 	    if (Object.freeze) {
@@ -1107,6 +1100,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var childArray = Array(childrenLength);
 	    for (var i = 0; i < childrenLength; i++) {
 	      childArray[i] = arguments[i + 2];
+	    }
+	    if (false) {
+	      if (Object.freeze) {
+	        Object.freeze(childArray);
+	      }
 	    }
 	    props.children = childArray;
 	  }
@@ -1234,8 +1232,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return (typeof object === 'undefined' ? 'undefined' : _typeof(object)) === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
 	};
 
-	ReactElement.REACT_ELEMENT_TYPE = REACT_ELEMENT_TYPE;
-
 	module.exports = ReactElement;
 
 /***/ },
@@ -1250,7 +1246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactCurrentOwner
+	 * 
 	 */
 
 	'use strict';
@@ -1400,7 +1396,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule canDefineProperty
+	 * 
 	 */
 
 	'use strict';
@@ -1408,6 +1404,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var canDefineProperty = false;
 	if (false) {
 	  try {
+	    // $FlowFixMe https://github.com/facebook/flow/issues/285
 	    Object.defineProperty({}, 'x', { get: function get() {} });
 	    canDefineProperty = true;
 	  } catch (x) {
@@ -1419,6 +1416,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 14 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2014-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * 
+	 */
+
+	'use strict';
+
+	// The Symbol used to tag the ReactElement type. If there is no native Symbol
+	// nor polyfill, then a plain number is used for performance.
+
+	var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 0xeac7;
+
+	module.exports = REACT_ELEMENT_TYPE;
+
+/***/ },
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1429,7 +1450,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule traverseAllChildren
 	 */
 
 	'use strict';
@@ -1439,15 +1459,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _prodInvariant = __webpack_require__(7);
 
 	var ReactCurrentOwner = __webpack_require__(10);
-	var ReactElement = __webpack_require__(9);
+	var REACT_ELEMENT_TYPE = __webpack_require__(14);
 
-	var getIteratorFn = __webpack_require__(15);
+	var getIteratorFn = __webpack_require__(16);
 	var invariant = __webpack_require__(8);
-	var KeyEscapeUtils = __webpack_require__(16);
+	var KeyEscapeUtils = __webpack_require__(17);
 	var warning = __webpack_require__(11);
 
 	var SEPARATOR = '.';
 	var SUBSEPARATOR = ':';
+
+	/**
+	 * This is inlined from ReactElement since this file is shared between
+	 * isomorphic and renderers. We could extract this to a
+	 *
+	 */
 
 	/**
 	 * TODO: Test that a single child and an array with one item have the same key
@@ -1490,7 +1516,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children = null;
 	  }
 
-	  if (children === null || type === 'string' || type === 'number' || ReactElement.isValidElement(children)) {
+	  if (children === null || type === 'string' || type === 'number' ||
+	  // The following is inlined from ReactElement. This means we can optimize
+	  // some checks. React Fiber also inlines this logic for similar purposes.
+	  type === 'object' && children.$$typeof === REACT_ELEMENT_TYPE) {
 	    callback(traverseContext, children,
 	    // If it's the only child, treat the name as if it was wrapped in an array
 	    // so that it's consistent if the number of children grows.
@@ -1592,7 +1621,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = traverseAllChildren;
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	/**
@@ -1603,7 +1632,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule getIteratorFn
 	 * 
 	 */
 
@@ -1638,7 +1666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getIteratorFn;
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	/**
@@ -1649,7 +1677,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule KeyEscapeUtils
 	 * 
 	 */
 
@@ -1702,7 +1729,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KeyEscapeUtils;
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1713,7 +1740,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactComponent
 	 */
 
 	'use strict';
@@ -1722,10 +1748,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _prodInvariant = __webpack_require__(7);
 
-	var ReactNoopUpdateQueue = __webpack_require__(18);
+	var ReactNoopUpdateQueue = __webpack_require__(19);
 
 	var canDefineProperty = __webpack_require__(13);
-	var emptyObject = __webpack_require__(19);
+	var emptyObject = __webpack_require__(20);
 	var invariant = __webpack_require__(8);
 	var warning = __webpack_require__(11);
 
@@ -1827,7 +1853,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactComponent;
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1838,7 +1864,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactNoopUpdateQueue
 	 */
 
 	'use strict';
@@ -1928,7 +1953,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactNoopUpdateQueue;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1952,7 +1977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = emptyObject;
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1963,17 +1988,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactPureComponent
 	 */
 
 	'use strict';
 
 	var _assign = __webpack_require__(4);
 
-	var ReactComponent = __webpack_require__(17);
-	var ReactNoopUpdateQueue = __webpack_require__(18);
+	var ReactComponent = __webpack_require__(18);
+	var ReactNoopUpdateQueue = __webpack_require__(19);
 
-	var emptyObject = __webpack_require__(19);
+	var emptyObject = __webpack_require__(20);
 
 	/**
 	 * Base class helpers for the updating state of a component.
@@ -1999,7 +2023,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactPureComponent;
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2010,7 +2034,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactClass
 	 */
 
 	'use strict';
@@ -2020,44 +2043,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _prodInvariant = __webpack_require__(7),
 	    _assign = __webpack_require__(4);
 
-	var ReactComponent = __webpack_require__(17);
+	var ReactComponent = __webpack_require__(18);
 	var ReactElement = __webpack_require__(9);
-	var ReactPropTypeLocations = __webpack_require__(22);
-	var ReactPropTypeLocationNames = __webpack_require__(24);
-	var ReactNoopUpdateQueue = __webpack_require__(18);
+	var ReactPropTypeLocationNames = __webpack_require__(23);
+	var ReactNoopUpdateQueue = __webpack_require__(19);
 
-	var emptyObject = __webpack_require__(19);
+	var emptyObject = __webpack_require__(20);
 	var invariant = __webpack_require__(8);
-	var keyMirror = __webpack_require__(23);
-	var keyOf = __webpack_require__(25);
 	var warning = __webpack_require__(11);
 
-	var MIXINS_KEY = keyOf({ mixins: null });
+	var MIXINS_KEY = 'mixins';
+
+	// Helper function to allow the creation of anonymous functions which do not
+	// have .name set to the name of the variable being assigned to.
+	function identity(fn) {
+	  return fn;
+	}
 
 	/**
 	 * Policies that describe methods in `ReactClassInterface`.
 	 */
-	var SpecPolicy = keyMirror({
-	  /**
-	   * These methods may be defined only once by the class specification or mixin.
-	   */
-	  DEFINE_ONCE: null,
-	  /**
-	   * These methods may be defined by both the class specification and mixins.
-	   * Subsequent definitions will be chained. These methods must return void.
-	   */
-	  DEFINE_MANY: null,
-	  /**
-	   * These methods are overriding the base class.
-	   */
-	  OVERRIDE_BASE: null,
-	  /**
-	   * These methods are similar to DEFINE_MANY, except we assume they return
-	   * objects. We try to merge the keys of the return values of all the mixed in
-	   * functions. If there is a key conflict we throw.
-	   */
-	  DEFINE_MANY_MERGED: null
-	});
 
 	var injectedMixins = [];
 
@@ -2091,7 +2096,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {array}
 	   * @optional
 	   */
-	  mixins: SpecPolicy.DEFINE_MANY,
+	  mixins: 'DEFINE_MANY',
 
 	  /**
 	   * An object containing properties and methods that should be defined on
@@ -2100,7 +2105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {object}
 	   * @optional
 	   */
-	  statics: SpecPolicy.DEFINE_MANY,
+	  statics: 'DEFINE_MANY',
 
 	  /**
 	   * Definition of prop types for this component.
@@ -2108,7 +2113,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {object}
 	   * @optional
 	   */
-	  propTypes: SpecPolicy.DEFINE_MANY,
+	  propTypes: 'DEFINE_MANY',
 
 	  /**
 	   * Definition of context types for this component.
@@ -2116,7 +2121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {object}
 	   * @optional
 	   */
-	  contextTypes: SpecPolicy.DEFINE_MANY,
+	  contextTypes: 'DEFINE_MANY',
 
 	  /**
 	   * Definition of context types this component sets for its children.
@@ -2124,7 +2129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {object}
 	   * @optional
 	   */
-	  childContextTypes: SpecPolicy.DEFINE_MANY,
+	  childContextTypes: 'DEFINE_MANY',
 
 	  // ==== Definition methods ====
 
@@ -2138,7 +2143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @return {object}
 	   * @optional
 	   */
-	  getDefaultProps: SpecPolicy.DEFINE_MANY_MERGED,
+	  getDefaultProps: 'DEFINE_MANY_MERGED',
 
 	  /**
 	   * Invoked once before the component is mounted. The return value will be used
@@ -2154,13 +2159,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @return {object}
 	   * @optional
 	   */
-	  getInitialState: SpecPolicy.DEFINE_MANY_MERGED,
+	  getInitialState: 'DEFINE_MANY_MERGED',
 
 	  /**
 	   * @return {object}
 	   * @optional
 	   */
-	  getChildContext: SpecPolicy.DEFINE_MANY_MERGED,
+	  getChildContext: 'DEFINE_MANY_MERGED',
 
 	  /**
 	   * Uses props from `this.props` and state from `this.state` to render the
@@ -2178,7 +2183,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @nosideeffects
 	   * @required
 	   */
-	  render: SpecPolicy.DEFINE_ONCE,
+	  render: 'DEFINE_ONCE',
 
 	  // ==== Delegate methods ====
 
@@ -2189,7 +2194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   *
 	   * @optional
 	   */
-	  componentWillMount: SpecPolicy.DEFINE_MANY,
+	  componentWillMount: 'DEFINE_MANY',
 
 	  /**
 	   * Invoked when the component has been mounted and has a DOM representation.
@@ -2201,7 +2206,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @param {DOMElement} rootNode DOM element representing the component.
 	   * @optional
 	   */
-	  componentDidMount: SpecPolicy.DEFINE_MANY,
+	  componentDidMount: 'DEFINE_MANY',
 
 	  /**
 	   * Invoked before the component receives new props.
@@ -2222,7 +2227,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @param {object} nextProps
 	   * @optional
 	   */
-	  componentWillReceiveProps: SpecPolicy.DEFINE_MANY,
+	  componentWillReceiveProps: 'DEFINE_MANY',
 
 	  /**
 	   * Invoked while deciding if the component should be updated as a result of
@@ -2244,7 +2249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @return {boolean} True if the component should update.
 	   * @optional
 	   */
-	  shouldComponentUpdate: SpecPolicy.DEFINE_ONCE,
+	  shouldComponentUpdate: 'DEFINE_ONCE',
 
 	  /**
 	   * Invoked when the component is about to update due to a transition from
@@ -2261,7 +2266,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @param {ReactReconcileTransaction} transaction
 	   * @optional
 	   */
-	  componentWillUpdate: SpecPolicy.DEFINE_MANY,
+	  componentWillUpdate: 'DEFINE_MANY',
 
 	  /**
 	   * Invoked when the component's DOM representation has been updated.
@@ -2275,7 +2280,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @param {DOMElement} rootNode DOM element representing the component.
 	   * @optional
 	   */
-	  componentDidUpdate: SpecPolicy.DEFINE_MANY,
+	  componentDidUpdate: 'DEFINE_MANY',
 
 	  /**
 	   * Invoked when the component is about to be removed from its parent and have
@@ -2288,7 +2293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   *
 	   * @optional
 	   */
-	  componentWillUnmount: SpecPolicy.DEFINE_MANY,
+	  componentWillUnmount: 'DEFINE_MANY',
 
 	  // ==== Advanced methods ====
 
@@ -2302,7 +2307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @internal
 	   * @overridable
 	   */
-	  updateComponent: SpecPolicy.OVERRIDE_BASE
+	  updateComponent: 'OVERRIDE_BASE'
 
 	};
 
@@ -2328,13 +2333,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  childContextTypes: function childContextTypes(Constructor, _childContextTypes) {
 	    if (false) {
-	      validateTypeDef(Constructor, _childContextTypes, ReactPropTypeLocations.childContext);
+	      validateTypeDef(Constructor, _childContextTypes, 'childContext');
 	    }
 	    Constructor.childContextTypes = _assign({}, Constructor.childContextTypes, _childContextTypes);
 	  },
 	  contextTypes: function contextTypes(Constructor, _contextTypes) {
 	    if (false) {
-	      validateTypeDef(Constructor, _contextTypes, ReactPropTypeLocations.context);
+	      validateTypeDef(Constructor, _contextTypes, 'context');
 	    }
 	    Constructor.contextTypes = _assign({}, Constructor.contextTypes, _contextTypes);
 	  },
@@ -2351,7 +2356,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  propTypes: function propTypes(Constructor, _propTypes) {
 	    if (false) {
-	      validateTypeDef(Constructor, _propTypes, ReactPropTypeLocations.prop);
+	      validateTypeDef(Constructor, _propTypes, 'prop');
 	    }
 	    Constructor.propTypes = _assign({}, Constructor.propTypes, _propTypes);
 	  },
@@ -2360,7 +2365,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  autobind: function autobind() {} };
 
-	// noop
 	function validateTypeDef(Constructor, typeDef, location) {
 	  for (var propName in typeDef) {
 	    if (typeDef.hasOwnProperty(propName)) {
@@ -2376,12 +2380,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // Disallow overriding of base class methods unless explicitly allowed.
 	  if (ReactClassMixin.hasOwnProperty(name)) {
-	    !(specPolicy === SpecPolicy.OVERRIDE_BASE) ?  false ? invariant(false, 'ReactClassInterface: You are attempting to override `%s` from your class specification. Ensure that your method names do not overlap with React methods.', name) : _prodInvariant('73', name) : void 0;
+	    !(specPolicy === 'OVERRIDE_BASE') ?  false ? invariant(false, 'ReactClassInterface: You are attempting to override `%s` from your class specification. Ensure that your method names do not overlap with React methods.', name) : _prodInvariant('73', name) : void 0;
 	  }
 
 	  // Disallow defining methods more than once unless explicitly allowed.
 	  if (isAlreadyDefined) {
-	    !(specPolicy === SpecPolicy.DEFINE_MANY || specPolicy === SpecPolicy.DEFINE_MANY_MERGED) ?  false ? invariant(false, 'ReactClassInterface: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.', name) : _prodInvariant('74', name) : void 0;
+	    !(specPolicy === 'DEFINE_MANY' || specPolicy === 'DEFINE_MANY_MERGED') ?  false ? invariant(false, 'ReactClassInterface: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.', name) : _prodInvariant('74', name) : void 0;
 	  }
 	}
 
@@ -2447,13 +2451,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var specPolicy = ReactClassInterface[name];
 
 	          // These cases should already be caught by validateMethodOverride.
-	          !(isReactClassMethod && (specPolicy === SpecPolicy.DEFINE_MANY_MERGED || specPolicy === SpecPolicy.DEFINE_MANY)) ?  false ? invariant(false, 'ReactClass: Unexpected spec policy %s for key %s when mixing in component specs.', specPolicy, name) : _prodInvariant('77', specPolicy, name) : void 0;
+	          !(isReactClassMethod && (specPolicy === 'DEFINE_MANY_MERGED' || specPolicy === 'DEFINE_MANY')) ?  false ? invariant(false, 'ReactClass: Unexpected spec policy %s for key %s when mixing in component specs.', specPolicy, name) : _prodInvariant('77', specPolicy, name) : void 0;
 
 	          // For methods which are defined more than once, call the existing
 	          // methods before calling the new property, merging if appropriate.
-	          if (specPolicy === SpecPolicy.DEFINE_MANY_MERGED) {
+	          if (specPolicy === 'DEFINE_MANY_MERGED') {
 	            proto[name] = createMergedResultFunction(proto[name], property);
-	          } else if (specPolicy === SpecPolicy.DEFINE_MANY) {
+	          } else if (specPolicy === 'DEFINE_MANY') {
 	            proto[name] = createChainedFunction(proto[name], property);
 	          }
 	        } else {
@@ -2648,7 +2652,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @public
 	   */
 	  createClass: function createClass(spec) {
-	    var Constructor = function Constructor(props, context, updater) {
+	    // To keep our warnings more understandable, we'll use a little hack here to
+	    // ensure that Constructor.name !== 'Constructor'. This makes sure we don't
+	    // unnecessarily identify a class without displayName as 'Constructor'.
+	    var Constructor = identity(function (props, context, updater) {
 	      // This constructor gets overridden by mocks. The argument is used
 	      // by mocks to assert on what gets mounted.
 
@@ -2683,7 +2690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      !((typeof initialState === 'undefined' ? 'undefined' : _typeof(initialState)) === 'object' && !Array.isArray(initialState)) ?  false ? invariant(false, '%s.getInitialState(): must return an object or null', Constructor.displayName || 'ReactCompositeComponent') : _prodInvariant('82', Constructor.displayName || 'ReactCompositeComponent') : void 0;
 
 	      this.state = initialState;
-	    };
+	    });
 	    Constructor.prototype = new ReactClassComponent();
 	    Constructor.prototype.constructor = Constructor;
 	    Constructor.prototype.__reactAutoBindPairs = [];
@@ -2738,89 +2745,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactClass;
 
 /***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactPropTypeLocations
-	 */
-
-	'use strict';
-
-	var keyMirror = __webpack_require__(23);
-
-	var ReactPropTypeLocations = keyMirror({
-	  prop: null,
-	  context: null,
-	  childContext: null
-	});
-
-	module.exports = ReactPropTypeLocations;
-
-/***/ },
 /* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks static-only
-	 */
-
-	'use strict';
-
-	var invariant = __webpack_require__(8);
-
-	/**
-	 * Constructs an enumeration with keys equal to their value.
-	 *
-	 * For example:
-	 *
-	 *   var COLORS = keyMirror({blue: null, red: null});
-	 *   var myColor = COLORS.blue;
-	 *   var isColorValid = !!COLORS[myColor];
-	 *
-	 * The last line could not be performed if the values of the generated enum were
-	 * not equal to their keys.
-	 *
-	 *   Input:  {key1: val1, key2: val2}
-	 *   Output: {key1: key1, key2: key2}
-	 *
-	 * @param {object} obj
-	 * @return {object}
-	 */
-	var keyMirror = function keyMirror(obj) {
-	  var ret = {};
-	  var key;
-	  !(obj instanceof Object && !Array.isArray(obj)) ?  false ? invariant(false, 'keyMirror(...): Argument must be an object.') : invariant(false) : void 0;
-	  for (key in obj) {
-	    if (!obj.hasOwnProperty(key)) {
-	      continue;
-	    }
-	    ret[key] = key;
-	  }
-	  return ret;
-	};
-
-	module.exports = keyMirror;
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
 	 * Copyright 2013-present, Facebook, Inc.
 	 * All rights reserved.
 	 *
@@ -2828,7 +2756,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactPropTypeLocationNames
+	 * 
 	 */
 
 	'use strict';
@@ -2846,47 +2774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactPropTypeLocationNames;
 
 /***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 */
-
-	/**
-	 * Allows extraction of a minified key. Let's the build system minify keys
-	 * without losing the ability to dynamically use key strings as values
-	 * themselves. Pass in an object with a single key/val pair and it will return
-	 * you the string key of that single record. Suppose you want to grab the
-	 * value for a key 'className' inside of an object. Key/val minification may
-	 * have aliased that key to be 'xa12'. keyOf({className: null}) will return
-	 * 'xa12' in that case. Resolve keys you want to use once at startup time, then
-	 * reuse those resolutions.
-	 */
-
-	var keyOf = function keyOf(oneKeyObj) {
-	  var key;
-	  for (key in oneKeyObj) {
-	    if (!oneKeyObj.hasOwnProperty(key)) {
-	      continue;
-	    }
-	    return key;
-	  }
-	  return null;
-	};
-
-	module.exports = keyOf;
-
-/***/ },
-/* 26 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2897,7 +2785,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactDOMFactories
 	 */
 
 	'use strict';
@@ -3061,7 +2948,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactDOMFactories;
 
 /***/ },
-/* 27 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3072,7 +2959,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactPropTypes
 	 */
 
 	'use strict';
@@ -3080,11 +2966,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var ReactElement = __webpack_require__(9);
-	var ReactPropTypeLocationNames = __webpack_require__(24);
-	var ReactPropTypesSecret = __webpack_require__(28);
+	var ReactPropTypeLocationNames = __webpack_require__(23);
+	var ReactPropTypesSecret = __webpack_require__(26);
 
 	var emptyFunction = __webpack_require__(12);
-	var getIteratorFn = __webpack_require__(15);
+	var getIteratorFn = __webpack_require__(16);
 	var warning = __webpack_require__(11);
 
 	/**
@@ -3199,7 +3085,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (secret !== ReactPropTypesSecret && typeof console !== 'undefined') {
 	        var cacheKey = componentName + ':' + propName;
 	        if (!manualPropTypeCallCache[cacheKey]) {
-	          process.env.NODE_ENV !== 'production' ? warning(false, 'You are manually calling a React.PropTypes validation ' + 'function for the `%s` prop on `%s`. This is deprecated ' + 'and will not work in the next major version. You may be ' + 'seeing this warning due to a third-party PropTypes library. ' + 'See https://fb.me/react-warning-dont-call-proptypes for details.', propFullName, componentName) : void 0;
+	          process.env.NODE_ENV !== 'production' ? warning(false, 'You are manually calling a React.PropTypes validation ' + 'function for the `%s` prop on `%s`. This is deprecated ' + 'and will not work in production with the next major version. ' + 'You may be seeing this warning due to a third-party PropTypes ' + 'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.', propFullName, componentName) : void 0;
 	          manualPropTypeCallCache[cacheKey] = true;
 	        }
 	      }
@@ -3207,7 +3093,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (props[propName] == null) {
 	      var locationName = ReactPropTypeLocationNames[location];
 	      if (isRequired) {
-	        return new PropTypeError('Required ' + locationName + ' `' + propFullName + '` was not specified in ' + ('`' + componentName + '`.'));
+	        if (props[propName] === null) {
+	          return new PropTypeError('The ' + locationName + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+	        }
+	        return new PropTypeError('The ' + locationName + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
 	      }
 	      return null;
 	    } else {
@@ -3499,7 +3388,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactPropTypes;
 
 /***/ },
-/* 28 */
+/* 26 */
 /***/ function(module, exports) {
 
 	/**
@@ -3510,7 +3399,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactPropTypesSecret
+	 * 
 	 */
 
 	'use strict';
@@ -3520,7 +3409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactPropTypesSecret;
 
 /***/ },
-/* 29 */
+/* 27 */
 /***/ function(module, exports) {
 
 	/**
@@ -3531,15 +3420,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactVersion
 	 */
 
 	'use strict';
 
-	module.exports = '15.3.2';
+	module.exports = '15.4.1';
 
 /***/ },
-/* 30 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3550,7 +3438,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule onlyChild
 	 */
 	'use strict';
 
@@ -3582,14 +3469,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = onlyChild;
 
 /***/ },
-/* 31 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	// https://d3js.org/d3-ease/ Version 1.0.1. Copyright 2016 Mike Bostock.
+	// https://d3js.org/d3-ease/ Version 1.0.2. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
 	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {});
 	})(undefined, function (exports) {
@@ -3663,6 +3550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var pi = Math.PI;
 	  var halfPi = pi / 2;
+
 	  function sinIn(t) {
 	    return 1 - Math.cos(t * halfPi);
 	  }
@@ -3709,6 +3597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var b8 = 21 / 22;
 	  var b9 = 63 / 64;
 	  var b0 = 1 / b1 / b1;
+
 	  function bounceIn(t) {
 	    return 1 - bounceOut(1 - t);
 	  }
@@ -3762,6 +3651,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var tau = 2 * Math.PI;
 	  var amplitude = 1;
 	  var period = 0.3;
+
 	  var elasticIn = function custom(a, p) {
 	    var s = Math.asin(1 / (a = Math.max(1, a))) * (p /= tau);
 
@@ -3855,16 +3745,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 32 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	// https://d3js.org/d3-interpolate/ Version 1.1.1. Copyright 2016 Mike Bostock.
+	// https://d3js.org/d3-interpolate/ Version 1.1.2. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(31)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(31)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
 	})(undefined, function (exports, d3Color) {
 	  'use strict';
 
@@ -3874,7 +3764,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return ((1 - 3 * t1 + 3 * t2 - t3) * v0 + (4 - 6 * t2 + 3 * t3) * v1 + (1 + 3 * t1 + 3 * t2 - 3 * t3) * v2 + t3 * v3) / 6;
 	  }
 
-	  function basis$1(values) {
+	  var basis$1 = function basis$1(values) {
 	    var n = values.length - 1;
 	    return function (t) {
 	      var i = t <= 0 ? t = 0 : t >= 1 ? (t = 1, n - 1) : Math.floor(t * n),
@@ -3884,9 +3774,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          v3 = i < n - 1 ? values[i + 2] : 2 * v2 - v1;
 	      return basis((t - i / n) * n, v0, v1, v2, v3);
 	    };
-	  }
+	  };
 
-	  function basisClosed(values) {
+	  var basisClosed = function basisClosed(values) {
 	    var n = values.length;
 	    return function (t) {
 	      var i = Math.floor(((t %= 1) < 0 ? ++t : t) * n),
@@ -3896,13 +3786,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          v3 = values[(i + 2) % n];
 	      return basis((t - i / n) * n, v0, v1, v2, v3);
 	    };
-	  }
+	  };
 
-	  function constant(x) {
+	  var constant = function constant(x) {
 	    return function () {
 	      return x;
 	    };
-	  }
+	  };
 
 	  function linear(a, d) {
 	    return function (t) {
@@ -3933,13 +3823,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  var rgb$1 = function rgbGamma(y) {
-	    var color = gamma(y);
+	    var color$$1 = gamma(y);
 
-	    function rgb(start, end) {
-	      var r = color((start = d3Color.rgb(start)).r, (end = d3Color.rgb(end)).r),
-	          g = color(start.g, end.g),
-	          b = color(start.b, end.b),
-	          opacity = color(start.opacity, end.opacity);
+	    function rgb$$1(start, end) {
+	      var r = color$$1((start = d3Color.rgb(start)).r, (end = d3Color.rgb(end)).r),
+	          g = color$$1(start.g, end.g),
+	          b = color$$1(start.b, end.b),
+	          opacity = color$$1(start.opacity, end.opacity);
 	      return function (t) {
 	        start.r = r(t);
 	        start.g = g(t);
@@ -3949,9 +3839,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	    }
 
-	    rgb.gamma = rgbGamma;
+	    rgb$$1.gamma = rgbGamma;
 
-	    return rgb;
+	    return rgb$$1;
 	  }(1);
 
 	  function rgbSpline(spline) {
@@ -3961,22 +3851,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	          g = new Array(n),
 	          b = new Array(n),
 	          i,
-	          color;
+	          color$$1;
 	      for (i = 0; i < n; ++i) {
-	        color = d3Color.rgb(colors[i]);
-	        r[i] = color.r || 0;
-	        g[i] = color.g || 0;
-	        b[i] = color.b || 0;
+	        color$$1 = d3Color.rgb(colors[i]);
+	        r[i] = color$$1.r || 0;
+	        g[i] = color$$1.g || 0;
+	        b[i] = color$$1.b || 0;
 	      }
 	      r = spline(r);
 	      g = spline(g);
 	      b = spline(b);
-	      color.opacity = 1;
+	      color$$1.opacity = 1;
 	      return function (t) {
-	        color.r = r(t);
-	        color.g = g(t);
-	        color.b = b(t);
-	        return color + "";
+	        color$$1.r = r(t);
+	        color$$1.g = g(t);
+	        color$$1.b = b(t);
+	        return color$$1 + "";
 	      };
 	    };
 	  }
@@ -3984,7 +3874,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var rgbBasis = rgbSpline(basis$1);
 	  var rgbBasisClosed = rgbSpline(basisClosed);
 
-	  function array(a, b) {
+	  var array = function array(a, b) {
 	    var nb = b ? b.length : 0,
 	        na = a ? Math.min(nb, a.length) : 0,
 	        x = new Array(nb),
@@ -4000,22 +3890,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        c[i] = x[i](t);
 	      }return c;
 	    };
-	  }
+	  };
 
-	  function date(a, b) {
+	  var date = function date(a, b) {
 	    var d = new Date();
 	    return a = +a, b -= a, function (t) {
 	      return d.setTime(a + b * t), d;
 	    };
-	  }
+	  };
 
-	  function number(a, b) {
+	  var number = function number(a, b) {
 	    return a = +a, b -= a, function (t) {
 	      return a + b * t;
 	    };
-	  }
+	  };
 
-	  function object(a, b) {
+	  var object = function object(a, b) {
 	    var i = {},
 	        c = {},
 	        k;
@@ -4036,10 +3926,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        c[k] = i[k](t);
 	      }return c;
 	    };
-	  }
+	  };
 
 	  var reA = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g;
 	  var reB = new RegExp(reA.source, "g");
+
 	  function zero(b) {
 	    return function () {
 	      return b;
@@ -4052,7 +3943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  }
 
-	  function string(a, b) {
+	  var string = function string(a, b) {
 	    var bi = reA.lastIndex = reB.lastIndex = 0,
 	        // scan index for next number in b
 	    am,
@@ -4104,19 +3995,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        s[(o = q[i]).i] = o.x(t);
 	      }return s.join("");
 	    });
-	  }
+	  };
 
-	  function value(a, b) {
+	  var value = function value(a, b) {
 	    var t = typeof b === 'undefined' ? 'undefined' : _typeof(b),
 	        c;
 	    return b == null || t === "boolean" ? constant(b) : (t === "number" ? number : t === "string" ? (c = d3Color.color(b)) ? (b = c, rgb$1) : string : b instanceof d3Color.color ? rgb$1 : b instanceof Date ? date : Array.isArray(b) ? array : isNaN(b) ? object : number)(a, b);
-	  }
+	  };
 
-	  function round(a, b) {
+	  var round = function round(a, b) {
 	    return a = +a, b -= a, function (t) {
 	      return Math.round(a + b * t);
 	    };
-	  }
+	  };
 
 	  var degrees = 180 / Math.PI;
 
@@ -4129,7 +4020,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    scaleY: 1
 	  };
 
-	  function decompose(a, b, c, d, e, f) {
+	  var decompose = function decompose(a, b, c, d, e, f) {
 	    var scaleX, scaleY, skewX;
 	    if (scaleX = Math.sqrt(a * a + b * b)) a /= scaleX, b /= scaleX;
 	    if (skewX = a * c + b * d) c -= a * skewX, d -= b * skewX;
@@ -4143,12 +4034,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      scaleX: scaleX,
 	      scaleY: scaleY
 	    };
-	  }
+	  };
 
 	  var cssNode;
 	  var cssRoot;
 	  var cssView;
 	  var svgNode;
+
 	  function parseCss(value) {
 	    if (value === "none") return identity;
 	    if (!cssNode) cssNode = document.createElement("DIV"), cssRoot = document.documentElement, cssView = document.defaultView;
@@ -4237,6 +4129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var rho2 = 2;
 	  var rho4 = 4;
 	  var epsilon2 = 1e-12;
+
 	  function cosh(x) {
 	    return ((x = Math.exp(x)) + 1 / x) / 2;
 	  }
@@ -4251,7 +4144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // p0 = [ux0, uy0, w0]
 	  // p1 = [ux1, uy1, w1]
-	  function zoom(p0, p1) {
+	  var zoom = function zoom(p0, p1) {
 	    var ux0 = p0[0],
 	        uy0 = p0[1],
 	        w0 = p0[2],
@@ -4291,11 +4184,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    i.duration = S * 1000;
 
 	    return i;
-	  }
+	  };
 
-	  function hsl$1(hue) {
+	  function hsl$1(hue$$1) {
 	    return function (start, end) {
-	      var h = hue((start = d3Color.hsl(start)).h, (end = d3Color.hsl(end)).h),
+	      var h = hue$$1((start = d3Color.hsl(start)).h, (end = d3Color.hsl(end)).h),
 	          s = nogamma(start.s, end.s),
 	          l = nogamma(start.l, end.l),
 	          opacity = nogamma(start.opacity, end.opacity);
@@ -4326,9 +4219,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  }
 
-	  function hcl$1(hue) {
+	  function hcl$1(hue$$1) {
 	    return function (start, end) {
-	      var h = hue((start = d3Color.hcl(start)).h, (end = d3Color.hcl(end)).h),
+	      var h = hue$$1((start = d3Color.hcl(start)).h, (end = d3Color.hcl(end)).h),
 	          c = nogamma(start.c, end.c),
 	          l = nogamma(start.l, end.l),
 	          opacity = nogamma(start.opacity, end.opacity);
@@ -4345,12 +4238,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var hcl$2 = hcl$1(hue);
 	  var hclLong = hcl$1(nogamma);
 
-	  function cubehelix$1(hue) {
+	  function cubehelix$1(hue$$1) {
 	    return function cubehelixGamma(y) {
 	      y = +y;
 
-	      function cubehelix(start, end) {
-	        var h = hue((start = d3Color.cubehelix(start)).h, (end = d3Color.cubehelix(end)).h),
+	      function cubehelix$$1(start, end) {
+	        var h = hue$$1((start = d3Color.cubehelix(start)).h, (end = d3Color.cubehelix(end)).h),
 	            s = nogamma(start.s, end.s),
 	            l = nogamma(start.l, end.l),
 	            opacity = nogamma(start.opacity, end.opacity);
@@ -4363,21 +4256,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	      }
 
-	      cubehelix.gamma = cubehelixGamma;
+	      cubehelix$$1.gamma = cubehelixGamma;
 
-	      return cubehelix;
+	      return cubehelix$$1;
 	    }(1);
 	  }
 
 	  var cubehelix$2 = cubehelix$1(hue);
 	  var cubehelixLong = cubehelix$1(nogamma);
 
-	  function quantize(interpolator, n) {
+	  var quantize = function quantize(interpolator, n) {
 	    var samples = new Array(n);
 	    for (var i = 0; i < n; ++i) {
 	      samples[i] = interpolator(i / (n - 1));
 	    }return samples;
-	  }
+	  };
 
 	  exports.interpolate = value;
 	  exports.interpolateArray = array;
@@ -4407,23 +4300,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 33 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	// https://d3js.org/d3-color/ Version 1.0.1. Copyright 2016 Mike Bostock.
+	// https://d3js.org/d3-color/ Version 1.0.2. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
 	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {});
 	})(undefined, function (exports) {
 	  'use strict';
 
-	  function define(constructor, factory, prototype) {
+	  var define = function define(constructor, factory, prototype) {
 	    constructor.prototype = factory.prototype = prototype;
 	    prototype.constructor = constructor;
-	  }
+	  };
 
 	  function extend(parent, definition) {
 	    var prototype = Object.create(parent.prototype);
@@ -4437,14 +4330,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _darker = 0.7;
 	  var _brighter = 1 / _darker;
 
+	  var reI = "\\s*([+-]?\\d+)\\s*";
+	  var reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*";
+	  var reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*";
 	  var reHex3 = /^#([0-9a-f]{3})$/;
 	  var reHex6 = /^#([0-9a-f]{6})$/;
-	  var reRgbInteger = /^rgb\(\s*([-+]?\d+)\s*,\s*([-+]?\d+)\s*,\s*([-+]?\d+)\s*\)$/;
-	  var reRgbPercent = /^rgb\(\s*([-+]?\d+(?:\.\d+)?)%\s*,\s*([-+]?\d+(?:\.\d+)?)%\s*,\s*([-+]?\d+(?:\.\d+)?)%\s*\)$/;
-	  var reRgbaInteger = /^rgba\(\s*([-+]?\d+)\s*,\s*([-+]?\d+)\s*,\s*([-+]?\d+)\s*,\s*([-+]?\d+(?:\.\d+)?)\s*\)$/;
-	  var reRgbaPercent = /^rgba\(\s*([-+]?\d+(?:\.\d+)?)%\s*,\s*([-+]?\d+(?:\.\d+)?)%\s*,\s*([-+]?\d+(?:\.\d+)?)%\s*,\s*([-+]?\d+(?:\.\d+)?)\s*\)$/;
-	  var reHslPercent = /^hsl\(\s*([-+]?\d+(?:\.\d+)?)\s*,\s*([-+]?\d+(?:\.\d+)?)%\s*,\s*([-+]?\d+(?:\.\d+)?)%\s*\)$/;
-	  var reHslaPercent = /^hsla\(\s*([-+]?\d+(?:\.\d+)?)\s*,\s*([-+]?\d+(?:\.\d+)?)%\s*,\s*([-+]?\d+(?:\.\d+)?)%\s*,\s*([-+]?\d+(?:\.\d+)?)\s*\)$/;
+	  var reRgbInteger = new RegExp("^rgb\\(" + [reI, reI, reI] + "\\)$");
+	  var reRgbPercent = new RegExp("^rgb\\(" + [reP, reP, reP] + "\\)$");
+	  var reRgbaInteger = new RegExp("^rgba\\(" + [reI, reI, reI, reN] + "\\)$");
+	  var reRgbaPercent = new RegExp("^rgba\\(" + [reP, reP, reP, reN] + "\\)$");
+	  var reHslPercent = new RegExp("^hsl\\(" + [reN, reP, reP] + "\\)$");
+	  var reHslaPercent = new RegExp("^hsla\\(" + [reN, reP, reP, reN] + "\\)$");
+
 	  var named = {
 	    aliceblue: 0xf0f8ff,
 	    antiquewhite: 0xfaebd7,
@@ -4745,6 +4642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var t1 = 6 / 29;
 	  var t2 = 3 * t1 * t1;
 	  var t3 = t1 * t1 * t1;
+
 	  function labConvert(o) {
 	    if (o instanceof Lab) return new Lab(o.l, o.a, o.b, o.opacity);
 	    if (o instanceof Hcl) {
@@ -4845,6 +4743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var ED = E * D;
 	  var EB = E * B;
 	  var BC_DA = B * C - D * A;
+
 	  function cubehelixConvert(o) {
 	    if (o instanceof Cubehelix) return new Cubehelix(o.h, o.s, o.l, o.opacity);
 	    if (!(o instanceof Rgb)) o = rgbConvert(o);
@@ -4901,7 +4800,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 34 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -5061,7 +4960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 35 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5075,19 +4974,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jubilationProvider = __webpack_require__(36);
+	var _jubilationProvider = __webpack_require__(34);
 
 	var _jubilationProvider2 = _interopRequireDefault(_jubilationProvider);
 
-	var _jubilationContainer = __webpack_require__(48);
+	var _jubilationContainer = __webpack_require__(46);
 
 	var _jubilationContainer2 = _interopRequireDefault(_jubilationContainer);
 
-	var _jubilationTheme = __webpack_require__(39);
+	var _jubilationTheme = __webpack_require__(37);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _chart = __webpack_require__(49);
+	var _chart = __webpack_require__(47);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5114,7 +5013,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 36 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5129,15 +5028,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _uuid = __webpack_require__(37);
+	var _uuid = __webpack_require__(35);
 
 	var _uuid2 = _interopRequireDefault(_uuid);
 
-	var _jubilationTheme = __webpack_require__(39);
+	var _jubilationTheme = __webpack_require__(37);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
-	var _jubilationContext = __webpack_require__(40);
+	var _jubilationContext = __webpack_require__(38);
 
 	var _jubilationContext2 = _interopRequireDefault(_jubilationContext);
 
@@ -5209,7 +5108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JubilationProvider;
 
 /***/ },
-/* 37 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5222,7 +5121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Unique ID creation requires a high quality random # generator.  We feature
 	// detect to determine the best RNG source, normalizing to a function that
 	// returns 128-bits of randomness, since that's what's usually required
-	var _rng = __webpack_require__(38);
+	var _rng = __webpack_require__(36);
 
 	// Maps for number <-> hex string conversion
 	var _byteToHex = [];
@@ -5393,7 +5292,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = uuid;
 
 /***/ },
-/* 38 */
+/* 36 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -5431,7 +5330,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 39 */
+/* 37 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5474,7 +5373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = theme;
 
 /***/ },
-/* 40 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5483,9 +5382,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _d3Scale = __webpack_require__(41);
+	var _d3Scale = __webpack_require__(39);
 
-	var _provider = __webpack_require__(47);
+	var _provider = __webpack_require__(45);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5537,16 +5436,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JubilationContext;
 
 /***/ },
-/* 41 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	// https://d3js.org/d3-scale/ Version 1.0.3. Copyright 2016 Mike Bostock.
+	// https://d3js.org/d3-scale/ Version 1.0.4. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(42), __webpack_require__(43), __webpack_require__(32), __webpack_require__(44), __webpack_require__(45), __webpack_require__(46), __webpack_require__(33)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(42), __webpack_require__(43), __webpack_require__(32), __webpack_require__(44), __webpack_require__(45), __webpack_require__(46), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(40), __webpack_require__(41), __webpack_require__(30), __webpack_require__(42), __webpack_require__(43), __webpack_require__(44), __webpack_require__(31)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(40), __webpack_require__(41), __webpack_require__(30), __webpack_require__(42), __webpack_require__(43), __webpack_require__(44), __webpack_require__(31)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3, global.d3);
 	})(undefined, function (exports, d3Array, d3Collection, d3Interpolate, d3Format, d3Time, d3TimeFormat, d3Color) {
 	  'use strict';
 
@@ -5557,12 +5456,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var implicit = { name: "implicit" };
 
-	  function ordinal(range) {
+	  function ordinal(range$$1) {
 	    var index = d3Collection.map(),
 	        domain = [],
 	        unknown = implicit;
 
-	    range = range == null ? [] : slice.call(range);
+	    range$$1 = range$$1 == null ? [] : slice.call(range$$1);
 
 	    function scale(d) {
 	      var key = d + "",
@@ -5571,7 +5470,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (unknown !== implicit) return unknown;
 	        index.set(key, i = domain.push(d));
 	      }
-	      return range[(i - 1) % range.length];
+	      return range$$1[(i - 1) % range$$1.length];
 	    }
 
 	    scale.domain = function (_) {
@@ -5587,7 +5486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.range = function (_) {
-	      return arguments.length ? (range = slice.call(_), scale) : range.slice();
+	      return arguments.length ? (range$$1 = slice.call(_), scale) : range$$1.slice();
 	    };
 
 	    scale.unknown = function (_) {
@@ -5595,7 +5494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.copy = function () {
-	      return ordinal().domain(domain).range(range).unknown(unknown);
+	      return ordinal().domain(domain).range(range$$1).unknown(unknown);
 	    };
 
 	    return scale;
@@ -5605,7 +5504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var scale = ordinal().unknown(undefined),
 	        domain = scale.domain,
 	        ordinalRange = scale.range,
-	        range = [0, 1],
+	        range$$1 = [0, 1],
 	        step,
 	        bandwidth,
 	        round = false,
@@ -5617,9 +5516,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    function rescale() {
 	      var n = domain().length,
-	          reverse = range[1] < range[0],
-	          start = range[reverse - 0],
-	          stop = range[1 - reverse];
+	          reverse = range$$1[1] < range$$1[0],
+	          start = range$$1[reverse - 0],
+	          stop = range$$1[1 - reverse];
 	      step = (stop - start) / Math.max(1, n - paddingInner + paddingOuter * 2);
 	      if (round) step = Math.floor(step);
 	      start += (stop - start - step * (n - paddingInner)) * align;
@@ -5636,11 +5535,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.range = function (_) {
-	      return arguments.length ? (range = [+_[0], +_[1]], rescale()) : range.slice();
+	      return arguments.length ? (range$$1 = [+_[0], +_[1]], rescale()) : range$$1.slice();
 	    };
 
 	    scale.rangeRound = function (_) {
-	      return range = [+_[0], +_[1]], round = true, rescale();
+	      return range$$1 = [+_[0], +_[1]], round = true, rescale();
 	    };
 
 	    scale.bandwidth = function () {
@@ -5672,7 +5571,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.copy = function () {
-	      return band().domain(domain()).range(range).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
+	      return band().domain(domain()).range(range$$1).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
 	    };
 
 	    return rescale();
@@ -5696,19 +5595,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return pointish(band().paddingInner(1));
 	  }
 
-	  function constant(x) {
+	  var constant = function constant(x) {
 	    return function () {
 	      return x;
 	    };
-	  }
+	  };
 
-	  function number(x) {
+	  var number = function number(x) {
 	    return +x;
-	  }
+	  };
 
 	  var unit = [0, 1];
 
-	  function deinterpolate(a, b) {
+	  function deinterpolateLinear(a, b) {
 	    return (b -= a = +a) ? function (x) {
 	      return (x - a) / b;
 	    } : constant(b);
@@ -5732,19 +5631,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  }
 
-	  function bimap(domain, range, deinterpolate, reinterpolate) {
+	  function bimap(domain, range$$1, deinterpolate, reinterpolate) {
 	    var d0 = domain[0],
 	        d1 = domain[1],
-	        r0 = range[0],
-	        r1 = range[1];
+	        r0 = range$$1[0],
+	        r1 = range$$1[1];
 	    if (d1 < d0) d0 = deinterpolate(d1, d0), r0 = reinterpolate(r1, r0);else d0 = deinterpolate(d0, d1), r0 = reinterpolate(r0, r1);
 	    return function (x) {
 	      return r0(d0(x));
 	    };
 	  }
 
-	  function polymap(domain, range, deinterpolate, reinterpolate) {
-	    var j = Math.min(domain.length, range.length) - 1,
+	  function polymap(domain, range$$1, deinterpolate, reinterpolate) {
+	    var j = Math.min(domain.length, range$$1.length) - 1,
 	        d = new Array(j),
 	        r = new Array(j),
 	        i = -1;
@@ -5752,12 +5651,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // Reverse descending domains.
 	    if (domain[j] < domain[0]) {
 	      domain = domain.slice().reverse();
-	      range = range.slice().reverse();
+	      range$$1 = range$$1.slice().reverse();
 	    }
 
 	    while (++i < j) {
 	      d[i] = deinterpolate(domain[i], domain[i + 1]);
-	      r[i] = reinterpolate(range[i], range[i + 1]);
+	      r[i] = reinterpolate(range$$1[i], range$$1[i + 1]);
 	    }
 
 	    return function (x) {
@@ -5772,27 +5671,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // deinterpolate(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
 	  // reinterpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding domain value x in [a,b].
-	  function continuous(deinterpolate$$, reinterpolate) {
+	  function continuous(deinterpolate, reinterpolate) {
 	    var domain = unit,
-	        range = unit,
-	        interpolate = d3Interpolate.interpolate,
+	        range$$1 = unit,
+	        interpolate$$1 = d3Interpolate.interpolate,
 	        clamp = false,
 	        piecewise,
 	        output,
 	        input;
 
 	    function rescale() {
-	      piecewise = Math.min(domain.length, range.length) > 2 ? polymap : bimap;
+	      piecewise = Math.min(domain.length, range$$1.length) > 2 ? polymap : bimap;
 	      output = input = null;
 	      return scale;
 	    }
 
 	    function scale(x) {
-	      return (output || (output = piecewise(domain, range, clamp ? deinterpolateClamp(deinterpolate$$) : deinterpolate$$, interpolate)))(+x);
+	      return (output || (output = piecewise(domain, range$$1, clamp ? deinterpolateClamp(deinterpolate) : deinterpolate, interpolate$$1)))(+x);
 	    }
 
 	    scale.invert = function (y) {
-	      return (input || (input = piecewise(range, domain, deinterpolate, clamp ? reinterpolateClamp(reinterpolate) : reinterpolate)))(+y);
+	      return (input || (input = piecewise(range$$1, domain, deinterpolateLinear, clamp ? reinterpolateClamp(reinterpolate) : reinterpolate)))(+y);
 	    };
 
 	    scale.domain = function (_) {
@@ -5800,11 +5699,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.range = function (_) {
-	      return arguments.length ? (range = slice.call(_), rescale()) : range.slice();
+	      return arguments.length ? (range$$1 = slice.call(_), rescale()) : range$$1.slice();
 	    };
 
 	    scale.rangeRound = function (_) {
-	      return range = slice.call(_), interpolate = d3Interpolate.interpolateRound, rescale();
+	      return range$$1 = slice.call(_), interpolate$$1 = d3Interpolate.interpolateRound, rescale();
 	    };
 
 	    scale.clamp = function (_) {
@@ -5812,13 +5711,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.interpolate = function (_) {
-	      return arguments.length ? (interpolate = _, rescale()) : interpolate;
+	      return arguments.length ? (interpolate$$1 = _, rescale()) : interpolate$$1;
 	    };
 
 	    return rescale();
 	  }
 
-	  function tickFormat(domain, count, specifier) {
+	  var tickFormat = function tickFormat(domain, count, specifier) {
 	    var start = domain[0],
 	        stop = domain[domain.length - 1],
 	        step = d3Array.tickStep(start, stop, count == null ? 10 : count),
@@ -5848,7 +5747,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	    return d3Format.format(specifier);
-	  }
+	  };
 
 	  function linearish(scale) {
 	    var domain = scale.domain;
@@ -5884,7 +5783,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  function linear() {
-	    var scale = continuous(deinterpolate, d3Interpolate.interpolateNumber);
+	    var scale = continuous(deinterpolateLinear, d3Interpolate.interpolateNumber);
 
 	    scale.copy = function () {
 	      return copy(scale, linear());
@@ -5913,7 +5812,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return linearish(scale);
 	  }
 
-	  function nice(domain, interval) {
+	  var nice = function nice(domain, interval) {
 	    domain = domain.slice();
 
 	    var i0 = 0,
@@ -5930,9 +5829,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    domain[i0] = interval.floor(x0);
 	    domain[i1] = interval.ceil(x1);
 	    return domain;
-	  }
+	  };
 
-	  function deinterpolate$1(a, b) {
+	  function deinterpolate(a, b) {
 	    return (b = Math.log(b / a)) ? function (x) {
 	      return Math.log(x / a) / b;
 	    } : constant(b);
@@ -5969,7 +5868,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  function log() {
-	    var scale = continuous(deinterpolate$1, reinterpolate).domain([1, 10]),
+	    var scale = continuous(deinterpolate, reinterpolate).domain([1, 10]),
 	        domain = scale.domain,
 	        base = 10,
 	        logs = logp(10),
@@ -6099,12 +5998,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  function quantile$1() {
 	    var domain = [],
-	        range = [],
+	        range$$1 = [],
 	        thresholds = [];
 
 	    function rescale() {
 	      var i = 0,
-	          n = Math.max(1, range.length);
+	          n = Math.max(1, range$$1.length);
 	      thresholds = new Array(n - 1);
 	      while (++i < n) {
 	        thresholds[i - 1] = d3Array.quantile(domain, i / n);
@@ -6112,11 +6011,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function scale(x) {
-	      if (!isNaN(x = +x)) return range[d3Array.bisect(thresholds, x)];
+	      if (!isNaN(x = +x)) return range$$1[d3Array.bisect(thresholds, x)];
 	    }
 
 	    scale.invertExtent = function (y) {
-	      var i = range.indexOf(y);
+	      var i = range$$1.indexOf(y);
 	      return i < 0 ? [NaN, NaN] : [i > 0 ? thresholds[i - 1] : domain[0], i < thresholds.length ? thresholds[i] : domain[domain.length - 1]];
 	    };
 
@@ -6130,7 +6029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.range = function (_) {
-	      return arguments.length ? (range = slice.call(_), rescale()) : range.slice();
+	      return arguments.length ? (range$$1 = slice.call(_), rescale()) : range$$1.slice();
 	    };
 
 	    scale.quantiles = function () {
@@ -6138,7 +6037,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.copy = function () {
-	      return quantile$1().domain(domain).range(range);
+	      return quantile$1().domain(domain).range(range$$1);
 	    };
 
 	    return scale;
@@ -6149,10 +6048,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        x1 = 1,
 	        n = 1,
 	        domain = [0.5],
-	        range = [0, 1];
+	        range$$1 = [0, 1];
 
 	    function scale(x) {
-	      if (x <= x) return range[d3Array.bisect(domain, x, 0, n)];
+	      if (x <= x) return range$$1[d3Array.bisect(domain, x, 0, n)];
 	    }
 
 	    function rescale() {
@@ -6168,16 +6067,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.range = function (_) {
-	      return arguments.length ? (n = (range = slice.call(_)).length - 1, rescale()) : range.slice();
+	      return arguments.length ? (n = (range$$1 = slice.call(_)).length - 1, rescale()) : range$$1.slice();
 	    };
 
 	    scale.invertExtent = function (y) {
-	      var i = range.indexOf(y);
+	      var i = range$$1.indexOf(y);
 	      return i < 0 ? [NaN, NaN] : i < 1 ? [x0, domain[0]] : i >= n ? [domain[n - 1], x1] : [domain[i - 1], domain[i]];
 	    };
 
 	    scale.copy = function () {
-	      return quantize().domain([x0, x1]).range(range);
+	      return quantize().domain([x0, x1]).range(range$$1);
 	    };
 
 	    return linearish(scale);
@@ -6185,28 +6084,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  function threshold() {
 	    var domain = [0.5],
-	        range = [0, 1],
+	        range$$1 = [0, 1],
 	        n = 1;
 
 	    function scale(x) {
-	      if (x <= x) return range[d3Array.bisect(domain, x, 0, n)];
+	      if (x <= x) return range$$1[d3Array.bisect(domain, x, 0, n)];
 	    }
 
 	    scale.domain = function (_) {
-	      return arguments.length ? (domain = slice.call(_), n = Math.min(domain.length, range.length - 1), scale) : domain.slice();
+	      return arguments.length ? (domain = slice.call(_), n = Math.min(domain.length, range$$1.length - 1), scale) : domain.slice();
 	    };
 
 	    scale.range = function (_) {
-	      return arguments.length ? (range = slice.call(_), n = Math.min(domain.length, range.length - 1), scale) : range.slice();
+	      return arguments.length ? (range$$1 = slice.call(_), n = Math.min(domain.length, range$$1.length - 1), scale) : range$$1.slice();
 	    };
 
 	    scale.invertExtent = function (y) {
-	      var i = range.indexOf(y);
+	      var i = range$$1.indexOf(y);
 	      return [domain[i - 1], domain[i]];
 	    };
 
 	    scale.copy = function () {
-	      return threshold().domain(domain).range(range);
+	      return threshold().domain(domain).range(range$$1);
 	    };
 
 	    return scale;
@@ -6219,6 +6118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var durationWeek = durationDay * 7;
 	  var durationMonth = durationDay * 30;
 	  var durationYear = durationDay * 365;
+
 	  function date(t) {
 	    return new Date(t);
 	  }
@@ -6227,19 +6127,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return t instanceof Date ? +t : +new Date(+t);
 	  }
 
-	  function calendar(year, month, week, day, hour, minute, second, millisecond, format) {
-	    var scale = continuous(deinterpolate, d3Interpolate.interpolateNumber),
+	  function calendar(year, month, week, day, hour, minute, second, millisecond, format$$1) {
+	    var scale = continuous(deinterpolateLinear, d3Interpolate.interpolateNumber),
 	        invert = scale.invert,
 	        domain = scale.domain;
 
-	    var formatMillisecond = format(".%L"),
-	        formatSecond = format(":%S"),
-	        formatMinute = format("%I:%M"),
-	        formatHour = format("%I %p"),
-	        formatDay = format("%a %d"),
-	        formatWeek = format("%b %d"),
-	        formatMonth = format("%B"),
-	        formatYear = format("%Y");
+	    var formatMillisecond = format$$1(".%L"),
+	        formatSecond = format$$1(":%S"),
+	        formatMinute = format$$1("%I:%M"),
+	        formatHour = format$$1("%I %p"),
+	        formatDay = format$$1("%a %d"),
+	        formatWeek = format$$1("%b %d"),
+	        formatMonth = format$$1("%B"),
+	        formatYear = format$$1("%Y");
 
 	    var tickIntervals = [[second, 1, durationSecond], [second, 5, 5 * durationSecond], [second, 15, 15 * durationSecond], [second, 30, 30 * durationSecond], [minute, 1, durationMinute], [minute, 5, 5 * durationMinute], [minute, 15, 15 * durationMinute], [minute, 30, 30 * durationMinute], [hour, 1, durationHour], [hour, 3, 3 * durationHour], [hour, 6, 6 * durationHour], [hour, 12, 12 * durationHour], [day, 1, durationDay], [day, 2, 2 * durationDay], [week, 1, durationWeek], [month, 1, durationMonth], [month, 3, 3 * durationMonth], [year, 1, durationYear]];
 
@@ -6295,7 +6195,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.tickFormat = function (count, specifier) {
-	      return specifier == null ? tickFormat : format(specifier);
+	      return specifier == null ? tickFormat : format$$1(specifier);
 	    };
 
 	    scale.nice = function (interval, step) {
@@ -6304,25 +6204,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    scale.copy = function () {
-	      return copy(scale, calendar(year, month, week, day, hour, minute, second, millisecond, format));
+	      return copy(scale, calendar(year, month, week, day, hour, minute, second, millisecond, format$$1));
 	    };
 
 	    return scale;
 	  }
 
-	  function time() {
+	  var time = function time() {
 	    return calendar(d3Time.timeYear, d3Time.timeMonth, d3Time.timeWeek, d3Time.timeDay, d3Time.timeHour, d3Time.timeMinute, d3Time.timeSecond, d3Time.timeMillisecond, d3TimeFormat.timeFormat).domain([new Date(2000, 0, 1), new Date(2000, 0, 2)]);
-	  }
+	  };
 
-	  function utcTime() {
+	  var utcTime = function utcTime() {
 	    return calendar(d3Time.utcYear, d3Time.utcMonth, d3Time.utcWeek, d3Time.utcDay, d3Time.utcHour, d3Time.utcMinute, d3Time.utcSecond, d3Time.utcMillisecond, d3TimeFormat.utcFormat).domain([Date.UTC(2000, 0, 1), Date.UTC(2000, 0, 2)]);
-	  }
+	  };
 
-	  function colors(s) {
+	  var colors = function colors(s) {
 	    return s.match(/.{6}/g).map(function (x) {
 	      return "#" + x;
 	    });
-	  }
+	  };
 
 	  var category10 = colors("1f77b4ff7f0e2ca02cd627289467bd8c564be377c27f7f7fbcbd2217becf");
 
@@ -6340,19 +6240,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var rainbow = d3Color.cubehelix();
 
-	  function rainbow$1(t) {
+	  var rainbow$1 = function rainbow$1(t) {
 	    if (t < 0 || t > 1) t -= Math.floor(t);
 	    var ts = Math.abs(t - 0.5);
 	    rainbow.h = 360 * t - 100;
 	    rainbow.s = 1.5 - 1.5 * ts;
 	    rainbow.l = 0.8 - 0.9 * ts;
 	    return rainbow + "";
-	  }
+	  };
 
-	  function ramp(range) {
-	    var n = range.length;
+	  function ramp(range$$1) {
+	    var n = range$$1.length;
 	    return function (t) {
-	      return range[Math.max(0, Math.min(n - 1, Math.floor(t * n)))];
+	      return range$$1[Math.max(0, Math.min(n - 1, Math.floor(t * n)))];
 	    };
 	  }
 
@@ -6425,24 +6325,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 42 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	// https://d3js.org/d3-array/ Version 1.0.1. Copyright 2016 Mike Bostock.
+	// https://d3js.org/d3-array/ Version 1.0.2. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
 	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {});
 	})(undefined, function (exports) {
 	  'use strict';
 
-	  function ascending(a, b) {
+	  var ascending = function ascending(a, b) {
 	    return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
-	  }
+	  };
 
-	  function bisector(compare) {
+	  var bisector = function bisector(compare) {
 	    if (compare.length === 1) compare = ascendingComparator(compare);
 	    return {
 	      left: function left(a, x, lo, hi) {
@@ -6464,7 +6364,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return lo;
 	      }
 	    };
-	  }
+	  };
 
 	  function ascendingComparator(f) {
 	    return function (d, x) {
@@ -6476,15 +6376,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var bisectRight = ascendingBisect.right;
 	  var bisectLeft = ascendingBisect.left;
 
-	  function descending(a, b) {
+	  var descending = function descending(a, b) {
 	    return b < a ? -1 : b > a ? 1 : b >= a ? 0 : NaN;
-	  }
+	  };
 
-	  function number(x) {
+	  var number = function number(x) {
 	    return x === null ? NaN : +x;
-	  }
+	  };
 
-	  function variance(array, f) {
+	  var variance = function variance(array, f) {
 	    var n = array.length,
 	        m = 0,
 	        a,
@@ -6512,14 +6412,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    if (j > 1) return s / (j - 1);
-	  }
+	  };
 
-	  function deviation(array, f) {
+	  var deviation = function deviation(array, f) {
 	    var v = variance(array, f);
 	    return v ? Math.sqrt(v) : v;
-	  }
+	  };
 
-	  function extent(array, f) {
+	  var extent = function extent(array, f) {
 	    var i = -1,
 	        n = array.length,
 	        a,
@@ -6551,24 +6451,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return [a, c];
-	  }
+	  };
 
 	  var array = Array.prototype;
 
 	  var slice = array.slice;
 	  var map = array.map;
 
-	  function constant(x) {
+	  var constant = function constant(x) {
 	    return function () {
 	      return x;
 	    };
-	  }
+	  };
 
-	  function identity(x) {
+	  var identity = function identity(x) {
 	    return x;
-	  }
+	  };
 
-	  function range(start, stop, step) {
+	  var range = function range(start, stop, step) {
 	    start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
 
 	    var i = -1,
@@ -6580,16 +6480,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return range;
-	  }
+	  };
 
 	  var e10 = Math.sqrt(50);
 	  var e5 = Math.sqrt(10);
 	  var e2 = Math.sqrt(2);
-	  function ticks(start, stop, count) {
+
+	  var ticks = function ticks(start, stop, count) {
 	    var step = tickStep(start, stop, count);
 	    return range(Math.ceil(start / step) * step, Math.floor(stop / step) * step + step / 2, // inclusive
 	    step);
-	  }
+	  };
 
 	  function tickStep(start, stop, count) {
 	    var step0 = Math.abs(stop - start) / Math.max(0, count),
@@ -6599,11 +6500,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return stop < start ? -step1 : step1;
 	  }
 
-	  function sturges(values) {
+	  var sturges = function sturges(values) {
 	    return Math.ceil(Math.log(values.length) / Math.LN2) + 1;
-	  }
+	  };
 
-	  function histogram() {
+	  var histogram = function histogram() {
 	    var value = identity,
 	        domain = extent,
 	        threshold = sturges;
@@ -6666,9 +6567,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    return histogram;
-	  }
+	  };
 
-	  function quantile(array, p, f) {
+	  var quantile = function quantile(array, p, f) {
 	    if (f == null) f = number;
 	    if (!(n = array.length)) return;
 	    if ((p = +p) <= 0 || n < 2) return +f(array[0], 0, array);
@@ -6679,18 +6580,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        a = +f(array[i], i, array),
 	        b = +f(array[i + 1], i + 1, array);
 	    return a + (b - a) * (h - i);
-	  }
+	  };
 
-	  function freedmanDiaconis(values, min, max) {
+	  var freedmanDiaconis = function freedmanDiaconis(values, min, max) {
 	    values = map.call(values, number).sort(ascending);
 	    return Math.ceil((max - min) / (2 * (quantile(values, 0.75) - quantile(values, 0.25)) * Math.pow(values.length, -1 / 3)));
-	  }
+	  };
 
-	  function scott(values, min, max) {
+	  var scott = function scott(values, min, max) {
 	    return Math.ceil((max - min) / (3.5 * deviation(values) * Math.pow(values.length, -1 / 3)));
-	  }
+	  };
 
-	  function max(array, f) {
+	  var max = function max(array, f) {
 	    var i = -1,
 	        n = array.length,
 	        a,
@@ -6715,9 +6616,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return a;
-	  }
+	  };
 
-	  function mean(array, f) {
+	  var mean = function mean(array, f) {
 	    var s = 0,
 	        n = array.length,
 	        a,
@@ -6735,9 +6636,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    if (j) return s / j;
-	  }
+	  };
 
-	  function median(array, f) {
+	  var median = function median(array, f) {
 	    var numbers = [],
 	        n = array.length,
 	        a,
@@ -6754,9 +6655,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return quantile(numbers.sort(ascending), 0.5);
-	  }
+	  };
 
-	  function merge(arrays) {
+	  var merge = function merge(arrays) {
 	    var n = arrays.length,
 	        m,
 	        i = -1,
@@ -6777,9 +6678,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return merged;
-	  }
+	  };
 
-	  function min(array, f) {
+	  var min = function min(array, f) {
 	    var i = -1,
 	        n = array.length,
 	        a,
@@ -6804,9 +6705,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return a;
-	  }
+	  };
 
-	  function pairs(array) {
+	  var pairs = function pairs(array) {
 	    var i = 0,
 	        n = array.length - 1,
 	        p = array[0],
@@ -6814,17 +6715,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    while (i < n) {
 	      pairs[i] = [p, p = array[++i]];
 	    }return pairs;
-	  }
+	  };
 
-	  function permute(array, indexes) {
+	  var permute = function permute(array, indexes) {
 	    var i = indexes.length,
 	        permutes = new Array(i);
 	    while (i--) {
 	      permutes[i] = array[indexes[i]];
 	    }return permutes;
-	  }
+	  };
 
-	  function scan(array, compare) {
+	  var scan = function scan(array, compare) {
 	    if (!(n = array.length)) return;
 	    var i = 0,
 	        n,
@@ -6837,9 +6738,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    while (++i < n) {
 	      if (compare(xi = array[i], xj) < 0 || compare(xj, xj) !== 0) xj = xi, j = i;
 	    }if (compare(xj, xj) === 0) return j;
-	  }
+	  };
 
-	  function shuffle(array, i0, i1) {
+	  var shuffle = function shuffle(array, i0, i1) {
 	    var m = (i1 == null ? array.length : i1) - (i0 = i0 == null ? 0 : +i0),
 	        t,
 	        i;
@@ -6852,9 +6753,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return array;
-	  }
+	  };
 
-	  function sum(array, f) {
+	  var sum = function sum(array, f) {
 	    var s = 0,
 	        n = array.length,
 	        a,
@@ -6871,9 +6772,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return s;
-	  }
+	  };
 
-	  function transpose(matrix) {
+	  var transpose = function transpose(matrix) {
 	    if (!(n = matrix.length)) return [];
 	    for (var i = -1, m = min(matrix, length), transpose = new Array(m); ++i < m;) {
 	      for (var j = -1, n, row = transpose[i] = new Array(n); ++j < n;) {
@@ -6881,15 +6782,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	    return transpose;
-	  }
+	  };
 
 	  function length(d) {
 	    return d.length;
 	  }
 
-	  function zip() {
+	  var zip = function zip() {
 	    return transpose(arguments);
-	  }
+	  };
 
 	  exports.bisect = bisectRight;
 	  exports.bisectRight = bisectRight;
@@ -6925,14 +6826,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 43 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	// https://d3js.org/d3-collection/ Version 1.0.1. Copyright 2016 Mike Bostock.
+	// https://d3js.org/d3-collection/ Version 1.0.2. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
 	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {});
 	})(undefined, function (exports) {
@@ -7026,7 +6927,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }return map;
 	  }
 
-	  function nest() {
+	  var nest = function nest() {
 	    var keys = [],
 	        _sortKeys = [],
 	        _sortValues,
@@ -7060,11 +6961,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return result;
 	    }
 
-	    function _entries(map, depth) {
-	      if (++depth > keys.length) return map;
+	    function _entries(map$$1, depth) {
+	      if (++depth > keys.length) return map$$1;
 	      var array,
 	          sortKey = _sortKeys[depth - 1];
-	      if (_rollup != null && depth >= keys.length) array = map.entries();else array = [], map.each(function (v, k) {
+	      if (_rollup != null && depth >= keys.length) array = map$$1.entries();else array = [], map$$1.each(function (v, k) {
 	        array.push({ key: k, values: _entries(v, depth) });
 	      });
 	      return sortKey != null ? array.sort(function (a, b) {
@@ -7095,7 +6996,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _rollup = f;return nest;
 	      }
 	    };
-	  }
+	  };
 
 	  function createObject() {
 	    return {};
@@ -7109,8 +7010,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return map();
 	  }
 
-	  function setMap(map, key, value) {
-	    map.set(key, value);
+	  function setMap(map$$1, key, value) {
+	    map$$1.set(key, value);
 	  }
 
 	  function Set() {}
@@ -7155,26 +7056,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return set;
 	  }
 
-	  function keys(map) {
+	  var keys = function keys(map) {
 	    var keys = [];
 	    for (var key in map) {
 	      keys.push(key);
 	    }return keys;
-	  }
+	  };
 
-	  function values(map) {
+	  var values = function values(map) {
 	    var values = [];
 	    for (var key in map) {
 	      values.push(map[key]);
 	    }return values;
-	  }
+	  };
 
-	  function entries(map) {
+	  var entries = function entries(map) {
 	    var entries = [];
 	    for (var key in map) {
 	      entries.push({ key: key, value: map[key] });
 	    }return entries;
-	  }
+	  };
 
 	  exports.nest = nest;
 	  exports.set = set;
@@ -7187,7 +7088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 44 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7536,7 +7437,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -7927,16 +7828,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	// https://d3js.org/d3-time-format/ Version 2.0.2. Copyright 2016 Mike Bostock.
+	// https://d3js.org/d3-time-format/ Version 2.0.3. Copyright 2016 Mike Bostock.
 	(function (global, factory) {
-	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(45)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(45)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
+	  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(43)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(43)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.d3 = global.d3 || {}, global.d3);
 	})(undefined, function (exports, d3Time) {
 	  'use strict';
 
@@ -8264,6 +8165,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var numberRe = /^\s*\d+/;
 	  var percentRe = /^%/;
 	  var requoteRe = /[\\\^\$\*\+\?\|\[\]\(\)\.\{\}]/g;
+
 	  function pad(value, fill, width) {
 	    var sign = value < 0 ? "-" : "",
 	        string = (sign ? -value : value) + "",
@@ -8475,7 +8377,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return "%";
 	  }
 
-	  var locale;
+	  var locale$1;
+
 	  defaultLocale({
 	    dateTime: "%x, %X",
 	    date: "%-m/%-d/%Y",
@@ -8488,12 +8391,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 
 	  function defaultLocale(definition) {
-	    locale = formatLocale(definition);
-	    exports.timeFormat = locale.format;
-	    exports.timeParse = locale.parse;
-	    exports.utcFormat = locale.utcFormat;
-	    exports.utcParse = locale.utcParse;
-	    return locale;
+	    locale$1 = formatLocale(definition);
+	    exports.timeFormat = locale$1.format;
+	    exports.timeParse = locale$1.parse;
+	    exports.utcFormat = locale$1.utcFormat;
+	    exports.utcParse = locale$1.utcParse;
+	    return locale$1;
 	  }
 
 	  var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
@@ -8520,7 +8423,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8586,7 +8489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8655,7 +8558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8683,7 +8586,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8700,7 +8603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(51);
+	var _context = __webpack_require__(49);
 
 	var _context2 = _interopRequireDefault(_context);
 
@@ -8764,7 +8667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationLabel.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8775,7 +8678,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.defaultContext = undefined;
 	exports.default = getContext;
 
-	var _jubilationTheme = __webpack_require__(39);
+	var _jubilationTheme = __webpack_require__(37);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
@@ -8818,7 +8721,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 52 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8832,7 +8735,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(51);
+	var _context = __webpack_require__(49);
 
 	var _context2 = _interopRequireDefault(_context);
 
@@ -8882,7 +8785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationPoint.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 53 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8899,15 +8802,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _uuid = __webpack_require__(37);
+	var _uuid = __webpack_require__(35);
 
 	var _uuid2 = _interopRequireDefault(_uuid);
 
-	var _scatter = __webpack_require__(54);
+	var _scatter = __webpack_require__(52);
 
 	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationPoint = __webpack_require__(52);
+	var _jubilationPoint = __webpack_require__(50);
 
 	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
 
@@ -8965,7 +8868,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JubilationScatter;
 
 /***/ },
-/* 54 */
+/* 52 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9002,7 +8905,218 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _uuid = __webpack_require__(35);
+
+	var _uuid2 = _interopRequireDefault(_uuid);
+
+	var _scatter = __webpack_require__(52);
+
+	var _scatter2 = _interopRequireDefault(_scatter);
+
+	var _jubilationPoint = __webpack_require__(50);
+
+	var _jubilationPoint2 = _interopRequireDefault(_jubilationPoint);
+
+	var _jubilationLine = __webpack_require__(54);
+
+	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
+
+	var _lineChart = __webpack_require__(55);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var JubilationLineChart = function (_React$Component) {
+	  _inherits(JubilationLineChart, _React$Component);
+
+	  function JubilationLineChart(props, context) {
+	    _classCallCheck(this, JubilationLineChart);
+
+	    var _this = _possibleConstructorReturn(this, (JubilationLineChart.__proto__ || Object.getPrototypeOf(JubilationLineChart)).call(this, props, context));
+
+	    _this.uuid = _uuid2.default.v4();
+	    _this.domainMap = (0, _scatter2.default)(_this.uuid, props.data);
+	    _this.context.JubilationContext.addDomain(_this.domainMap);
+	    return _this;
+	  }
+
+	  _createClass(JubilationLineChart, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.domainMap = (0, _scatter2.default)(this.uuid, nextProps.data);
+	      this.context.JubilationContext.addDomain(this.domainMap);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          color = _props.color,
+	          size = _props.size,
+	          style = _props.style,
+	          showPoints = _props.showPoints,
+	          data = _props.data;
+
+
+	      var pointPairs = (0, _lineChart.toPairs)((0, _lineChart.sortByX)(data));
+
+	      return _react2.default.createElement(
+	        'g',
+	        null,
+	        pointPairs.map(function (_ref) {
+	          var _ref2 = _slicedToArray(_ref, 2),
+	              point1 = _ref2[0],
+	              point2 = _ref2[1];
+
+	          return _react2.default.createElement(
+	            'g',
+	            null,
+	            showPoints && _react2.default.createElement(_jubilationPoint2.default, _extends({}, point1, { color: color, size: size, style: style })),
+	            _react2.default.createElement(_jubilationLine2.default, { x1: point1.x, x2: point2.x, y1: point1.y, y2: point2.y }),
+	            showPoints && _react2.default.createElement(_jubilationPoint2.default, _extends({}, point2, { color: color, size: size, style: style }))
+	          );
+	        })
+	      );
+	    }
+	  }]);
+
+	  return JubilationLineChart;
+	}(_react2.default.Component);
+
+	JubilationLineChart.defaultProps = { data: [] };
+	JubilationLineChart.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+	exports.default = JubilationLineChart;
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = JubilationLine;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _context = __webpack_require__(49);
+
+	var _context2 = _interopRequireDefault(_context);
+
+	var _jubilationAnimation = __webpack_require__(1);
+
+	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	/**
+	 * A line segment, defined by two endpoints. Returns an SVG line element.
+	 */
+	function JubilationLine(_ref, _ref2) {
+	  var JubilationContext = _ref2.JubilationContext;
+
+	  var _ref$x = _ref.x1,
+	      x1 = _ref$x === undefined ? 0 : _ref$x,
+	      _ref$y = _ref.y1,
+	      y1 = _ref$y === undefined ? 0 : _ref$y,
+	      _ref$x2 = _ref.x2,
+	      x2 = _ref$x2 === undefined ? 1 : _ref$x2,
+	      _ref$y2 = _ref.y2,
+	      y2 = _ref$y2 === undefined ? 1 : _ref$y2,
+	      rest = _objectWithoutProperties(_ref, ['x1', 'y1', 'x2', 'y2']);
+
+	  var context = (0, _context2.default)(JubilationContext);
+	  var xScale = context.xScale,
+	      yScale = context.yScale,
+	      fill = context.theme.labelStyle.fill;
+
+
+	  return _react2.default.createElement(
+	    _jubilationAnimation2.default,
+	    { data: { x1: x1, x2: x2, y1: y1, y2: y2, fill: fill } },
+	    function (data) {
+	      return _react2.default.createElement('line', _extends({
+	        x1: xScale(data.x1),
+	        y1: yScale(data.y1),
+	        x2: xScale(data.x2),
+	        y2: yScale(data.y2),
+	        stroke: data.fill
+	      }, rest));
+	    }
+	  );
+	}
+
+	JubilationLine.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
+
+/***/ },
 /* 55 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.sortByX = sortByX;
+	exports.toPairs = toPairs;
+	function sortByX(data) {
+	  if (data === []) {
+	    return [];
+	  }
+
+	  return data.sort(function (a, b) {
+	    return a.x - b.x;
+	  });
+	}
+
+	function pairwise(arr, callback) {
+	  var result = [];
+	  arr.reduce(function (prev, current) {
+	    result.push(callback(prev, current));
+	    return current;
+	  });
+	  return result;
+	}
+
+	function toPairs(baseArray) {
+	  return pairwise(baseArray, function (a, b) {
+	    return [a, b];
+	  });
+	}
+
+/***/ },
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9017,31 +9131,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _uuid = __webpack_require__(37);
+	var _uuid = __webpack_require__(35);
 
 	var _uuid2 = _interopRequireDefault(_uuid);
 
-	var _scatter = __webpack_require__(54);
+	var _scatter = __webpack_require__(52);
 
 	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationRect = __webpack_require__(56);
+	var _jubilationRect = __webpack_require__(57);
 
 	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
 
-	var _jubilationLabel = __webpack_require__(50);
+	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _context = __webpack_require__(51);
+	var _context = __webpack_require__(49);
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(57);
+	var _axis = __webpack_require__(58);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _text = __webpack_require__(58);
+	var _text = __webpack_require__(59);
 
 	var _text2 = _interopRequireDefault(_text);
 
@@ -9185,7 +9299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JubilationHorizontalBarChart;
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9199,7 +9313,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(51);
+	var _context = __webpack_require__(49);
 
 	var _context2 = _interopRequireDefault(_context);
 
@@ -9256,7 +9370,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	JubilationRect.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9288,7 +9402,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9298,7 +9412,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.default = getTextWidth;
 
-	var _jubilationTheme = __webpack_require__(39);
+	var _jubilationTheme = __webpack_require__(37);
 
 	var _jubilationTheme2 = _interopRequireDefault(_jubilationTheme);
 
@@ -9321,7 +9435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9336,27 +9450,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _uuid = __webpack_require__(37);
+	var _uuid = __webpack_require__(35);
 
 	var _uuid2 = _interopRequireDefault(_uuid);
 
-	var _scatter = __webpack_require__(54);
+	var _scatter = __webpack_require__(52);
 
 	var _scatter2 = _interopRequireDefault(_scatter);
 
-	var _jubilationRect = __webpack_require__(56);
+	var _jubilationRect = __webpack_require__(57);
 
 	var _jubilationRect2 = _interopRequireDefault(_jubilationRect);
 
-	var _jubilationLabel = __webpack_require__(50);
+	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _context = __webpack_require__(51);
+	var _context = __webpack_require__(49);
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(57);
+	var _axis = __webpack_require__(58);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
@@ -9485,7 +9599,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JubilationVerticalBarChart;
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9495,7 +9609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.YAxis = exports.XAxis = undefined;
 
-	var _xAxis = __webpack_require__(61);
+	var _xAxis = __webpack_require__(62);
 
 	var _xAxis2 = _interopRequireDefault(_xAxis);
 
@@ -9509,7 +9623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YAxis = _yAxis2.default;
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9523,21 +9637,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(51);
+	var _context = __webpack_require__(49);
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(57);
+	var _axis = __webpack_require__(58);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _jubilationTick = __webpack_require__(62);
+	var _jubilationTick = __webpack_require__(63);
 
-	var _jubilationLabel = __webpack_require__(50);
+	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationLine = __webpack_require__(64);
+	var _jubilationLine = __webpack_require__(54);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
@@ -9650,7 +9764,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	XAxis.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9660,7 +9774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.YTick = exports.XTick = undefined;
 
-	var _xTick = __webpack_require__(63);
+	var _xTick = __webpack_require__(64);
 
 	var _xTick2 = _interopRequireDefault(_xTick);
 
@@ -9674,7 +9788,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YTick = _yTick2.default;
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9691,7 +9805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jubilationLine = __webpack_require__(64);
+	var _jubilationLine = __webpack_require__(54);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
@@ -9729,75 +9843,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 64 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports.default = JubilationLine;
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _context = __webpack_require__(51);
-
-	var _context2 = _interopRequireDefault(_context);
-
-	var _jubilationAnimation = __webpack_require__(1);
-
-	var _jubilationAnimation2 = _interopRequireDefault(_jubilationAnimation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	/**
-	 * A line segment, defined by two endpoints. Returns an SVG line element.
-	 */
-	function JubilationLine(_ref, _ref2) {
-	  var _ref$x = _ref.x1,
-	      x1 = _ref$x === undefined ? 0 : _ref$x,
-	      _ref$y = _ref.y1,
-	      y1 = _ref$y === undefined ? 0 : _ref$y,
-	      _ref$x2 = _ref.x2,
-	      x2 = _ref$x2 === undefined ? 1 : _ref$x2,
-	      _ref$y2 = _ref.y2,
-	      y2 = _ref$y2 === undefined ? 1 : _ref$y2,
-	      rest = _objectWithoutProperties(_ref, ['x1', 'y1', 'x2', 'y2']);
-
-	  var JubilationContext = _ref2.JubilationContext;
-
-	  var context = (0, _context2.default)(JubilationContext);
-	  var xScale = context.xScale,
-	      yScale = context.yScale,
-	      fill = context.theme.labelStyle.fill;
-
-
-	  return _react2.default.createElement(
-	    _jubilationAnimation2.default,
-	    { data: { x1: x1, x2: x2, y1: y1, y2: y2, fill: fill } },
-	    function (data) {
-	      return _react2.default.createElement('line', _extends({
-	        x1: xScale(data.x1),
-	        y1: yScale(data.y1),
-	        x2: xScale(data.x2),
-	        y2: yScale(data.y2),
-	        stroke: data.fill
-	      }, rest));
-	    }
-	  );
-	}
-
-	JubilationLine.contextTypes = { JubilationContext: _react2.default.PropTypes.object };
-
-/***/ },
 /* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -9815,7 +9860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jubilationLine = __webpack_require__(64);
+	var _jubilationLine = __webpack_require__(54);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
@@ -9867,21 +9912,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _context = __webpack_require__(51);
+	var _context = __webpack_require__(49);
 
 	var _context2 = _interopRequireDefault(_context);
 
-	var _axis = __webpack_require__(57);
+	var _axis = __webpack_require__(58);
 
 	var _axis2 = _interopRequireDefault(_axis);
 
-	var _jubilationTick = __webpack_require__(62);
+	var _jubilationTick = __webpack_require__(63);
 
-	var _jubilationLabel = __webpack_require__(50);
+	var _jubilationLabel = __webpack_require__(48);
 
 	var _jubilationLabel2 = _interopRequireDefault(_jubilationLabel);
 
-	var _jubilationLine = __webpack_require__(64);
+	var _jubilationLine = __webpack_require__(54);
 
 	var _jubilationLine2 = _interopRequireDefault(_jubilationLine);
 
